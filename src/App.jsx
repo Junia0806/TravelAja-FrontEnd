@@ -14,6 +14,9 @@ import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
 import DataDiri from "./Pages/DataDiriPage";
 import Bayar from "./Pages/BayarPage";
+import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
+import { Pencarian } from "./Components/pencarian.jsx";
+import { DetailTiket } from "./Components/detailtiket.jsx";
 
 function App() {
   return (
@@ -24,6 +27,8 @@ function App() {
           <Header />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/pencarian" element={<Pencarian />} />
+              <Route path="/detail" element={<DetailTiket />} />
               <Route path="/data-penumpang" element={<DataDiri />} />
               <Route path="/bayar" element={<Bayar />} />
               <Route path="/login" element={<Login />} />
@@ -31,6 +36,7 @@ function App() {
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
+              <Route path="/riwayat" element={<RiwayatPemesanan/>} />
             </Routes>
             <FooterSection />
           </BrowserRouter>
