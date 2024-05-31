@@ -9,6 +9,8 @@ import Register from "./Auth/Register";
 import OtpVerification from "./Auth/OtpVerification";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
+import Profile from "./Pages/Profile.jsx";
+import NotificationsPage from "./Pages/Notifications.jsx";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/notif" element={<NotificationsPage />} />
             </Routes>
           </BrowserRouter>
         </GoogleOAuthProvider>
