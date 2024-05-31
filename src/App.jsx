@@ -4,6 +4,7 @@ import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
 import DataDiri from "./Pages/DataDiriPage";
+import Bayar from "./Pages/BayarPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/data-penumpang" element={<DataDiri />} />
+        <Route path="/bayar" element={<Bayar />} />
       </Routes>
       <FooterSection />
     </BrowserRouter>
