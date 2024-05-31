@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+#root{
+  margin: 0px;
+}
+
+.bg-landing{
+  background-size: cover;
+  background-image: url(/src/assets/bg.jpg);
+}
