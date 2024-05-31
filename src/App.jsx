@@ -9,6 +9,11 @@ import Register from "./Auth/Register";
 import OtpVerification from "./Auth/OtpVerification";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
+import Home from "./Pages/HomePage";
+import Header from "./Components/Navbar";
+import FooterSection from "./Components/Footer";
+import DataDiri from "./Pages/DataDiriPage";
+import Bayar from "./Pages/BayarPage";
 
 function App() {
   return (
@@ -16,13 +21,18 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GoogleOAuthProvider clientId="1030250831924-qgnngn1qb3do2p5p25v6ap7hnfsfisca.apps.googleusercontent.com">
           <BrowserRouter>
+          <Header />
             <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/data-penumpang" element={<DataDiri />} />
+              <Route path="/bayar" element={<Bayar />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
             </Routes>
+            <FooterSection />
           </BrowserRouter>
         </GoogleOAuthProvider>
       </PersistGate>
