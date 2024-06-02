@@ -41,13 +41,7 @@ export function RiwayatPemesanan() {
               <LuListTodo className="mr-4" /> Bukti Transaksi
             </button>
             <div className="relative">
-              <input
-                type="text"
-                className="border-[1px] outline-none max-w-[550px] w-full focus:border-[1px] focus:border-black border-gray-300 ps-1 rounded-md px-2 py-1"
-                placeholder="Search projects"
-                value={search}
-                onChange={handleSearch}
-              />
+              <input type="text" className="border-[1px] outline-none max-w-[550px] w-full focus:border-[1px] focus:border-black border-gray-300 ps-1 rounded-md px-2 py-1" placeholder="cari " value={search} onChange={handleSearch} />
               <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
                 <FaSearch />
               </div>
