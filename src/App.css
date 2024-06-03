@@ -10,3 +10,8 @@ body {
   background-size: cover;
   background-image: url(/src/assets/bg.jpg);
 }
+
+.bg-sukses{
+  background-size: cover;
+  background-image: url(/src/assets/destinasi/sukses.png);
+}

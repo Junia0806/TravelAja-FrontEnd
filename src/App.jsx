@@ -17,6 +17,7 @@ import Bayar from "./Pages/BayarPage";
 import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import { DetailTiket } from "./Components/detailtiket.jsx";
+import Sukses from "./Pages/SuksesPage.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/detail" element={<DetailTiket />} />
               <Route path="/data-penumpang" element={<DataDiri />} />
               <Route path="/bayar" element={<Bayar />} />
+              <Route path="/sukses" element={<Sukses/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/otp" element={<OtpVerification />} />

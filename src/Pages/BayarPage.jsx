@@ -13,7 +13,7 @@ const Bayar = () => {
         <span className="flex items-center text-gray-800 font-bold">
           <FaUserPen className="mr-2 text-[#00B7C2]" /> Data
         </span>
-        <div className="flex items-center text-gray-500 font-bold">
+        <div className="flex items-center text-gray-800 font-bold">
           <MdOutlinePayment className="mr-2 text-[#00B7C2]" /> Bayar
         </div>
         <div className="flex items-center text-gray-500">
@@ -25,7 +25,7 @@ const Bayar = () => {
         <div className="w-full h-1 bg-gray-300"></div>
       </div>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2">
+    <div className="">
       <PaymentCard />
     </div>
   </div>

@@ -15,8 +15,10 @@ const DetailPemesanan = () => {
       cabin: "7 kg",
       bagasi: "20 kg",
     },
-    rincianHarga: {
-      totalHarga: "IDR 1,500,000",
+    priceDetails: {
+      adult: 1500000,
+      child: 750000,
+      total: 3750000,
     },
   };
 
@@ -67,18 +69,26 @@ const DetailPemesanan = () => {
               <hr className=" border-1 border-gray-200 mt-3"></hr>
             </div>
             <div className="mb-4">
-              <strong className="text-gray-800">Rincian Harga:</strong>
-              <div className="ml-4 text-gray-600">
-                <div>
-                  <i className="fa-solid fa-dollar-sign mr-2"></i>
-                <span>Total Harga: </span>   
-                <span className="text-gray-800 font-bold">
-                {details.rincianHarga.totalHarga}
-                </span> 
-                </div>
+            <strong className="text-gray-800">Rincian Harga:</strong>
+            <div className="ml-4 text-gray-600">
+              <div className="mb-2">
+                <i className="fa-solid fa-user mr-2"></i>
+                2 Dewasa:{" "}
+                <span className="text-gray-800 font-bold">Rp. {details.priceDetails.adult * 2}</span>
+              </div>
+              <div className="mb-2">
+                <i className="fa-solid fa-child mr-2"></i>
+                1 Anak:{" "}
+                <span className="text-gray-800 font-bold">Rp. {details.priceDetails.child * 1}</span>
+              </div>
+              <div className="border-t border-gray-300 mt-2 pt-2">
+                <i className="fa-solid fa-dollar-sign mr-2"></i>
+                Total:{" "}
+                <span className="text-gray-800 font-bold">Rp. {details.priceDetails.total}</span>
               </div>
             </div>
-            <Link className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
+          </div>
+            <Link to="/bayar" className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
                    Lanjut Pembayaran
                   </Link>
           </div>
