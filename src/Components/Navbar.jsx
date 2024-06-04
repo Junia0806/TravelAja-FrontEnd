@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import Logo from "../assets/auth/travelajalogoo.png";
+import Logo from "../assets/Logo.png";
 import { FaUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 
