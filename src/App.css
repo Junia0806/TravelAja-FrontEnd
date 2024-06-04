@@ -15,3 +15,8 @@ body {
   background-size: cover;
   background-image: url(/src/assets/destinasi/sukses.png);
 }
+
+.bg-detail{
+  background-size: cover;
+  background-image: url(/src/assets/destinasi/bali.webp);
+}

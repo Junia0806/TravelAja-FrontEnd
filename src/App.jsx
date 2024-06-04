@@ -18,6 +18,7 @@ import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import { DetailTiket } from "./Components/detailtiket.jsx";
 import Sukses from "./Pages/SuksesPage.jsx";
+import DetailFav from "./Pages/DetailFav.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/pencarian" element={<Pencarian />} />
+              <Route path="/detail-fav" element={<DetailFav />} />
               <Route path="/detail" element={<DetailTiket />} />
               <Route path="/data-penumpang" element={<DataDiri />} />
               <Route path="/bayar" element={<Bayar />} />

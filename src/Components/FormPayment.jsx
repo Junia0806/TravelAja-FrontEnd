@@ -17,11 +17,20 @@ const PaymentCard = () => {
     arrivalAirport: "Soekarno-Hatta International Airport",
     paymentMethod: "Credit Card",
     priceDetails: {
-      adult: 1500000,
-      child: 750000,
-      total: 3750000,
+      hargaPerOrang: 1500000,
+      jumlahPenumpang: 3,
     },
   });
+
+  const totalHarga = booking.priceDetails.hargaPerOrang * booking.priceDetails.jumlahPenumpang;
+
+  const formatRupiah = (angka) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(angka);
+  };
 
   const handlePaymentMethodChange = (e) => {
     setBooking((prevBooking) => ({
@@ -134,25 +143,25 @@ const PaymentCard = () => {
             <hr className="border-t border-gray-200 mt-3" />
           </div>
           <div className="mb-4">
-            <strong className="text-gray-800">Rincian Harga:</strong>
-            <div className="ml-4 text-gray-600">
-              <div className="mb-2">
-                <i className="fa-solid fa-user mr-2"></i>
-                2 Dewasa:{" "}
-                <span className="text-gray-800 font-bold">Rp. {booking.priceDetails.adult * 2}</span>
-              </div>
-              <div className="mb-2">
-                <i className="fa-solid fa-child mr-2"></i>
-                1 Anak:{" "}
-                <span className="text-gray-800 font-bold">Rp. {booking.priceDetails.child * 1}</span>
-              </div>
-              <div className="border-t border-gray-300 mt-2 pt-2">
-                <i className="fa-solid fa-dollar-sign mr-2"></i>
-                Total:{" "}
-                <span className="text-gray-800 font-bold">Rp. {booking.priceDetails.total}</span>
+              <strong className="text-gray-800">Rincian Harga:</strong>
+              <div className="ml-4 text-gray-600">
+                <div className="mb-2">
+                  <i className="fa-solid fa-user mr-2"></i>
+                  Jumlah Penumpang:{" "}
+                  <span className="text-gray-800 font-semibold">{booking.priceDetails.jumlahPenumpang} Orang</span>
+                </div>
+                <div className="mb-2">
+                <i className="fa-solid fa-ticket mr-2"></i>
+                  Harga per Orang:{" "}
+                  <span className="text-gray-800 font-semibold">{formatRupiah(booking.priceDetails.hargaPerOrang)}</span>
+                </div>
+                <div className="border-t border-gray-300 mt-2 pt-2">
+                  <i className="fa-solid fa-dollar-sign mr-2"></i>
+                  Total:{" "}
+                  <span className="text-gray-800 font-bold text-xl">{formatRupiah(totalHarga)}</span>
+                </div>
               </div>
             </div>
-          </div>
           <div className="flex flex-col space-y-3">
             <Link
               to="/sukses"

@@ -228,7 +228,7 @@ const Home = () => {
                     Harga Diskon:{" "}
                     <span className="font-bold text-lg">Rp 750.000</span>
                   </p>
-                  <Link className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
+                  <Link to="/detail-fav" className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
                     Lihat Detail
                   </Link>
                 </div>
