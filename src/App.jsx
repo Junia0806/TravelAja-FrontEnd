@@ -9,6 +9,8 @@ import Register from "./Auth/Register";
 import OtpVerification from "./Auth/OtpVerification";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
+import Profile from "./Pages/Profile.jsx";
+import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
@@ -36,6 +38,8 @@ function App() {
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/notif" element={<NotificationsPage />} />
               <Route path="/riwayat" element={<RiwayatPemesanan/>} />
             </Routes>
             <FooterSection />

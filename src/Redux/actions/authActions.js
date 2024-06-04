@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setToken, setLogin } from "../reducers/authReducers";
+import { setToken, setLogin, setIsLoggedIn } from "../reducers/authReducers";
 
 // Fungsi untuk mendapatkan token dari state Redux
 const getToken = (getState) => {
@@ -146,14 +146,21 @@ export const withGoogleLogin = (accessToken, navigate) => async (dispatch) => {
     };
 
     const response = await axios.request(config);
+    console.log("response", response);
     const { token } = response.data.data;
-
+    dispatch(setIsLoggedIn(true));
     dispatch(setToken(token));
-    console.log("token", token);
+
+    console.log("token", response.data.access_token);
     console.log("responseGoogle", response.data.message);
-    console.log("response.data", response.data);
+
     toast.success(response.data.message);
     navigate("/");
+    // navigate("/", {
+    //   state: {
+    //     success: response.data.message,
+    //   },
+    // });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);

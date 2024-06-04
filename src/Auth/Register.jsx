@@ -32,10 +32,22 @@ const Register = () => {
     dispatch(setShowConfirmPassword());
   };
 
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.warning("Password dan Konfir Password tidak sama !");
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      toast.warning(
+        "Password harus diawali dengan huruf kapital dan minimal 8 karakter!"
+      );
       return;
     }
 
