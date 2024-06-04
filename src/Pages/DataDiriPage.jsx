@@ -14,7 +14,7 @@ const DataDiri = () => {
         <span className="flex items-center text-gray-800 font-bold">
           <FaUserPen className="mr-2 text-[#00B7C2]" /> Data
         </span>
-        <div className="flex items-center text-gray-800">
+        <div className="flex items-center text-gray-500">
           <MdOutlinePayment className="mr-2" /> Bayar
         </div>
         <div className="flex items-center text-gray-500">

@@ -46,11 +46,11 @@ const Header = () => {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link href="/" active>
           Beranda
         </Navbar.Link>
-        <Navbar.Link href="#">Tentang</Navbar.Link>
-        <Navbar.Link href="#">Kontak</Navbar.Link>
+        <Navbar.Link href="/riwayat">Riwayat</Navbar.Link>
+        <Navbar.Link href="/tentang">Tentang</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
