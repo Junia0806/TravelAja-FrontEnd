@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import foto from "../assets/destinasi/destinasi.jpg";
 import foto2 from "../assets/destinasi/bali.webp";
+import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -13,10 +14,21 @@ const Home = () => {
     passengers: 1,
     seatClass: "Economy",
   });
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.info) toast.info(location.state.info);
+      else if (location.state.success) {
+        toast.success(location.state.success);
+      }
+      navigate(".", { replace: false });
+    }
+  }, [location, navigate]);
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -42,6 +54,7 @@ const Home = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="flex justify-center items-center min-h-screen bg-landing">
         <div className="max-w-5xl w-full mx-auto mt-5 p-8 bg-white bg-opacity-20 rounded-lg shadow-lg">
           <div className="flex items-center justify-between mb-6">
@@ -126,9 +139,13 @@ const Home = () => {
               </select>
             </div>
             <div className="col-span-1 md:col-span-2 lg:col-span-4 mb-4">
-              <Link to="/pencarian" className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
-              Cari Penerbangan <i className="fa-solid fa-magnifying-glass ml-2"></i>
-                  </Link>
+              <Link
+                to="/pencarian"
+                className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
+              >
+                Cari Penerbangan{" "}
+                <i className="fa-solid fa-magnifying-glass ml-2"></i>
+              </Link>
             </div>
           </form>
         </div>
@@ -228,7 +245,10 @@ const Home = () => {
                     Harga Diskon:{" "}
                     <span className="font-bold text-lg">Rp 750.000</span>
                   </p>
-                  <Link to="/detail-fav" className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
+                  <Link
+                    to="/detail-fav"
+                    className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
+                  >
                     Lihat Detail
                   </Link>
                 </div>

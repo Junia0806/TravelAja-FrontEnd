@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import airplaneImage from "../assets/auth/airplane.jpg";
 import { setShowPassword } from "../Redux/reducers/authReducers";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -35,7 +35,6 @@ const Login = () => {
     });
 
     dispatch(login(data, navigate));
-    console.log("handleSubmit", data);
   };
 
   const togglePasswordVisibility = () => {

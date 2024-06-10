@@ -57,7 +57,7 @@ const Register = () => {
       no_telp,
       password,
     };
-    console.log("DataInputan", data);
+
     dispatch(registerUser(data, navigate));
   };
 

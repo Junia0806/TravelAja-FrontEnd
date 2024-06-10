@@ -1,12 +1,57 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setToken, setLogin, setIsLoggedIn } from "../reducers/authReducers";
+import {
+  setToken,
+  setLogin,
+  setIsLoggedIn,
+  setUser,
+} from "../reducers/authReducers";
 
 // Fungsi untuk mendapatkan token dari state Redux
 const getToken = (getState) => {
   const state = getState();
   return state.auth.token;
 };
+
+export const getMe =
+  (navigate, navigatePath, navigatePathError) => async (dispatch, getState) => {
+    try {
+      const { token } = getState().auth;
+
+      if (!token) return;
+
+      const response = await axios.get(
+        `https://expressjs-develop.up.railway.app/api/v1/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = response.data.data;
+
+      dispatch(setUser(data));
+
+      // jika parameter navigasiPath false/null/undifined, maka tidak akan dieksekusi
+      if (navigatePath) navigate(navigatePath);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // Jika token tidak valid
+        if (error.response.status === 401) {
+          dispatch(logout(null));
+
+          // jika parameter navigasiPathError false/null/undifined, maka tidak akan dieksekusi
+          if (navigatePathError) navigate(navigatePathError);
+          return;
+        }
+
+        toast.error(error.response.data.message);
+        return;
+      }
+      toast.error(error.message);
+    }
+  };
 
 export const registerUser = (data, navigate) => async (dispatch) => {
   try {
@@ -113,7 +158,10 @@ export const login = (data, navigate) => async (dispatch) => {
 
     console.log("response", response);
     dispatch(setLogin("Sedang login"));
+    dispatch(setIsLoggedIn(true));
     dispatch(setToken(token));
+
+    dispatch(getMe(null, null, null));
 
     navigate("/", {
       state: {
@@ -216,6 +264,120 @@ export const resetPassword =
       dispatch(setToken(token));
       console.log("responseResetPassword", response.data.message);
       toast.success(response.data.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+        return;
+      }
+      toast.error(error.message);
+    }
+  };
+
+export const logout = (navigate) => (dispatch) => {
+  try {
+    dispatch(setLogin(null));
+    dispatch(setToken(null));
+    dispatch(setIsLoggedIn(false));
+    dispatch(setUser(null));
+
+    //toast.success("Logout Berhasil");
+    navigate("/", {
+      state: {
+        success: "Logout berhasil",
+      },
+    });
+  } catch (error) {
+    toast.error(error?.message);
+  }
+};
+
+export const updateProfile =
+  (profileData, navigate) => async (dispatch, getState) => {
+    try {
+      const token = getToken(getState);
+      let config = {
+        method: "post",
+        url: `https://expressjs-develop.up.railway.app/api/v1/updateprofile`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: profileData,
+      };
+
+      const response = await axios.request(config);
+      console.log("response", response);
+      dispatch(setUser(response.data.data)); // Update the user data in the state
+      //toast.success("Ubah Profil Berhasil");
+
+      // if (navigate) {
+      //   navigate("/profile");
+      // }
+      navigate("/profile", {
+        state: {
+          success: response.data.message,
+        },
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+        return;
+      }
+      toast.error(error.message);
+    }
+  };
+
+export const uploadAvatar = (formData) => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    const response = await axios.post(
+      "https://expressjs-develop.up.railway.app/api/v1/uploadavatar",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("responseAvatar", response);
+    if (response.data.status) {
+      toast.success(response.data.message);
+      dispatch(setUser(response.data.data)); // Update user data with new avatar URL
+    } else {
+      toast.error(response.data.message);
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error("Terjadi kesalahan saat mengunggah gambar");
+    }
+  }
+};
+
+export const changePassword =
+  (oldPassword, newPassword, navigate) => async (dispatch, getState) => {
+    try {
+      const token = getToken(getState);
+      let config = {
+        method: "put",
+        url: `https://expressjs-develop.up.railway.app/api/v1/change-password`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: { oldPassword, newPassword },
+      };
+      dispatch(setUser());
+      const response = await axios.request(config);
+      console.log("response", response);
+
+      navigate("/pengaturan", {
+        state: {
+          success: response.data.message,
+        },
+      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response.data.message);

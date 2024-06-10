@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import airplaneImage from "../assets/auth/airplane.jpg";
 import {
@@ -8,7 +7,7 @@ import {
   setShowConfirmPassword,
 } from "../Redux/reducers/authReducers";
 import { resetPassword } from "../Redux/actions/authActions";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
@@ -43,10 +42,22 @@ const ResetPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("Password atau Konfir Password Tidak sesuai");
+
+    // Validasi password
+    if (!/^[A-Z]/.test(password)) {
+      toast.error("Password harus dimulai dengan huruf kapital.");
       return;
     }
+    if (password.length < 8) {
+      toast.error("Password harus memiliki minimal 8 karakter.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password dan konfirmasi password tidak sesuai.");
+      return;
+    }
+
+    // Jika validasi lolos, lakukan reset password
     dispatch(resetPassword(password, confirmPassword));
     navigate("/login");
   };
