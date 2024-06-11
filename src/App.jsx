@@ -19,6 +19,7 @@ import Bayar from "./Pages/BayarPage";
 import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import { DetailTiket } from "./Components/detailtiket.jsx";
+import DetailRiwayat from "./Components/detailriwayat.jsx";
 import Sukses from "./Pages/SuksesPage.jsx";
 import DetailFav from "./Pages/DetailFav.jsx";
 
@@ -28,10 +29,12 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <GoogleOAuthProvider clientId="1030250831924-qgnngn1qb3do2p5p25v6ap7hnfsfisca.apps.googleusercontent.com">
           <BrowserRouter>
-          <Header />
+            <Header />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/detailriwayat" element={<DetailRiwayat />} />
               <Route path="/pencarian" element={<Pencarian />} />
+              <Route path="/detailtiket" element={<DetailTiket />} />
               <Route path="/detail-fav" element={<DetailFav />} />
               <Route path="/detail" element={<DetailTiket />} />
               <Route path="/data-penumpang" element={<DataDiri />} />
@@ -42,6 +45,7 @@ function App() {
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
+              <Route path="/riwayatpesanan" element={<RiwayatPemesanan />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/notif" element={<NotificationsPage />} />
               <Route path="/riwayat" element={<RiwayatPemesanan/>} />
