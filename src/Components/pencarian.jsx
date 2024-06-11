@@ -34,7 +34,6 @@ export function Pencarian() {
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-
   const planeAnimation = useSpring({
     loop: true,
     to: [{ transform: "translateX(10px)" }, { transform: "translateX(0px)" }],
@@ -98,21 +97,30 @@ export function Pencarian() {
             {days.map((day, index) => {
               const date = new Date(today);
               date.setDate(today.getDate() + index);
-              const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+              const dateString = `${date.getDate()}/${
+                date.getMonth() + 1
+              }/${date.getFullYear()}`;
               return (
                 <Tab
                   key={index}
-                  className={`flex flex-col items-center p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] ${activeTab === index ? "bg-gray-200 dark:bg-gray-800" : "hover:bg-gray-200 hover:text-black"}`}
+                  className={`flex flex-col items-center p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] ${
+                    activeTab === index
+                      ? "bg-gray-200 dark:bg-gray-800 text-black"
+                      : "hover:bg-gray-200 hover:text-black"
+                  }`}
                   onClick={() => handleTabClick(index)}
                 >
                   <span className="text-sm">{day}</span>
-                  <span className="text-xs text-gray-700 dark:text-gray-300">{dateString}</span>
+                  <span className="text-xs text-gray-700 dark:text-black">
+                    {dateString}
+                  </span>
                 </Tab>
               );
             })}
           </TabList>
 
           <TabPanel>
+
             <div className={`p-4 my-4 border border-gray-100 dark:border-gray-700 rounded-md max-w-7xl items-center justify-between ${activeTab === 0 ? "block" : "hidden"} mx-auto`}>
               <div className="mx-8 bg-white shadow-lg rounded-lg outline-1 mb-4">
                 <div className="bg-gray-400 text-white py-2 px-4 rounded-t-lg">

@@ -5,10 +5,10 @@ import storage from "redux-persist/lib/storage";
 const initialState = {
   showPassword: false,
   showConfirmPassword: false,
-  verifId: null,
   login: null,
   user: null,
   token: null,
+  isLoggedIn: false,
 };
 
 const persistConfig = {
@@ -26,9 +26,7 @@ const authSlice = createSlice({
     setShowConfirmPassword: (state) => {
       state.showConfirmPassword = !state.showConfirmPassword;
     },
-    setVerifId: (state, action) => {
-      state.verifId = action.payload;
-    },
+
     setLogin: (state, action) => {
       state.login = action.payload;
     },
@@ -38,6 +36,9 @@ const authSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setIsLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
 
@@ -45,10 +46,10 @@ const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 export const {
   setShowPassword,
   setShowConfirmPassword,
-  setVerifId,
   setLogin,
   setUser,
   setToken,
+  setIsLoggedIn,
 } = authSlice.actions;
 
 export default persistedAuthReducer;

@@ -9,6 +9,8 @@ import Register from "./Auth/Register";
 import OtpVerification from "./Auth/OtpVerification";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
+import Profile from "./Pages/Profile.jsx";
+import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
@@ -18,6 +20,8 @@ import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import { DetailTiket } from "./Components/detailtiket.jsx";
 import DetailRiwayat from "./Components/detailriwayat.jsx";
+import Sukses from "./Pages/SuksesPage.jsx";
+import DetailFav from "./Pages/DetailFav.jsx";
 
 function App() {
   return (
@@ -31,14 +35,20 @@ function App() {
               <Route path="/detailriwayat" element={<DetailRiwayat />} />
               <Route path="/pencarian" element={<Pencarian />} />
               <Route path="/detailtiket" element={<DetailTiket />} />
+              <Route path="/detail-fav" element={<DetailFav />} />
+              <Route path="/detail" element={<DetailTiket />} />
               <Route path="/data-penumpang" element={<DataDiri />} />
               <Route path="/bayar" element={<Bayar />} />
+              <Route path="/sukses" element={<Sukses/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/otp" element={<OtpVerification />} />
               <Route path="/lupa" element={<ForgotPassword />} />
               <Route path="/reset" element={<ResetPassword />} />
               <Route path="/riwayatpesanan" element={<RiwayatPemesanan />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/notif" element={<NotificationsPage />} />
+              <Route path="/riwayat" element={<RiwayatPemesanan/>} />
             </Routes>
             <FooterSection />
           </BrowserRouter>

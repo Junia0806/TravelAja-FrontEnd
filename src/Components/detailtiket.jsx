@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { PiAirplaneTakeoffFill, PiAirplaneLandingFill, PiWifiXBold } from "react-icons/pi";
 import { LuBaggageClaim } from "react-icons/lu";
@@ -43,7 +44,6 @@ export function DetailTiket() {
           </button>
         </div>
       </div>
-
       <div className="flight-ticket-card shadow-lg border-[#00B7C2] border rounded-md px-6 py-4 text-sm text-black dark:text-white font-bold w-full my-4 mx-auto border-opacity-50 max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between py-4">
           <h2 className="flex items-center text-base font-bold tracking-tight">

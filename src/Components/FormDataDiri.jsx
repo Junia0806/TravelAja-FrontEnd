@@ -9,7 +9,7 @@ const BookingForm = () => {
     <div className="container mx-auto p-4 ">
       <div className="max-w-lg mx-auto overflow-hidden bg-white shadow-lg rounded-lg outline-1">
         {/* Data Pemesan */}
-        <div className="bg-gray-400 text-white py-3 px-4 rounded-t-lg">
+        <div className="bg-gray-500 text-white py-3 px-4 rounded-t-lg">
           <p className=" text-l font-semibold">Data Diri Pemesan</p>
         </div>
         <div className="p-6">
@@ -56,7 +56,7 @@ const BookingForm = () => {
         
         {/* Data Diri Penumpang */}
         <div>
-          <div className="bg-gray-400 text-white py-3 px-4">
+          <div className="bg-gray-500 text-white py-3 px-4">
             <p className="text-l font-semibold">Data Diri Penumpang</p>
           </div>
           <div className="p-6">

@@ -126,13 +126,9 @@ const Home = () => {
               </select>
             </div>
             <div className="col-span-1 md:col-span-2 lg:col-span-4 mb-4">
-              <button
-                type="submit"
-                className="w-full bg-[#00B7C2] text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition duration-200"
-              >
-                Cari Penerbangan
-                <i className="fa-solid fa-magnifying-glass ml-2"></i>
-              </button>
+              <Link to="/pencarian" className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
+              Cari Penerbangan <i className="fa-solid fa-magnifying-glass ml-2"></i>
+                  </Link>
             </div>
           </form>
         </div>
@@ -232,7 +228,7 @@ const Home = () => {
                     Harga Diskon:{" "}
                     <span className="font-bold text-lg">Rp 750.000</span>
                   </p>
-                  <Link className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
+                  <Link to="/detail-fav" className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
                     Lihat Detail
                   </Link>
                 </div>

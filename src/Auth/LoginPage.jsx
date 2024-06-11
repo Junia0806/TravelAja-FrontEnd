@@ -113,7 +113,7 @@ const Login = () => {
               </div>
               <div className="mb-6">
                 <button
-                  className="bg-blue-400 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg w-full"
+                  className="bg-blue-500 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg w-full"
                   type="submit"
                 >
                   Masuk
