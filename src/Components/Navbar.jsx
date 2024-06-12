@@ -4,6 +4,7 @@ import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import Logo from "../assets/Logo.png";
 import { FaUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -14,9 +15,9 @@ const Header = () => {
       </Navbar.Brand>
       <div className="flex md:order-2 ">
         {/* 1. Tampilan login saat belom login */}
-        {/* <button className="bg-white text-[#00B7C2] border border-[#00B7C2] py-2 px-4 rounded-md hover:bg-[#00B7C2]  hover:text-white focus:outline-none flex items-center justify-center">
+        {/* <Link to="/login" className="bg-white text-[#00B7C2] border border-[#00B7C2] py-2 px-4 rounded-md hover:bg-[#00B7C2]  hover:text-white focus:outline-none flex items-center justify-center">
           <i className="fa-solid fa-arrow-right-to-bracket mr-1"></i> Masuk
-        </button>
+        </Link>
         <Navbar.Toggle /> */}
         {/* 2. Tampilan saat sudah login */}
         <Dropdown
@@ -33,7 +34,7 @@ const Header = () => {
           <Dropdown.Header>
             <span className="block text-sm">Junia Vitasari</span>
           </Dropdown.Header>
-          <Dropdown.Item>
+          <Dropdown.Item href="/profile">
             <FaUser className="mr-2" />
             Profil{" "}
           </Dropdown.Item>

@@ -15,12 +15,6 @@ const DetailPemesanan = () => {
       cabin: "7 kg",
       bagasi: "20 kg",
     },
-    fasilitas: {
-      wifi: "Tersedia",
-      snack: "Tidak tersedia",
-      selimut: "Tersedia",
-      hiburan: "Tersedia",
-    },
     priceDetails: {
       hargaPerOrang: 1500000,
       jumlahPenumpang: 3,
@@ -78,28 +72,6 @@ const DetailPemesanan = () => {
               <div>
                 <i className="fa-solid fa-luggage-cart mr-2"></i>
                 Bagasi: {details.informasi.bagasi}
-              </div>
-            </div>
-            <hr className="border-1 border-gray-200 mt-3"></hr>
-          </div>
-          <div className="mb-6">
-            <strong className="text-gray-800">Fasilitas:</strong>
-            <div className="ml-4 text-gray-600">
-              <div>
-                <i className="fa-solid fa-wifi mr-2"></i>
-                WIFI: {details.fasilitas.wifi}
-              </div>
-              <div>
-                <i className="fa-solid fa-cookie-bite mr-2"></i>
-                Snack: {details.fasilitas.snack}
-              </div>
-              <div>
-                <i className="fa-solid fa-bed mr-2"></i>
-                Selimut: {details.fasilitas.selimut}
-              </div>
-              <div>
-                <i className="fa-solid fa-tv mr-2"></i>
-                Hiburan: {details.fasilitas.hiburan}
               </div>
             </div>
             <hr className="border-1 border-gray-200 mt-3"></hr>

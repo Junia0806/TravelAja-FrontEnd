@@ -113,10 +113,6 @@ const PaymentCard = () => {
               <i className="fa-solid fa-box mr-2"></i>Kabin:{" "}
               <span className="font-bold text-gray-900">-</span>
             </p>
-            <p className="text-gray-600">
-              <i className="fa-solid fa-tv mr-2"></i>Hiburan:{" "}
-              <span className="font-bold text-gray-900">Selama penerbangan</span>
-            </p>
           </div>
         </div>
       </div>
