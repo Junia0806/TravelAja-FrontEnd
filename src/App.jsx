@@ -37,13 +37,14 @@ function App() {
             <Route path="/coba1" element={<Home1/>} />
             <Route path="/home" element={<HomeCoba />} />
             <Route path="/detail/:id" element={<DetailFav />} />
+            <Route path="/booking/:id" element={<DataDiri />} />
               <Route path="/" element={<Home />} />
               <Route path="/detailriwayat" element={<DetailRiwayat />} />
               <Route path="/pencarian" element={<Pencarian />} />
               <Route path="/detailtiket" element={<DetailTiket />} />
               <Route path="/detail-fav" element={<DetailFav />} />
               <Route path="/detail" element={<DetailTiket />} />
-              <Route path="/data-penumpang" element={<DataDiri />} />
+              {/* <Route path="/data-penumpang" element={<DataDiri />} /> */}
               <Route path="/bayar" element={<Bayar />} />
               <Route path="/sukses" element={<Sukses/>} />
               <Route path="/login" element={<Login />} />
