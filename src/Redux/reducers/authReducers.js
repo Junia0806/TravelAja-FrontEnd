@@ -10,6 +10,7 @@ const initialState = {
   user: null,
   token: null,
   isLoggedIn: false,
+  notification: [],
 };
 
 const persistConfig = {
@@ -42,6 +43,9 @@ const authSlice = createSlice({
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    setNotification: (state, action) => {
+      state.notification = action.payload;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   setUser,
   setToken,
   setIsLoggedIn,
+  setNotification,
 } = authSlice.actions;
 
 export default persistedAuthReducer;

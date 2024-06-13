@@ -34,6 +34,10 @@ const App = () => {
     "/lupa",
     "/reset",
     "/admin",
+    "/admin/airports",
+    "/admin/airlines",
+    "/admin/flights",
+    "/admin/promotions",
   ];
 
   const shouldHideHeaderFooter = noHeaderFooterRoutes.includes(
@@ -61,7 +65,7 @@ const App = () => {
         <Route path="/riwayat" element={<RiwayatPemesanan />} />
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/*" element={<AdminDashboard />} />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>

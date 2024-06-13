@@ -15,7 +15,7 @@ import {
   setShowPassword,
   setShowNewPassword,
 } from "../Redux/reducers/authReducers";
-import { changePassword, getMe } from "../Redux/actions/authActions";
+import { changePassword, getMe, logout } from "../Redux/actions/authActions";
 
 function Pengaturan() {
   const [oldPassword, setOldPassword] = useState("");
@@ -55,6 +55,10 @@ function Pengaturan() {
 
   const handleNavigate = (path) => {
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout(navigate));
   };
 
   const validateNewPassword = (password) => {
@@ -134,7 +138,10 @@ function Pengaturan() {
                 </button>
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md">
-                <button className="flex items-center w-full text-gray-700 hover:text-blue-500">
+                <button
+                  className="flex items-center w-full text-gray-700 hover:text-blue-500"
+                  onClick={handleLogout}
+                >
                   <FaSignOutAlt className="mr-2" /> Logout
                 </button>
               </div>

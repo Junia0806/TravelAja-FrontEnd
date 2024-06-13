@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import Logo from "../assets/Logo.png";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBell } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -16,10 +16,14 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getMe(null, null, null));
-  });
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout(navigate));
+  };
+
+  const handleNotificationsClick = () => {
+    navigate("/notif");
   };
 
   return (
@@ -29,7 +33,7 @@ const Header = () => {
           <img src={Logo} className="mr-3 h-6 sm:h-9" alt="Logo Travel Aja" />
           {/* <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">Travel Aja</span> */}
         </Navbar.Brand>
-        <div className="flex md:order-2">
+        <div className="flex md:order-2 items-center">
           {!isLoggedIn ? (
             <Link
               to="/login"
@@ -38,27 +42,35 @@ const Header = () => {
               <i className="fa-solid fa-arrow-right-to-bracket mr-1"></i> Masuk
             </Link>
           ) : (
-            <Dropdown
-              arrowIcon={false}
-              inline
-              label={
-                <Avatar alt="User settings" img={user?.avatar_url} rounded />
-              }
-            >
-              <Dropdown.Header>
-                <span className="block text-sm">{user?.name || "User"}</span>
-              </Dropdown.Header>
-              <Link to="/profile">
-                <Dropdown.Item>
-                  <FaUser className="mr-2" />
-                  Profil
+            <>
+              <div
+                className="relative mr-4 cursor-pointer"
+                onClick={handleNotificationsClick}
+              >
+                <FaBell className="text-blue-500" size={20} />
+              </div>
+              <Dropdown
+                arrowIcon={false}
+                inline
+                label={
+                  <Avatar alt="User settings" img={user?.avatar_url} rounded />
+                }
+              >
+                <Dropdown.Header>
+                  <span className="block text-sm">{user?.name || "User"}</span>
+                </Dropdown.Header>
+                <Link to="/profile">
+                  <Dropdown.Item>
+                    <FaUser className="mr-2" />
+                    Profil
+                  </Dropdown.Item>
+                </Link>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleLogout}>
+                  <IoIosLogOut className="mr-2" /> Logout
                 </Dropdown.Item>
-              </Link>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={handleLogout}>
-                <IoIosLogOut className="mr-2" /> Logout
-              </Dropdown.Item>
-            </Dropdown>
+              </Dropdown>
+            </>
           )}
           <Navbar.Toggle />
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import airplaneImage from "../assets/auth/airplane.jpg";
 import { setShowPassword } from "../Redux/reducers/authReducers";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -26,6 +26,13 @@ const Login = () => {
       navigate(".", { replace: false });
     }
   }, [location, navigate]);
+
+  const handleOAuth = () => {
+    window.open(
+      `https://expressjs-develop.up.railway.app/api/v1/google`,
+      "_self"
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -127,13 +134,16 @@ const Login = () => {
               <hr className="w-full border-gray-300 border-t-2" />
             </div>
 
-            {/* <div className="text-center mb-4 w-full">
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center w-full">
+            <div className="text-center mb-4 w-full">
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center w-full"
+                onClick={handleOAuth}
+              >
                 <FaGoogle className="mr-2" /> Masuk dengan Google
               </button>
-            </div> */}
+            </div>
 
-            <GoogleLogin buttonText />
+            {/*<GoogleLogin buttonText />*/}
 
             <p className="text-center text-gray-500 text-sm w-full">
               Belum punya akun?{" "}

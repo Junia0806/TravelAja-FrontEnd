@@ -5,6 +5,7 @@ import {
   updateProfile,
   uploadAvatar,
   getMe,
+  logout,
 } from "../Redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -43,6 +44,10 @@ function Profile() {
         dispatch(getMe());
       });
     }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout(navigate));
   };
 
   const handleNavigate = (path) => {
@@ -92,7 +97,10 @@ function Profile() {
                 </button>
               </div>
               <div className="bg-white p-4 rounded-lg shadow-md">
-                <button className="flex items-center w-full text-gray-700 hover:text-blue-500">
+                <button
+                  className="flex items-center w-full text-gray-700 hover:text-blue-500"
+                  onClick={handleLogout}
+                >
                   <FaSignOutAlt className="mr-2" /> Logout
                 </button>
               </div>

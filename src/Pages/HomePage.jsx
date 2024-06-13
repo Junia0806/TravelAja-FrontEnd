@@ -5,6 +5,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import foto from "../assets/destinasi/destinasi.jpg";
 import foto2 from "../assets/destinasi/bali.webp";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  setIsLoggedIn,
+  setLogin,
+  setToken,
+} from "../Redux/reducers/authReducers";
+import { getMe } from "../Redux/actions/authActions";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -14,11 +21,23 @@ const Home = () => {
     passengers: 1,
     seatClass: "Economy",
   });
+
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+
+  if (token) {
+    dispatch(setLogin("Sedang login"));
+    dispatch(setIsLoggedIn(true));
+    dispatch(setToken(token));
+
+    dispatch(getMe(null, null, null));
+  }
 
   useEffect(() => {
     if (location.state) {

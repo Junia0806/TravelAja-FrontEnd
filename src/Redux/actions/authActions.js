@@ -5,6 +5,7 @@ import {
   setLogin,
   setIsLoggedIn,
   setUser,
+  setNotification,
 } from "../reducers/authReducers";
 
 // Fungsi untuk mendapatkan token dari state Redux
@@ -68,7 +69,6 @@ export const registerUser = (data, navigate) => async (dispatch) => {
     const { token } = response.data.data;
 
     dispatch(setToken(token));
-    console.log("responseRegister", response);
 
     navigate("/otp", {
       state: {
@@ -132,7 +132,6 @@ export const renewOtp = (email) => async () => {
     const response = await axios.request(config);
 
     toast.success(response.data.message);
-    console.log("responseRenewotp", response);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -156,7 +155,6 @@ export const login = (data, navigate) => async (dispatch) => {
     const response = await axios.request(config);
     const { token } = response.data.data;
 
-    console.log("response", response);
     dispatch(setLogin("Sedang login"));
     dispatch(setIsLoggedIn(true));
     dispatch(setToken(token));
@@ -199,16 +197,8 @@ export const withGoogleLogin = (accessToken, navigate) => async (dispatch) => {
     dispatch(setIsLoggedIn(true));
     dispatch(setToken(token));
 
-    console.log("token", response.data.access_token);
-    console.log("responseGoogle", response.data.message);
-
     toast.success(response.data.message);
     navigate("/");
-    // navigate("/", {
-    //   state: {
-    //     success: response.data.message,
-    //   },
-    // });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -232,7 +222,6 @@ export const forgotPassword = (data) => async () => {
     const response = await axios.request(config);
 
     toast.success(response.data.message);
-    console.log("responseForgotPassword", response);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -258,11 +247,10 @@ export const resetPassword =
         },
         data: { password, confirmPassword },
       };
-      console.log("config", config);
 
       const response = await axios.request(config);
       dispatch(setToken(token));
-      console.log("responseResetPassword", response.data.message);
+
       toast.success(response.data.message);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -279,8 +267,8 @@ export const logout = (navigate) => (dispatch) => {
     dispatch(setToken(null));
     dispatch(setIsLoggedIn(false));
     dispatch(setUser(null));
+    dispatch(setNotification(null));
 
-    //toast.success("Logout Berhasil");
     navigate("/", {
       state: {
         success: "Logout berhasil",
@@ -306,13 +294,9 @@ export const updateProfile =
       };
 
       const response = await axios.request(config);
-      console.log("response", response);
-      dispatch(setUser(response.data.data)); // Update the user data in the state
-      //toast.success("Ubah Profil Berhasil");
 
-      // if (navigate) {
-      //   navigate("/profile");
-      // }
+      dispatch(setUser(response.data.data)); // Update user data didalam  state
+
       navigate("/profile", {
         state: {
           success: response.data.message,
@@ -340,10 +324,10 @@ export const uploadAvatar = (formData) => async (dispatch, getState) => {
         },
       }
     );
-    console.log("responseAvatar", response);
+
     if (response.data.status) {
       toast.success(response.data.message);
-      dispatch(setUser(response.data.data)); // Update user data with new avatar URL
+      dispatch(setUser(response.data.data)); // Update user data dengan avatar baru
     } else {
       toast.error(response.data.message);
     }
@@ -369,10 +353,10 @@ export const changePassword =
         },
         data: { oldPassword, newPassword },
       };
-      dispatch(setUser());
-      const response = await axios.request(config);
-      console.log("response", response);
 
+      const response = await axios.request(config);
+
+      dispatch(setUser());
       navigate("/pengaturan", {
         state: {
           success: response.data.message,
