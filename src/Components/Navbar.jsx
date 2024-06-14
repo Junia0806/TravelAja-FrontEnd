@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout, getMe } from "../Redux/actions/authActions";
 
+
 const Header = () => {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();

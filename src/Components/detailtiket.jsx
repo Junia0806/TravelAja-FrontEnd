@@ -1,102 +1,156 @@
-/* eslint-disable no-unused-vars */
-// Color palette 00B7C2
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { PiAirplaneTakeoffFill } from "react-icons/pi";
-import { LuBaggageClaim } from "react-icons/lu";
-import { PiAirplaneLandingFill } from "react-icons/pi";
-import { MdAirlineSeatReclineNormal } from "react-icons/md";
-import { GoClockFill } from "react-icons/go";
-import { PiWifiXBold } from "react-icons/pi";
-import { RiDrinksFill } from "react-icons/ri";
-import { BiSolidBlanket } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import foto from "../assets/destinasi/destinasi.jpg";
+import { FaPlane } from "react-icons/fa";
 
-export function DetailTiket() {
+const DetailTiket = () => {
+  const data = useParams();
+  const navigate = useNavigate();
+  const [flight, setFlight] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const hasilPencarian = () => {
+    Navigate("/pencarian", {});
+  };
+
+  console.log("id :>> ", data.id);
+  console.log("flight :>> ", flight);
+
+  //useEffect untuk detail tiket penerbangan
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`https://expressjs-develop.up.railway.app/api/v1/flights/${data.id}`);
+        setFlight(response.data.data);
+        setIsLoading(false);
+        console.log("response data", response.data.data);
+      } catch (error) {
+        console.error("Error", error);
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!flight) {
+    return <div>Data tidak ditemukan</div>;
+  }
+
+  //untuk perhitungan durasi.
+  const formatDate = (dateString) => {
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
+
+  const formatTime = (timeString) => {
+    const options = { hour: "2-digit", minute: "2-digit", hour12: false };
+    return new Date(timeString).toLocaleTimeString("id-ID", options);
+  };
+
+  const calculateFlightDuration = (departure, arrival) => {
+    const departureTime = new Date(departure);
+    const arrivalTime = new Date(arrival);
+    const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
+
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = Math.floor(durationInMinutes % 60);
+
+    return `${hours} jam ${minutes} menit`;
+  };
+
+  const flightDuration = calculateFlightDuration(flight.departure_time, flight.arrival_time);
+
   return (
-    <div className=" max-w-5xl mx-auto flex flex-col items-center justify-center w-full">
-      <h1 className="text-2xl font-bold mb-4">Detail Penerbangan</h1>
-      <div className="flex flex-col md:flex-row items-center w-full mb-4">
-        <div className="flex flex-col md:flex-row items-center w-full mb-4 text-white font-semibold">
-          <h1 className="rounded-md md:mr-4 mb-4 md:mb-0 bg-[#00B7C2] p-2 w-full flex items-center text-left">
-            <IoMdArrowRoundBack className="mr-2" />
-            Jakarta (CGK) ke Denpasar (DPS) - Bali
-          </h1>
-          <button
-            type="submit"
-            className=" text-center rounded-md bg-[#195d61] p-2 w-1/5 ml-auto mr-2"
-          >
-            Ubah Pencarian
-          </button>
+    <div className="container max-w-5xl mx-auto my-6">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-[#00B7C2] text-white py-2 px-4 rounded-t-lg">
+          <p className="text-center text-lg"> Detail Tiket Pesawat </p>
         </div>
-      </div>
-      <div className="flight-ticket-card shadow-lg border-[#00B7C2] border-2 rounded-md px-4 py-2 text-white text-left font-bold w-full my-3">
-        <div className="flex items-center justify-between">
-          <h2 className="flex items-center text-xl font-bold tracking-tight text-black dark:text-white">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/AirAsia_New_Logo.svg"
-              className="h-8 mr-4"
-              alt="Airasia Logo"
-            />
-            AirAsia Indonesia
-          </h2>
-          <div className="flex items-center">
-            <h1 className="text-blue-700 dark:text-gray-400 font-bold mr-2">
-              RP 972.600
-            </h1>
-            <p className="text-gray-500 font-semibold">/orang</p>
-          </div>
-        </div>
-        <div className="flex justify-between items-center my-6 ">
-          <div>
-            <div className=" font-bold text-gray-700 dark:text-gray-400">
-              Detail Penerbangan
+
+        <div className="relative p-8">
+          <img src={flight?.airlines?.url_logo || foto} alt="Logo Maskapai" className="absolute top-0 left-0 w-full h-full object-cover opacity-20" />
+          <div className="p-4 md:p-8 space-y-6 relative">
+            <div>
+              <p className="text-gray-600">
+                <span className="font-bold text-gray-900 text-xl">{flight?.airlines?.airline_name}</span> - {flight?.seatclass?.seat_class_type}
+              </p>
+              <p className="text-gray-600">
+                Kode Penerbangan: <span className="font-bold text-gray-900">{flight?.flight_id}</span>
+              </p>
+              <p className="text-gray-600">
+                Harga: <span className="font-bold text-gray-900">Rp {flight.total_price}</span>
+              </p>
             </div>
-            <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-              <MdAirlineSeatReclineNormal className="mr-4" /> Ekonomi | CT123
-            </h1>
-            <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-              <GoClockFill className="mr-4" /> 10 Mei 2024 | 20:00 - 22:55
-            </h1>
-            <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-              <PiAirplaneTakeoffFill className="mr-4" /> Soekarno-Hatta
-              International Airport (CGK)
-            </h1>
-            <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-              <LuBaggageClaim className="mr-4" />
-              Cabin Baggage: Max 7kg
-            </h1>
-            <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-              <PiAirplaneLandingFill className="mr-4" /> Ngurah Rai
-              International Airport (DPS)
-            </h1>
           </div>
         </div>
-        <div className="border-b-2 border-gray-300 my-4"></div>
-        <div className=" font-bold text-gray-700 dark:text-gray-400">
-          Fasilitas
+
+        <hr className="border-gray-300" />
+        <div className="px-8 md:px-16 py-4 md:py-8 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="flex flex-col">
+            <div className="flex-1">
+              <p className="text-gray-600">
+                <i className="fa-solid fa-clock mr-2"></i>
+                <span className="font-bold text-gray-900">{formatTime(flight?.departure_time)}</span>
+              </p>
+              <p className="text-gray-600">
+                <i className="fa-solid fa-calendar mr-2"></i>
+                <span className="font-bold text-gray-900">{formatDate(flight?.departure_time)}</span>
+              </p>
+              <p className="text-gray-600">
+                <i className="fa-solid fa-plane-departure mr-2"></i>
+                <span className="font-bold text-gray-900">{flight?.destination_airport?.airport_name}</span>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <FaPlane size={30} className="text-[#00B7C2]" />
+            <span className="text-gray-700 dark:text-gray-400 font-semibold mt-2 flex justify-center items-center">{flightDuration}</span>
+          </div>
+          <div className="flex flex-col">
+            <div className="flex-1">
+              <p className="text-gray-600">
+                <i className="fa-solid fa-clock mr-2"></i>
+                <span className="font-bold text-gray-900">{formatTime(flight?.arrival_time)}</span>
+              </p>
+              <p className="text-gray-600">
+                <i className="fa-solid fa-calendar mr-2"></i>
+                <span className="font-bold text-gray-900">{formatDate(flight?.arrival_time)}</span>
+              </p>
+              <p className="text-gray-600">
+                <i className="fa-solid fa-plane-arrival mr-2"></i>
+                <span className="font-bold text-gray-900">{flight?.arrival_airport?.airport_name}</span>
+              </p>
+            </div>
+          </div>
         </div>
-        <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-          <PiWifiXBold className="mr-4" /> tanpa WiFi
-        </h1>
-        <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-          <RiDrinksFill className="mr-4" /> Air Mineral
-        </h1>
-        <h1 className="text-gray-700 dark:text-gray-400 font-semibold md:mr-4 mb-4 md:mb-0  p-2 w-full flex items-center text-left">
-          <BiSolidBlanket className="mr-4" /> Selimut
-        </h1>
-        <div className="p-4 flex justify-end ">
-          <Link
-            to="/data-penumpang"
-            className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none mr-2"
-          >
-            Pilih
-          </Link>
-          <button className="text-white bg-[#aa9f22] hover:bg-[#22230e] rounded-md p-2">
+        <div className="p-4 md:p-8 ">
+          <hr className="border-gray-300" />
+          <div className="p-4 md:p-8 ">
+            <h2 className="text-lg font-semibold text-gray-700">Informasi</h2>
+            <p className="text-gray-600">
+              <i className="fa-solid fa-suitcase mr-2"></i>Bagasi: <span className="font-bold text-gray-900">{flight?.airlines?.baggage} kg</span>
+            </p>
+            <p className="text-gray-600">
+              <i className="fa-solid fa-box mr-2"></i>Kabin: <span className="font-bold text-gray-900">{flight?.airlines?.cabin_baggage} kg</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="flex justify-center space-x-4 mb-6">
+          <button onClick={hasilPencarian} className="flex justify-center items-center w-1/3 text-center bg-[#00B7C2] hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg">
             Kembali
           </button>
+          <Link to={`/booking/${data.id}`} className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg">
+            Pesan Penerbangan
+          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
+export default DetailTiket;

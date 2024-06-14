@@ -14,16 +14,22 @@ import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
-import DataDiri from "./Pages/DataDiriPage";
+// import DataDiri from "./Pages/DataDiriPage";
 import Bayar from "./Pages/BayarPage";
 import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
-import { DetailTiket } from "./Components/detailtiket.jsx";
+import DetailRiwayat from "./Components/detailriwayat.jsx";
 import Sukses from "./Pages/SuksesPage.jsx";
 import DetailFav from "./Pages/DetailFav.jsx";
 import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
+import Tiket from "./Pages/TiketPage.jsx";
+import Home1 from "./Pages/Coba1.jsx";
+import FlightPromo from "./Pages/HomeCoba.jsx";
+import BookingStep1 from "./Booking/BookingStep1.jsx";
+import HomeCoba from "./Pages/HomeCoba.jsx";
+import DetailTiket from "./Components/detailtiket.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -44,15 +50,14 @@ const App = () => {
     location.pathname
   );
 
+
+
+
   return (
     <>
       {!shouldHideHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pencarian" element={<Pencarian />} />
-        <Route path="/detail-fav" element={<DetailFav />} />
-        <Route path="/detail" element={<DetailTiket />} />
-        <Route path="/data-penumpang" element={<DataDiri />} />
         <Route path="/bayar" element={<Bayar />} />
         <Route path="/sukses" element={<Sukses />} />
         <Route path="/login" element={<Login />} />
@@ -62,10 +67,26 @@ const App = () => {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/notif" element={<NotificationsPage />} />
-        <Route path="/riwayat" element={<RiwayatPemesanan />} />
+       
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
+          
+           <Route path="/coba1" element={<Home1/>} />
+            <Route path="/home" element={<FlightPromo />} />
+            <Route path="/detail/:id" element={<DetailFav />} />
+            {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
+            <Route path="/booking/:id" element={<BookingStep1 />} /> 
+              <Route path="/" element={<Home />} />
+              <Route path="/detailriwayat" element={<DetailRiwayat />} />
+              <Route path="/pencarian" element={<Pencarian />} />
+              <Route path="/detailtiket/:id" element={<DetailTiket />} />
+              <Route path="/detail-fav" element={<DetailFav />} />
+              <Route path="/detail" element={<DetailTiket />} />
+              {/* <Route path="/data-penumpang" element={<DataDiri />} /> */}
+           
+              <Route path="/riwayat" element={<RiwayatPemesanan />} />
+              <Route path="/tiket" element={<Tiket />} />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>

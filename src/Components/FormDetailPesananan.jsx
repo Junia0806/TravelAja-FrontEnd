@@ -1,41 +1,50 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const DetailPemesanan = () => {
-  const details = {
-    waktu: "10:00 AM",
-    tanggal: "2024-06-15",
-    bandaraAsal: "Soekarno-Hatta International Airport",
-    bandaraTujuan: "Ngurah Rai International Airport",
-    namaMaskapai: "Garuda Indonesia",
-    kodeMaskapai: "GA123",
-    kelas: "Ekonomi",
-    informasi: {
-      cabin: "7 kg",
-      bagasi: "20 kg",
-    },
-    fasilitas: {
-      wifi: "Tersedia",
-      snack: "Tidak tersedia",
-      selimut: "Tersedia",
-      hiburan: "Tersedia",
-    },
-    priceDetails: {
-      hargaPerOrang: 1500000,
-      jumlahPenumpang: 3,
-    },
+  const id = useParams();
+  const [flight, setFlight] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log('data :>> ', id.id);
+  console.log("flight :>> ", flight);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `https://expressjs-develop.up.railway.app/api/v1/flights/${id.id}`
+        );
+        setFlight(response.data.data);
+        console.log('response.data :>> ', response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error", error);
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const formatTime = (timeString) => {
+    const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+    return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
-  const totalHarga = details.priceDetails.hargaPerOrang * details.priceDetails.jumlahPenumpang;
-
-  const formatRupiah = (angka) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0
-    }).format(angka);
+  const formatDate = (dateString) => {
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
   };
+
+  // const totalHarga = details.priceDetails.hargaPerOrang * details.priceDetails.jumlahPenumpang;
 
   return (
     <div className="container mx-auto p-4">
@@ -47,24 +56,24 @@ const DetailPemesanan = () => {
           <div className="mb-6">
             <span className="block text-gray-600">
               <i className="fa-solid fa-clock mr-2"></i>
-              {details.waktu} <i className="fa-solid fa-calendar mr-2"></i>
-              {details.tanggal}
+              {formatTime(flight?.departure_time)} <i className="fa-solid fa-calendar mr-2"></i>
+            {formatDate(flight?.departure_time)}
             </span>
             <span className="block text-gray-600">
               <i className="fa-solid fa-plane-departure mr-2"></i>
-              {details.bandaraAsal}
+              {flight?.destination_airport?.airport_name}
             </span>
             <span className="block text-gray-600">
               <i className="fa-solid fa-plane-arrival mr-2"></i>
-              {details.bandaraTujuan}
+              {flight?.arrival_airport?.airport_name}
             </span>
             <span className="block text-gray-600">
               <i className="fa-solid fa-plane mr-2"></i>
-              {details.namaMaskapai} | {details.kodeMaskapai}
+              {flight?.airlines?.airline_name} | {flight?.flight_id}
             </span>
             <span className="block text-gray-600">
               <i className="fa-solid fa-chair mr-2"></i>
-              {details.kelas}
+              {flight?.seatclass?.seat_class_type}
             </span>
             <hr className="border-1 border-gray-200 mt-3"></hr>
           </div>
@@ -73,33 +82,11 @@ const DetailPemesanan = () => {
             <div className="ml-4 text-gray-600">
               <div>
                 <i className="fa-solid fa-briefcase mr-2"></i>
-                Cabin: {details.informasi.cabin}
+                Kabin: {flight?.airlines?.cabin_baggage} kg
               </div>
               <div>
                 <i className="fa-solid fa-luggage-cart mr-2"></i>
-                Bagasi: {details.informasi.bagasi}
-              </div>
-            </div>
-            <hr className="border-1 border-gray-200 mt-3"></hr>
-          </div>
-          <div className="mb-6">
-            <strong className="text-gray-800">Fasilitas:</strong>
-            <div className="ml-4 text-gray-600">
-              <div>
-                <i className="fa-solid fa-wifi mr-2"></i>
-                WIFI: {details.fasilitas.wifi}
-              </div>
-              <div>
-                <i className="fa-solid fa-cookie-bite mr-2"></i>
-                Snack: {details.fasilitas.snack}
-              </div>
-              <div>
-                <i className="fa-solid fa-bed mr-2"></i>
-                Selimut: {details.fasilitas.selimut}
-              </div>
-              <div>
-                <i className="fa-solid fa-tv mr-2"></i>
-                Hiburan: {details.fasilitas.hiburan}
+                Bagasi: {flight?.airlines?.baggage} kg
               </div>
             </div>
             <hr className="border-1 border-gray-200 mt-3"></hr>
@@ -110,17 +97,17 @@ const DetailPemesanan = () => {
               <div className="mb-2">
                 <i className="fa-solid fa-user mr-2"></i>
                 Jumlah Penumpang:{" "}
-                <span className="text-gray-800 font-semibold">{details.priceDetails.jumlahPenumpang} Orang</span>
+                <span className="text-gray-800 font-semibold">1 Orang</span>
               </div>
               <div className="mb-2">
                 <i className="fa-solid fa-ticket mr-2"></i>
                 Harga per Orang:{" "}
-                <span className="text-gray-800 font-semibold">{formatRupiah(details.priceDetails.hargaPerOrang)}</span>
+                <span className="text-gray-800 font-semibold">Rp.{flight.total_price.toLocaleString("id-ID")}</span>
               </div>
               <div className="border-t border-gray-300 mt-2 pt-2">
                 <i className="fa-solid fa-dollar-sign mr-2"></i>
                 Total:{" "}
-                <span className="text-gray-800 font-bold text-xl">{formatRupiah(totalHarga)}</span>
+                <span className="text-gray-800 font-bold text-xl">Rp.{flight.total_price.toLocaleString("id-ID")}</span>
               </div>
             </div>
           </div>
