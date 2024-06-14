@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import foto from "../assets/destinasi/destinasi.jpg";
-import foto2 from "../assets/destinasi/bali.webp";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import {
@@ -32,6 +30,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
+  const navigate = useNavigate();
 
   if (token) {
     dispatch(setLogin("Sedang login"));
@@ -57,7 +56,6 @@ const Home = () => {
   const [listbandara, setlistBandara] = useState([]);
   const [bandaraAsal, setBandaraAsal] = useState("");
   const [bandaraTujuan, setBandaraTujuan] = useState("");
-  const navigate = useNavigate();
 
 
   const hasilPencarian = () => {
