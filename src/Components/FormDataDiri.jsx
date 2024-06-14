@@ -1,10 +1,45 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const BookingForm = () => {
   const seatOptions = ["A1", "A2", "B1", "B2", "C1", "C2", "D1", "D2"];
   const [passengers, setPassengers] = useState([{ id: 1 }]);
+  const [passengerData, setPassengerData] = useState(null);
+
+  useEffect(() => {
+    async function postData() {
+      try {
+        // Buat objek data penumpang dari state passengers
+        const passengerData = passengers.map((passenger) => ({
+          fullname: passenger.fullname || "",
+          born_date: passenger.born_date || "",
+          identity_number: passenger.identity_number || "",
+          // Anda perlu menambahkan data lain yang dibutuhkan untuk permintaan POST
+        }));
+
+        // Kirim data penumpang ke server menggunakan axios.post()
+        const response = await axios.post("https://expressjs-develop.up.railway.app/api/v1/passenger", passengerData);
+
+        // Periksa apakah status respons adalah true
+        if (response.data && response.data.status === true) {
+          // Jika status true, set pesan respons
+          setResponseMessage(response.data.message);
+        } else {
+          // Jika status false atau tidak ada status, tangani kesalahan atau respon tidak valid
+          console.error("Invalid response or status false:", response.data);
+        }
+      } catch (error) {
+        // Tangani kesalahan saat melakukan permintaan
+        console.error("Error:", error);
+      }
+    }
+
+    // Panggil fungsi postData
+    postData();
+  }, [passengers]); // Gunakan state passengers sebagai dependensi untuk menjalankan useEffect saat ada perubahan pada state tersebut
 
   const addPassenger = () => {
     setPassengers([...passengers, { id: passengers.length + 1 }]);
@@ -24,10 +59,7 @@ const BookingForm = () => {
               <div className="bg-gray-500 text-white py-3 px-4 flex justify-between items-center">
                 <p className="text-l font-semibold">Data Diri Penumpang {index + 1}</p>
                 {index > 0 && (
-                  <button
-                    onClick={() => removePassenger(passenger.id)}
-                    className="bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-700 focus:outline-none"
-                  >
+                  <button onClick={() => removePassenger(passenger.id)} className="bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-700 focus:outline-none">
                     Hapus Penumpang
                   </button>
                 )}
@@ -41,6 +73,8 @@ const BookingForm = () => {
                     type="text"
                     name={`fullName${index}`}
                     id={`fullName${index}`}
+                    value={passenger.fullname || ""}
+                    onChange={(e) => handleInputChange(e, index, "fullName")}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                   />
@@ -53,6 +87,8 @@ const BookingForm = () => {
                     type="date"
                     name={`birthDate${index}`}
                     id={`birthDate${index}`}
+                    value={passenger.born_date || ""}
+                    onChange={(e) => handleInputChange(e, index, "birthDate")}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                   />
@@ -65,61 +101,17 @@ const BookingForm = () => {
                     type="text"
                     name={`idNumber${index}`}
                     id={`idNumber${index}`}
+                    value={passenger?.identity_number || ""}
+                    onChange={(e) => handleInputChange(e, index, "idNumber")}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                   />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Pilihan Dewasa/Anak-anak
-                  </label>
-                  <div className="relative">
-                    <select
-                      name={`passengerType${index}`}
-                      className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option value="adult">Dewasa</option>
-                      <option value="child">Anak-anak</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={`seatNumber${index}`}>
-                    Pilihan Nomor Kursi
-                  </label>
-                  <div className="relative">
-                    <select
-                      name={`seatNumber${index}`}
-                      id={`seatNumber${index}`}
-                      className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                      <option value="">Pilih Nomor Kursi</option>
-                      {seatOptions.map((seat, seatIndex) => (
-                        <option key={seatIndex} value={seat}>
-                          {seat}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                      </svg>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
-        <Link
-          onClick={addPassenger}
-          className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
-        >
+        <Link onClick={addPassenger} className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">
           Tambah Penumpang <i className="fa-solid fa-user-plus"></i>
         </Link>
       </div>

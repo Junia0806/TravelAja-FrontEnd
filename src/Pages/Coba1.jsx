@@ -31,7 +31,9 @@ const Home1 = () => {
     <div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col">
-          <label htmlFor="departureAirport" className="text-gray-700">Destinasi Airport:</label>
+          <label htmlFor="departureAirport" className="text-gray-700">
+            Destinasi Airport:
+          </label>
           <input
             type="text"
             id="departureAirport"
@@ -42,7 +44,9 @@ const Home1 = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="arrivalAirport" className="text-gray-700">Arrival Airport:</label>
+          <label htmlFor="arrivalAirport" className="text-gray-700">
+            Arrival Airport:
+          </label>
           <input
             type="text"
             id="arrivalAirport"
@@ -53,31 +57,24 @@ const Home1 = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="departureDate" className="text-gray-700">Departure Date:</label>
-          <input
-            type="date"
-            id="departureDate"
-            name="date"
-            value={searchParams.date}
-            onChange={handleChange}
-            className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <label htmlFor="departureDate" className="text-gray-700">
+            Departure Date:
+          </label>
+          <input type="date" id="departureDate" name="date" value={searchParams.date} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="seatClass" className="text-gray-700">Seat Class:</label>
-          <select
-            id="seatClass"
-            name="seat_class_id"
-            value={searchParams.seat_class_id}
-            onChange={handleChange}
-            className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
+          <label htmlFor="seatClass" className="text-gray-700">
+            Seat Class:
+          </label>
+          <select id="seatClass" name="seat_class_id" value={searchParams.seat_class_id} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="1">Economy</option>
             <option value="2">Business</option>
             <option value="3">First</option>
           </select>
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Search</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+          Search
+        </button>
       </form>
       {flightData && (
         <div>
