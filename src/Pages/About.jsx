@@ -1,6 +1,10 @@
 import React from "react";
 import rahmatImage from "../assets/fotoTeam/rahmat.jpeg";
 import kevinImage from "../assets/fotoTeam/masKevin.png";
+import ilhamImage from "../assets/fotoTeam/Ilham Praditya.jpg";
+import arifImage from "../assets/fotoTeam/Arif Pradana.jpg";
+import juniaImage from "../assets/fotoTeam/Junia Vitasari.jpg";
+import tantrikImage from "../assets/fotoTeam/Tantrik Lusi.jpg";
 
 const teamMembers = [
   {
@@ -13,30 +17,30 @@ const teamMembers = [
   {
     name: "Junia Vitasari",
     role: "Frontend Developer",
-    image: "path/to/jane.jpg",
+    image: juniaImage,
     github: "https://github.com/Junia0806",
     instagram: "https://www.instagram.com/juniavitasari7",
   },
   {
     name: "Tantrik Ulil Lusianti",
     role: "Frontend Developer",
-    image: "path/to/alice.jpg",
-    github: "https://github.com/alicejohnson",
-    instagram: "https://www.instagram.com/tantrikulil",
+    image: tantrikImage,
+    github: "https://github.com/tantriklusi",
+    instagram: "https://www.instagram.com/tntrklusi_",
   },
   {
     name: "Arif Perdana",
     role: "Backend Developer",
-    image: "path/to/alice.jpg",
-    github: "https://github.com/alicejohnson",
-    instagram: "https://www.instagram.com/arifperdana",
+    image: arifImage,
+    github: "https://github.com/arifprdn",
+    instagram: "https://www.instagram.com/arif.prdna",
   },
   {
     name: "M. Ilham Praditya A.N",
     role: "Backend Developer",
-    image: "path/to/alice.jpg",
-    github: "https://github.com/alicejohnson",
-    instagram: "https://www.instagram.com/m.ilham_praditya",
+    image: ilhamImage,
+    github: "https://github.com/ilhampraditya",
+    instagram: "https://www.instagram.com/ilham.prdty",
   },
   {
     name: "Kevin Yohanes Wuryanto",
@@ -53,8 +57,8 @@ const About = () => {
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-10">Tentang Kami</h1>
         <p className="text-lg text-center mb-10">
-          Situs web ini dibuat untuk memudahkan pemesanan tiket secara lokal dan
-          tugas final project. Kami bertujuan untuk memberikan kemudahan dan
+          Situs web ini dibuat untuk memudahkan pemesanan tiket lokal dan tugas
+          final project. Kami bertujuan untuk memberikan kemudahan dan
           kenyamanan dalam memesan tiket dengan berbagai pilihan dan harga yang
           kompetitif.
         </p>
