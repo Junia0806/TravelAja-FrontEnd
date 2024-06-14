@@ -48,16 +48,6 @@ const FlightPromo = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center min-h-screen bg-landing">
-        <div className="max-w-5xl w-full mx-auto mt-5 p-8 bg-white bg-opacity-20 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-center flex-grow text-white">
-              PENCARIAN PENERBANGAN
-              <i className="fa-solid fa-plane-up ml-2"></i>
-            </h2>
-          </div>
-        </div>
-      </div>
       <div className="mx-auto px-4 py-10 bg-white">
         <h1 className="font-bold text-3xl text-center text-gray-800">Promo Penerbangan</h1>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-10">
