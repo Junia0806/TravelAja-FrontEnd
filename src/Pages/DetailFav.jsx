@@ -4,16 +4,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import foto from "../assets/destinasi/destinasi.jpg"; 
+import foto from "../assets/destinasi/destinasi.jpg";
 import { FaPlane } from "react-icons/fa";
-
 
 const DetailFav = () => {
   const data = useParams();
   const [flight, setFlight] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log('id :>> ', data.id);
+  console.log("id :>> ", data.id);
   console.log("flight :>> ", flight);
 
   useEffect(() => {
@@ -47,28 +46,36 @@ const DetailFav = () => {
   };
 
   const formatTime = (timeString) => {
-    const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const options = { hour: "2-digit", minute: "2-digit", hour12: false };
     return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
   const calculateFlightDuration = (departure, arrival) => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
-    const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60); 
-  
+    const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
+
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-  
+
     return `${hours} jam ${minutes} menit`;
   };
-  
-  const flightDuration = calculateFlightDuration(flight.departure_time, flight.arrival_time);
+
+  const flightDuration = calculateFlightDuration(
+    flight.departure_time,
+    flight.arrival_time
+  );
 
   return (
     <div className="container max-w-5xl mx-auto my-6">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-[#00B7C2] text-white py-2 px-4 rounded-t-lg">
-          <p className="text-center text-lg">Detail Destinasi Tervaforite</p>
+          <p className="text-center text-lg">
+            Detail Penerbangan{" "}
+            <strong>{flight?.destination_airport?.city}</strong>{" "}
+            <i className="fa-solid fa-arrow-right"></i>{" "}
+            <strong>{flight?.arrival_airport?.city}</strong>
+          </p>
         </div>
 
         <div className="relative p-8">
@@ -87,7 +94,9 @@ const DetailFav = () => {
               </p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
-                <span className="font-bold text-gray-900">{flight?.flight_id}</span>
+                <span className="font-bold text-gray-900">
+                  {flight?.flight_id}
+                </span>
               </p>
               <p className="text-gray-600">
                 Harga:{" "}
@@ -95,7 +104,7 @@ const DetailFav = () => {
                   Rp {flight.total_price}
                 </span>{" "}
                 <span className="line-through text-gray-500">
-                  Rp  {flight.price}
+                  Rp {flight.price}
                 </span>
               </p>
             </div>
@@ -109,7 +118,7 @@ const DetailFav = () => {
               <p className="text-gray-600">
                 <i className="fa-solid fa-clock mr-2"></i>
                 <span className="font-bold text-gray-900">
-                   {formatTime(flight?.departure_time)}
+                  {formatTime(flight?.departure_time)}
                 </span>
               </p>
               <p className="text-gray-600">
@@ -137,7 +146,7 @@ const DetailFav = () => {
               <p className="text-gray-600">
                 <i className="fa-solid fa-clock mr-2"></i>
                 <span className="font-bold text-gray-900">
-                   {formatTime(flight?.arrival_time)}
+                  {formatTime(flight?.arrival_time)}
                 </span>
               </p>
               <p className="text-gray-600">
@@ -182,7 +191,7 @@ const DetailFav = () => {
             Kembali
           </Link>
           <Link
-             to={`/booking/${data.id}`}
+            to={`/booking/${data.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >
             Pesan Penerbangan

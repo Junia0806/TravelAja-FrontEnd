@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import foto from "../assets/destinasi/destinasi.jpg";
 
-const HomeCoba = () => {
+const FlightPromo = () => {
   const [flights, setFlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterCity, setFilterCity] = useState("");
@@ -112,4 +112,4 @@ const HomeCoba = () => {
   );
 };
 
-export default HomeCoba;
+export default FlightPromo;

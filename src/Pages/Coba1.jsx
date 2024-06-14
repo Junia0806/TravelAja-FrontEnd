@@ -8,7 +8,7 @@ const Home1 = () => {
     arrival_airport_id: "CGK",
     destination_airport_id: "LOP",
     date: "2024-06-05",
-    seat_class_id: "1",
+    seat_class_type: "economy",
   });
 
   const handleChange = (e) => {
@@ -63,11 +63,15 @@ const Home1 = () => {
           <input type="date" id="departureDate" name="date" value={searchParams.date} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="seatClass" className="text-gray-700">
-            Seat Class:
-          </label>
-          <select id="seatClass" name="seat_class_id" value={searchParams.seat_class_id} onChange={handleChange} className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="1">Economy</option>
+          <label htmlFor="seatClass" className="text-gray-700">Seat Class:</label>
+          <select
+            id="seatClass"
+            name="seat_class_type"
+            value={searchParams.seat_class_type}
+            onChange={handleChange}
+            className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="economy">Economy</option>
             <option value="2">Business</option>
             <option value="3">First</option>
           </select>
