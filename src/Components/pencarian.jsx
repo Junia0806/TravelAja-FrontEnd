@@ -23,7 +23,7 @@ export function Pencarian() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=LOP&${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${valuePencarian.departureDate}`
+          `https://expressjs-develop.up.railway.app/api/v1/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${valuePencarian.departureDate}`
         );
         console.log("response", response);
         setFlight(response.data.data);

@@ -28,7 +28,6 @@ import Tiket from "./Pages/TiketPage.jsx";
 import Home1 from "./Pages/Coba1.jsx";
 import FlightPromo from "./Pages/HomeCoba.jsx";
 import BookingStep1 from "./Booking/BookingStep1.jsx";
-import HomeCoba from "./Pages/HomeCoba.jsx";
 import DetailTiket from "./Components/detailtiket.jsx";
 
 const App = () => {

@@ -14,6 +14,7 @@ import {
 import { getMe } from "../Redux/actions/authActions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import axios from "axios";
+import FlightPromo from "./HomeCoba";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -300,134 +301,9 @@ const Home = () => {
       <div>
         {/* Section 2 */}
         <div>
-          <div className="mx-auto px-4 py-10 bg-white">
-            <h1 className="font-bold text-3xl text-center text-gray-800">Destinasi Terfavorit</h1>
-            {/* Button Filter */}
-            <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-10">
-              <button className="bg-gray-800 text-white py-2 px-4 rounded-md focus:outline-none flex items-center justify-center">
-                <i className="fa-solid fa-magnifying-glass mr-2"></i> Semua
-              </button>
-              <button className="bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none flex items-center justify-center">
-                <i className="fa-solid fa-magnifying-glass mr-2"></i> Surabaya
-              </button>
-              <button className="bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none flex items-center justify-center">
-                <i className="fa-solid fa-magnifying-glass mr-2"></i> Jakarta
-              </button>
-              <button className="bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800  focus:outline-none flex items-center justify-center">
-                <i className="fa-solid fa-magnifying-glass mr-2"></i> Jogja
-              </button>
-              <button className="bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none flex items-center justify-center">
-                <i className="fa-solid fa-magnifying-glass mr-2"></i> Bali
-              </button>
-            </div>
-
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* CARD */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-                <div className="bg-[#00B7C2] text-white py-1 px-4 rounded-t-lg">
-                  <p className="text-center text-sm font-semibold">Destinasi Jawa Tengah</p>
-                </div>
-                <img src={foto} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                  <p className="font-bold text-center text-xl mb-1 text-black">
-                    Surabaya <i className="fa-solid fa-arrow-right"></i> Jogja
-                  </p>
-                  <div className="flex justify-center space-x-10 text-gray-700 mb-1">
-                    <p className="font-medium text-black">
-                      <i className="fa-solid fa-plane-circle-check"></i> Citilink
-                    </p>
-                    <p className="font-medium text-black">
-                      <i className="fa-regular fa-calendar"></i> 30 Mei 2024
-                    </p>
-                  </div>
-                  <p className="text-center text-red-600 mb-4">
-                    Harga Diskon: <span className="font-bold text-lg">Rp 750.000</span>
-                  </p>
-                  <Link
-                    to="/detail-fav"
-                    className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
-                  >
-                    Lihat Detail
-                  </Link>
-                </div>
-              </div>
-              {/* CARD */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-                <div className="bg-[#00B7C2] text-white py-1 px-4 rounded-t-lg">
-                  <p className="text-center text-sm font-semibold">Destinasi Bali</p>
-                </div>
-                <img src={foto2} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                  <p className="font-bold text-center text-xl mb-1 text-black">
-                    Jakarta <i className="fa-solid fa-arrow-right"></i> Bali
-                  </p>
-                  <div className="flex justify-center space-x-10 text-gray-700 mb-1">
-                    <p className="font-medium text-black">
-                      <i className="fa-solid fa-plane-circle-check"></i> Garuda
-                    </p>
-                    <p className="font-medium text-black">
-                      <i className="fa-regular fa-calendar"></i> 30 Mei 2024
-                    </p>
-                  </div>
-                  <p className="text-center text-red-600 mb-4">
-                    Harga Diskon: <span className="font-bold text-lg">Rp 1.450.000</span>
-                  </p>
-                  <Link className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800  focus:outline-none">Lihat Detail</Link>
-                </div>
-              </div>
-              {/* CARD */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-                <div className="bg-[#00B7C2] text-white py-1 px-4 rounded-t-lg">
-                  <p className="text-center text-sm font-semibold">Destinasi Jawa Tengah</p>
-                </div>
-                <img src={foto} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                  <p className="font-bold text-center text-xl mb-1 text-black">
-                    Surabaya <i className="fa-solid fa-arrow-right"></i> Jogja
-                  </p>
-                  <div className="flex justify-center space-x-10 text-gray-700 mb-1">
-                    <p className="font-medium text-black">
-                      <i className="fa-solid fa-plane-circle-check"></i> Citilink
-                    </p>
-                    <p className="font-medium text-black">
-                      <i className="fa-regular fa-calendar"></i> 30 Mei 2024
-                    </p>
-                  </div>
-                  <p className="text-center text-red-600 mb-4">
-                    Harga Diskon: <span className="font-bold text-lg">Rp 750.000</span>
-                  </p>
-                  <Link className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800  focus:outline-none">Lihat Detail</Link>
-                </div>
-              </div>
-              {/* CARD */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-                <div className="bg-[#00B7C2] text-white py-1 px-4 rounded-t-lg">
-                  <p className="text-center text-sm font-semibold">Destinasi Bali</p>
-                </div>
-                <img src={foto2} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                  <p className="font-bold text-center text-xl mb-1 text-black">
-                    Jakarta <i className="fa-solid fa-arrow-right"></i> Bali
-                  </p>
-                  <div className="flex justify-center space-x-10 text-gray-700 mb-1">
-                    <p className="font-medium text-black">
-                      <i className="fa-solid fa-plane-circle-check"></i> Garuda
-                    </p>
-                    <p className="font-medium text-black">
-                      <i className="fa-regular fa-calendar"></i> 30 Mei 2024
-                    </p>
-                  </div>
-                  <p className="text-center text-red-600 mb-4">
-                    Harga Diskon: <span className="font-bold text-lg">Rp 1.450.000</span>
-                  </p>
-                  <Link className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none">Lihat Detail</Link>
-                </div>
-              </div>
-            </div>
-          </div>
+         <FlightPromo/>
         </div>
       </div>
-      div
     </div>
   );
 };
