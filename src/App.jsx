@@ -14,7 +14,7 @@ import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
-import DataDiri from "./Pages/DataDiriPage";
+// import DataDiri from "./Pages/DataDiriPage";
 import Bayar from "./Pages/BayarPage";
 import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
@@ -23,6 +23,8 @@ import Sukses from "./Pages/SuksesPage.jsx";
 import DetailFav from "./Pages/DetailFav.jsx";
 import Tiket from "./Pages/TiketPage.jsx";
 import Home1 from "./Pages/Coba1.jsx";
+import FlightPromo from "./Pages/HomeCoba.jsx";
+import BookingStep1 from "./Booking/BookingStep1.jsx";
 import HomeCoba from "./Pages/HomeCoba.jsx";
 import DetailTiket from "./Components/detailtiket.jsx";
 
@@ -34,10 +36,11 @@ function App() {
           <BrowserRouter>
             <Header />
             <Routes>
-              <Route path="/coba1" element={<Home1 />} />
-              <Route path="/home" element={<HomeCoba />} />
-              <Route path="/detail/:id" element={<DetailFav />} />
-              <Route path="/booking/:id" element={<DataDiri />} />
+            <Route path="/coba1" element={<Home1/>} />
+            <Route path="/home" element={<FlightPromo />} />
+            <Route path="/detail/:id" element={<DetailFav />} />
+            {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
+            <Route path="/booking/:id" element={<BookingStep1 />} /> 
               <Route path="/" element={<Home />} />
               <Route path="/detailriwayat" element={<DetailRiwayat />} />
               <Route path="/pencarian" element={<Pencarian />} />
