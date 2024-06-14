@@ -39,6 +39,12 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!name || !email || !no_telp || !password || !confirmPassword) {
+      toast.warning("Semua kolom harus diisi!");
+      return;
+    }
+
     if (password !== confirmPassword) {
       toast.warning("Password dan Konfir Password tidak sama !");
       return;
@@ -57,7 +63,7 @@ const Register = () => {
       no_telp,
       password,
     };
-    console.log("DataInputan", data);
+
     dispatch(registerUser(data, navigate));
   };
 

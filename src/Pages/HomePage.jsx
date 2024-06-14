@@ -1,9 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import foto from "../assets/destinasi/destinasi.jpg";
 import foto2 from "../assets/destinasi/bali.webp";
+import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  setIsLoggedIn,
+  setLogin,
+  setToken,
+} from "../Redux/reducers/authReducers";
+import { getMe } from "../Redux/actions/authActions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import axios from "axios";
 import FlightPromo from "./HomeCoba";
@@ -19,6 +27,30 @@ const Home = () => {
   });
   // console.log("form data ", formData);
 
+
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+
+  if (token) {
+    dispatch(setLogin("Sedang login"));
+    dispatch(setIsLoggedIn(true));
+    dispatch(setToken(token));
+
+    dispatch(getMe(null, null, null));
+  }
+
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.info) toast.info(location.state.info);
+      else if (location.state.success) {
+        toast.success(location.state.success);
+      }
+      navigate(".", { replace: false });
+    }
+  }, [location, navigate]);
+
   const [searchResults, setSearchResults] = useState([]);
   const [openModalAsal, setOpenModalAsal] = useState(false);
   const [openModalTujuan, setOpenModalTujuan] = useState(false);
@@ -26,6 +58,7 @@ const Home = () => {
   const [bandaraAsal, setBandaraAsal] = useState("");
   const [bandaraTujuan, setBandaraTujuan] = useState("");
   const navigate = useNavigate();
+
 
   const hasilPencarian = () => {
     navigate("/pencarian", {
@@ -125,6 +158,7 @@ const Home = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="flex justify-center items-center min-h-screen bg-landing">
         <div className="max-w-5xl w-full mx-auto mt-5 p-8 bg-white bg-opacity-20 rounded-lg shadow-lg">
           <div className="flex items-center justify-between mb-6">

@@ -21,36 +21,6 @@ function NotificationFilter({ filters, setFilters }) {
           <option value="read">Read</option>
         </select>
       </div>
-      <div className="flex flex-col">
-        <label className="text-gray-700">Type</label>
-        <select
-          name="type"
-          value={filters.type}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg p-2"
-        >
-          <option value="">All</option>
-          <option value="Promotion">Promotion</option>
-          <option value="Flight Update">Flight Update</option>
-        </select>
-      </div>
-      <div className="flex flex-col">
-        <label className="text-gray-700">Date Range</label>
-        <input
-          type="date"
-          name="startDate"
-          value={filters.startDate}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg p-2"
-        />
-        <input
-          type="date"
-          name="endDate"
-          value={filters.endDate}
-          onChange={handleChange}
-          className="border border-gray-300 rounded-lg p-2 mt-2"
-        />
-      </div>
     </div>
   );
 }
