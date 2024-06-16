@@ -3,9 +3,12 @@ import { thunk } from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducers from "./reducers/authReducers";
+import flightReducers from "./reducers/flightReducers";
 
+//Reducernya disini
 const rootReducers = combineReducers({
   auth: authReducers,
+  flights: flightReducers
 });
 
 const persistConfig = {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -137,8 +138,8 @@ export function Pencarian() {
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center sm:justify-end sm:items-center p-4">
-                      <span className="text-[#00B7C2] text-lg font-bold mt-2 sm:mt-0"> Rp {flight.price}</span>
-                      <Link to={`/detailtiket/${flight.flight_id}`} className="block text-center bg-gray-600 hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0">
+                      <span className="text-[#00B7C2] text-lg font-bold mt-2 sm:mt-0"> Rp. {flight.total_price.toLocaleString("id-ID")}</span>
+                      <Link to={`/detail/${flight.flight_id}`} className="block text-center bg-gray-600 hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0">
                         Lihat Detail
                       </Link>
                     </div>

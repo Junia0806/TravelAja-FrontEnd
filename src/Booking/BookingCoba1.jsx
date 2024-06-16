@@ -22,6 +22,7 @@ const BookingStep1 = () => {
   console.log("flight :>> ", flight);
   console.log("seat class id :>> ", flight?.seat_class_id);
   console.log("seats :>> ", seats);
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -54,31 +55,52 @@ const BookingStep1 = () => {
   const handleBooking = async (e) => {
     e.preventDefault();
     try {
-      const responsebooking = await axios.post(
+      const responseBooking = await axios.post(
         "https://expressjs-develop.up.railway.app/api/v1/booking",
-        { flight_id: id.id }, //kirim request
+        { flight_id: id.id },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // header Authorization dengan token
+            Authorization: `Bearer ${token}`,
           },
+          
         }
       );
-      console.log("Response booking", responsebooking.data);
-      console.log("Response message", responsebooking.data.message);
-      console.log(
-        "Response booking.booking_code",
-        responsebooking.data.data.booking_code
-      );
-      console.log(
-        "Response booking.booking_id",
-        responsebooking.data.data.booking_id
-      );
+
+      console.log("Response booking", responseBooking.data);
+      const bookingId = responseBooking.data.data.booking_id; // Ambil booking_id dari respons
+      console.log('data.data.booking_id :>> ', responseBooking.data.data.booking_id);
+
+      const passengerPromises = passengers.map(async (passenger) => {
+        const responsePassenger = await axios.post(
+          "https://expressjs-develop.up.railway.app/api/v1/passenger",
+          {
+            fullname: passenger.fullName,
+            passenger_type: passenger.passengerType,
+            born_date: passenger.birthDate,
+            identity_number: passenger.idNumber,
+            booking_id: bookingId, // Gunakan bookingId dari booking sebelumnya
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return responsePassenger.data.data.passenger_id;
+      });
+  
+      const passengerIds = await Promise.all(passengerPromises);
+      console.log("Passenger IDs:", passengerIds);
+  
+      // navigate("/bayar", { state: { bookingId, passengerIds } });
     } catch (error) {
       console.error("Error during booking:", error);
-      console.error("Error response from server:", error.response.data);
+      console.error("Error response from server:", error.response?.data);
     }
   };
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -102,18 +124,6 @@ const BookingStep1 = () => {
     setPassengers(passengers.filter((passenger) => passenger.id !== id));
   };
 
-  const handlePassengerChange = (index, event) => {
-    const { name, value } = event.target;
-    setPassengers((prevPassengers) => {
-      const updatedPassengers = [...prevPassengers];
-      updatedPassengers[index] = {
-        ...updatedPassengers[index],
-        [name]: value
-      };
-      return updatedPassengers;
-    });
-  };
-  
   return (
     <div className="m-5 lg:mx-20 md:mx-0">
       {/* Tampilan Step Header */}
@@ -167,10 +177,6 @@ const BookingStep1 = () => {
                         name={`fullName${index}`}
                         id={`fullName${index}`}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={passenger.fullName || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
                         required
                       />
                     </div>
@@ -185,10 +191,6 @@ const BookingStep1 = () => {
                         type="date"
                         name={`birthDate${index}`}
                         id={`birthDate${index}`}
-                        value={passenger.birthDate || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                       />
@@ -204,10 +206,6 @@ const BookingStep1 = () => {
                         type="text"
                         name={`idNumber${index}`}
                         id={`idNumber${index}`}
-                        value={passenger.idNumber || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                       />
@@ -218,12 +216,8 @@ const BookingStep1 = () => {
                       </label>
                       <div className="relative">
                         <select
-                          name={`passengerType`}
+                          name={`passengerType${index}`}
                           className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                          value={passenger.passengerType || "adult"}
-                          onChange={(event) =>
-                            handlePassengerChange(index, event)
-                          }
                         >
                           <option value="adult">Dewasa</option>
                           <option value="child">Anak-anak</option>

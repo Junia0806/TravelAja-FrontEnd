@@ -1,40 +1,19 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import foto from "../assets/destinasi/destinasi.jpg";
+import { fetchFlightDetail } from "../Redux/actions/flightAction";
 import { FaPlane } from "react-icons/fa";
 
-const DetailFav = () => {
-  const data = useParams();
-  const [flight, setFlight] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  console.log("id :>> ", data.id);
-  console.log("flight :>> ", flight);
+const DetailPenerbangan = () => {
+  const idFlight = useParams();
+  const dispatch = useDispatch();
+  const flight = useSelector((state) => state.flights.data);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/flights/${data.id}`
-        );
-        setFlight(response.data.data);
-        setIsLoading(false);
-        console.log("response data", response.data.data);
-      } catch (error) {
-        console.error("Error", error);
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, [data]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+    dispatch(fetchFlightDetail(idFlight.id));
+  }, [dispatch, idFlight.id]);
 
   if (!flight) {
     return <div>Data tidak ditemukan</div>;
@@ -54,10 +33,8 @@ const DetailFav = () => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
-
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-
     return `${hours} jam ${minutes} menit`;
   };
 
@@ -80,7 +57,7 @@ const DetailFav = () => {
 
         <div className="relative p-8">
           <img
-            src={flight?.airlines?.url_logo || foto}
+            src={flight?.airlines?.url_logo}
             alt="Logo Maskapai"
             className="absolute top-0 left-0 w-full h-full object-cover opacity-20"
           />
@@ -98,19 +75,26 @@ const DetailFav = () => {
                   {flight?.flight_id}
                 </span>
               </p>
-              <p className="text-gray-600">
-                Harga:{" "}
-                <span className="font-bold text-gray-900">
-                  Rp {flight.total_price}
-                </span>{" "}
-                <span className="line-through text-gray-500">
-                  Rp {flight.price}
-                </span>
-              </p>
+              <div className="text-gray-600">
+                {flight.price === flight.total_price ? (
+                  <span className="font-bold text-gray-900">
+                    Harga: Rp.{flight.total_price.toLocaleString("id-ID")}
+                  </span>
+                ) : (
+                  <>
+                    <p className="text-gray-500 line-through">
+                      Harga Normal: Rp.{flight.price.toLocaleString("id-ID")}
+                    </p>
+                    <p className="text-red-600 font-bold text-lg">
+                      Harga Diskon: Rp.
+                      {flight.total_price.toLocaleString("id-ID")}
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
-
         <hr className="border-gray-300" />
         <div className="px-8 md:px-16 py-4 md:py-8 grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="flex flex-col">
@@ -185,13 +169,13 @@ const DetailFav = () => {
 
         <div className="flex justify-center space-x-4 mb-6">
           <Link
-            to="/home"
+            to="/"
             className="flex justify-center items-center w-1/3 text-center bg-[#00B7C2] hover:bg-[#00b8c2e5] text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >
             Kembali
           </Link>
           <Link
-            to={`/booking/${data.id}`}
+            to={`/booking/${idFlight.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >
             Pesan Penerbangan
@@ -202,4 +186,4 @@ const DetailFav = () => {
   );
 };
 
-export default DetailFav;
+export default DetailPenerbangan;

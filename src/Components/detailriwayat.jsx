@@ -165,7 +165,7 @@ const DetailRiwayat = () => {
                   <Link to="/riwayatpesanan" className="flex-grow text-center bg-gray-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-gray-800 focus:outline-none mx-2">
                     Kembali
                   </Link>
-                  <Link className="flex-grow text-center bg-green-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-gray-800 focus:outline-none mx-2">Cetak Tiket</Link>
+                  <Link to="/tiket" className="flex-grow text-center bg-green-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-gray-800 focus:outline-none mx-2">Cetak Tiket</Link>
                   {/* <Link className="flex-grow text-center bg-red-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-gray-800 focus:outline-none mx-2">Lanjutkan Pembayaran</Link> */}
                 </div>
               </div>
