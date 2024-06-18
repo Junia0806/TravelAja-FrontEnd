@@ -20,7 +20,14 @@ function NotificationsPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    setNotifications(data);
+    // Load read status from Local Storage
+    const readStatus =
+      JSON.parse(localStorage.getItem("readNotifications")) || {};
+    const updatedData = data?.map((notification) => ({
+      ...notification,
+      whenRead: readStatus[notification.id] || notification.whenRead,
+    }));
+    setNotifications(updatedData);
   }, [data]);
 
   useEffect(() => {
@@ -29,7 +36,9 @@ function NotificationsPage() {
     // Filter by status
     if (filters.status) {
       filtered = filtered.filter((notification) =>
-        filters.status === "read" ? notification.isRead : !notification.isRead
+        filters.status === "read"
+          ? notification.whenRead
+          : !notification.whenRead
       );
     }
 
@@ -46,12 +55,18 @@ function NotificationsPage() {
   };
 
   const handleCardClick = (notificationId) => {
-    const updatedNotifications = notifications.map((notification) =>
+    const updatedNotifications = notifications?.map((notification) =>
       notification.id === notificationId
-        ? { ...notification, isRead: true }
+        ? { ...notification, whenRead: true }
         : notification
     );
     setNotifications(updatedNotifications);
+
+    // Save read status to Local Storage
+    const readStatus =
+      JSON.parse(localStorage.getItem("readNotifications")) || {};
+    readStatus[notificationId] = true;
+    localStorage.setItem("readNotifications", JSON.stringify(readStatus));
   };
 
   const handleSearchInputChange = (e) => {
@@ -92,7 +107,7 @@ function NotificationsPage() {
             key={notification.id}
             onClick={() => handleCardClick(notification.id)}
             className={`flex items-start p-4 rounded-lg shadow-md cursor-pointer ${
-              notification.isRead ? "bg-gray-100" : "bg-white"
+              notification.whenRead ? "bg-gray-100" : "bg-white"
             }`}
           >
             <div className="flex-1">
@@ -101,7 +116,7 @@ function NotificationsPage() {
               </div>
               <div className="text-gray-900">{notification.message}</div>
             </div>
-            {!notification.isRead && (
+            {!notification.whenRead && (
               <div className="ml-4 w-3 h-3 bg-red-600 rounded-full"></div>
             )}
           </div>

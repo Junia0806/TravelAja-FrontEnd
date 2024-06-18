@@ -27,6 +27,7 @@ import Tiket from "./Pages/TiketPage.jsx";
 import Home1 from "./Pages/Coba1.jsx";
 import BookingStep1 from "./Booking/BookingStep1.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
+import Protected from "./Components/Protected.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -65,7 +66,14 @@ const App = () => {
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path="/coba1" element={<Home1 />} />
-        <Route path="/detail/:id" element={<DetailPenerbangan />} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Protected>
+              <DetailPenerbangan />
+            </Protected>
+          }
+        />
         {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
         <Route path="/booking/:id" element={<BookingStep1 />} />
         <Route path="/detailriwayat" element={<DetailRiwayat />} />

@@ -137,13 +137,11 @@ const Home = () => {
   const formatResult = (item) => {
     return (
       <div className="flex flex-col">
-        <span className="text-gray-600 text-sm">
-         {item.name}
-        </span>
+        <span className="text-gray-600 text-sm">{item.name}</span>
       </div>
     );
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
