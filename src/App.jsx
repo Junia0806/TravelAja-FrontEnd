@@ -24,6 +24,7 @@ import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
 import Tiket from "./Pages/TiketPage.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
+import Protected from "./Components/Protected.jsx";
 import Proces from "./Booking/BookingStep1.jsx";
 import Bayar from "./Booking/BookingStep2.jsx";
 
@@ -64,10 +65,26 @@ const App = () => {
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
-        <Route path="/detail/:id" element={<DetailPenerbangan />} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Protected>
+              <DetailPenerbangan />
+            </Protected>
+          }
+        />
+        {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
+        <Route path="/booking/:id" element={<BookingStep1 />} />
         <Route path="/detailriwayat" element={<DetailRiwayat />} />
         <Route path="/pencarian" element={<Pencarian />} />
-        <Route path="/riwayat" element={<RiwayatPemesanan />} />
+        <Route
+          path="/riwayat"
+          element={
+            <Protected>
+              <RiwayatPemesanan />
+            </Protected>
+          }
+        />
         <Route path="/tiket" element={<Tiket />} />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
