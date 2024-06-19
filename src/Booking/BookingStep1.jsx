@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSeat } from "../Redux/actions/flightAction";
-import {proceedToPayment} from "../Redux/actions/bookingActions"
+import { proceedToPayment } from "../Redux/actions/bookingActions";
 import { FaUserPen } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
@@ -11,32 +11,33 @@ import { Link } from "react-router-dom";
 
 function Proces() {
   const dispatch = useDispatch();
-  const seatClassId = useSelector((state) => state.flights.data?.seatclass?.seat_class_id);
+  const seatClassId = useSelector(
+    (state) => state.flights.data?.seatclass?.seat_class_id
+  );
   const seat = useSelector((state) => state.flights.seat);
   const data_flight = useSelector((state) => state.flights.data);
   const token = useSelector((state) => state.auth.token);
-  const dataBooking = useSelector((state) => state.booking?.dataBooking)
-  console.log('dataBooking :>> ', dataBooking);
-  console.log('seat :>> ', seat);
-  console.log('token :>> ', token);
-  
+  const dataBooking = useSelector((state) => state.booking?.dataBooking);
+  console.log("dataBooking :>> ", dataBooking);
+  console.log("seat :>> ", seat);
+  console.log("token :>> ", token);
+
   useEffect(() => {
     if (seatClassId) {
       dispatch(fetchSeat(seatClassId));
     }
   }, [dispatch, seatClassId]);
 
- 
   const [passengers, setPassengers] = useState([
     {
       fullname: "junia",
-      passenger_type: "Adult", 
+      passenger_type: "Adult",
       born_date: "2003-06-08",
       identity_number: "35151148060001",
       seat_id: 0,
     },
   ]);
- 
+
   const handleChange = (index, event) => {
     const { name, value } = event.target;
     const updatedPassengers = [...passengers];
@@ -107,13 +108,12 @@ function Proces() {
     });
   };
 
- 
   const handleAddPassenger = () => {
     setPassengers([
       ...passengers,
       {
         fullname: "",
-        passenger_type: "Adult", 
+        passenger_type: "Adult",
         born_date: "",
         identity_number: "",
         seat_id: 0,

@@ -15,7 +15,7 @@ import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
-import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
+import RiwayatPemesanan from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import DetailRiwayat from "./Components/detailriwayat.jsx";
 import Sukses from "./Status/SuksesPage.jsx";
@@ -74,7 +74,7 @@ const App = () => {
           }
         />
         {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
-        <Route path="/booking/:id" element={<BookingStep1 />} />
+        <Route path="/booking/:id" element={<Proces />} />
         <Route path="/detailriwayat" element={<DetailRiwayat />} />
         <Route path="/pencarian" element={<Pencarian />} />
         <Route

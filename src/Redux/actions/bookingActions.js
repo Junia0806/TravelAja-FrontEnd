@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "axios";
 import { setDataBooking } from "../reducers/bookingReducers";
+import { setDataHistory } from "../reducers/bookingReducers";
 
 export const proceedToPayment = (payload, token) => async (dispatch) => {
   try {
@@ -36,5 +37,25 @@ export const proceedToPayment = (payload, token) => async (dispatch) => {
       title: "Booking Failed",
       text: "There was an error processing your booking. Please try again later.",
     });
+  }
+};
+
+export const fetchBookingHistory = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    const res = await axios.get(
+      `https://expressjs-develop.up.railway.app/api/v1/booking/history`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(setDataHistory(res.data.data));
+    console.log("responseHistory", res);
+  } catch (error) {
+    console.error("Error fetching booking history:", error);
   }
 };
