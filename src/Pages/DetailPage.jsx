@@ -175,7 +175,7 @@ const DetailPenerbangan = () => {
             Kembali
           </Link>
           <Link
-            to={`/booking/${idFlight.id}`}
+            to={`/proces/${idFlight.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >
             Pesan Penerbangan
