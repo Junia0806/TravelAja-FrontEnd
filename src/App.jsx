@@ -78,7 +78,14 @@ const App = () => {
         <Route path="/booking/:id" element={<BookingStep1 />} />
         <Route path="/detailriwayat" element={<DetailRiwayat />} />
         <Route path="/pencarian" element={<Pencarian />} />
-        <Route path="/riwayat" element={<RiwayatPemesanan />} />
+        <Route
+          path="/riwayat"
+          element={
+            <Protected>
+              <RiwayatPemesanan />
+            </Protected>
+          }
+        />
         <Route path="/tiket" element={<Tiket />} />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}

@@ -44,6 +44,8 @@ const Home = () => {
       if (location.state.info) toast.info(location.state.info);
       else if (location.state.success) {
         toast.success(location.state.success);
+      } else if (location.state.warning) {
+        toast.warning(location.state.warning);
       }
       navigate(".", { replace: false });
     }

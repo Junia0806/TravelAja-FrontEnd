@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getMe } from "../Redux/actions/authActions";
-import { toast } from "react-toastify";
 
 function Protected({ children }) {
   const navigate = useNavigate();
@@ -12,8 +11,12 @@ function Protected({ children }) {
 
   useEffect(() => {
     if (!token) {
-      toast.warning("Login Terlebih Dahulu !");
-      return navigate("/");
+      navigate("/", {
+        state: {
+          warning: "Login Terlebih Dahulu !",
+        },
+      });
+      return;
     }
 
     // get user information
