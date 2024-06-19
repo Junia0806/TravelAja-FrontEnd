@@ -22,7 +22,7 @@ export const getMe =
       if (!token) return;
 
       const response = await axios.get(
-        `https://expressjs-develop.up.railway.app/api/v1/profile`,
+        `https://expressjs-develop.up.railway.app/api/v1/user/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ export const login = (data, navigate) => async (dispatch) => {
   try {
     let config = {
       method: "post",
-      url: `https://expressjs-develop.up.railway.app/api/v1/login`,
+      url: `https://expressjs-develop.up.railway.app/api/v1/user/login`,
       headers: {
         "Content-Type": "application/json",
       },

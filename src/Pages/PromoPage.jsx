@@ -79,7 +79,7 @@ const FlightPromo = () => {
                   </div>
                   <img
                     src={data.airlines?.url_logo}
-                    className="w-full h-40 object-cover"
+                    className="max-h-full max-w-full object-contain" 
                     alt="Airline Logo"
                   />
                   <div className="p-4">

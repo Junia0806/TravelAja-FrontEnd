@@ -25,21 +25,21 @@ const Sukses = () => {
           <div className="absolute w-full bg-[#00B7C2] h-1"></div>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center mt-6 min-h-screen">
-        <h1 className="text-gray-800 text-3xl font-bold mb-4">Selamat</h1>
-        <p className="text-2xl text-gray-800 pb-12 text-center">
-          Yeay! Pemesanan Tiket Berhasil
+      <div className="flex flex-col items-center justify-center mt-6 min-h-screen bg-gray-50 p-6">
+        <h1 className="text-gray-800 text-4xl font-extrabold mb-4">Selamat!</h1>
+        <p className="text-2xl text-gray-700 pb-12 text-center">
+          🎉 Yeay! Pemesanan Tiket Anda Berhasil 🎉
         </p>
         <img
-          className="h-72 w-auto mx-auto rounded-lg mb-4"
+          className="h-72 w-auto mx-auto rounded-lg  mb-6"
           src={bg}
           alt="Background Image"
         />
         <Link
           to="/tiket"
-          className="block text-center bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
+          className="block text-center bg-[#00B7C2] text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B7C2]"
         >
-          Cetak Tiket
+          Cetak Tiket Anda
         </Link>
       </div>
     </div>

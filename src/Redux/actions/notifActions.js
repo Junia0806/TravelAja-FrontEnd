@@ -7,7 +7,7 @@ export const notificationsAll = () => async (dispatch, getState) => {
     const { token } = getState().auth;
     let config = {
       method: "get",
-      url: `https://expressjs-develop.up.railway.app/api/v1/notification-user`,
+      url: `https://expressjs-develop.up.railway.app/api/v1/notification/user`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
