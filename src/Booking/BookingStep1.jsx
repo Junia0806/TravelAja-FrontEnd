@@ -1,88 +1,148 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSeat } from "../Redux/actions/flightAction";
+import {proceedToPayment} from "../Redux/actions/bookingActions"
 import { FaUserPen } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
-const BookingStep1 = () => {
-  const id = useParams();
-  const [flight, setFlight] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+function Proces() {
+  const dispatch = useDispatch();
+  const seatClassId = useSelector((state) => state.flights.data?.seatclass?.seat_class_id);
+  const seat = useSelector((state) => state.flights.seat);
+  const data_flight = useSelector((state) => state.flights.data);
   const token = useSelector((state) => state.auth.token);
-  const [seats, setSeats] = useState([]); // State untuk menyimpan data kursi
-  const [passengers, setPassengers] = useState([{ id: 1 }]);
-
-  console.log("token :>> ", token);
-  console.log("id.id :>> ", id.id);
-  console.log("flight :>> ", flight);
-  console.log("seat class id :>> ", flight?.seat_class_id);
-  console.log("seats :>> ", seats);
-
+  const dataBooking = useSelector((state) => state.booking?.dataBooking)
+  console.log('dataBooking :>> ', dataBooking);
+  console.log('seat :>> ', seat);
+  console.log('token :>> ', token);
+  
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const responseFlight = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/flights/${id.id}`
-        );
-        const flightData = responseFlight.data.data;
-        setFlight(flightData);
-        console.log("Flight data:", flightData);
+    if (seatClassId) {
+      dispatch(fetchSeat(seatClassId));
+    }
+  }, [dispatch, seatClassId]);
 
-        // Ambil seat_class_id dari flight data
-        const seatClassId = flightData.seat_class_id;
+ 
+  const [passengers, setPassengers] = useState([
+    {
+      fullname: "junia",
+      passenger_type: "Adult", 
+      born_date: "2003-06-08",
+      identity_number: "35151148060001",
+      seat_id: 0,
+    },
+  ]);
+ 
+  const handleChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedPassengers = [...passengers];
 
-        // Gunakan seatClassId untuk request ke endpoint seat
-        const responseSeats = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/seat/${seatClassId}`
-        );
-        setSeats(responseSeats.data.data);
-        console.log("Seat data:", responseSeats.data.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
+    if (name === "seat_id") {
+      const selectedSeatId = parseInt(value, 10);
+      const isSeatAlreadySelected = passengers.some(
+        (passenger, idx) =>
+          passenger.seat_id === selectedSeatId && idx !== index
+      );
+
+      if (isSeatAlreadySelected) {
+        Swal.fire({
+          icon: "error",
+          title: "Kursi yang dipilih tidak boleh sama",
+          text: "Silakan pilih kursi yang berbeda.",
+        });
+        return;
       }
-    }
-    fetchData();
-  }, [id, token]);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
-    try {
-      const responsebooking = await axios.post(
-        "https://expressjs-develop.up.railway.app/api/v1/booking",
-        { flight_id: id.id }, //kirim request
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // header Authorization dengan token
-          },
-        }
-      );
-      console.log("Response booking", responsebooking.data);
-      console.log("Response message", responsebooking.data.message);
-      console.log(
-        "Response booking.booking_code",
-        responsebooking.data.data.booking_code
-      );
-      console.log(
-        "Response booking.booking_id",
-        responsebooking.data.data.booking_id
-      );
-    } catch (error) {
-      console.error("Error during booking:", error);
-      console.error("Error response from server:", error.response.data);
+      updatedPassengers[index][name] = selectedSeatId;
+    } else {
+      updatedPassengers[index][name] = value;
     }
+
+    setPassengers(updatedPassengers);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      flight_id: data_flight.flight_id,
+      passengers,
+    };
+
+    // Validasi semua data penumpang sudah benar
+    const isDataValid = passengers.every(
+      (passenger) =>
+        passenger.fullname &&
+        passenger.born_date &&
+        passenger.identity_number &&
+        passenger.seat_id !== 0
+    );
+
+    if (!isDataValid) {
+      Swal.fire({
+        icon: "error",
+        title: "Data penumpang belum lengkap",
+        text: "Silakan lengkapi semua data penumpang sebelum melanjutkan.",
+      });
+      return;
+    }
+
+    // Jika semua data sudah lengkap, tampilkan konfirmasi
+    Swal.fire({
+      title: "Apakah data yang anda inputkan sudah benar?",
+      text: "Periksa kembali sebelum melanjutkan ke pembayaran.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Lanjut ke Pembayaran",
+      cancelButtonText: "Periksa Kembali",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(proceedToPayment(payload, token));
+      }
+    });
+  };
+
+ 
+  const handleAddPassenger = () => {
+    setPassengers([
+      ...passengers,
+      {
+        fullname: "",
+        passenger_type: "Adult", 
+        born_date: "",
+        identity_number: "",
+        seat_id: 0,
+      },
+    ]);
+  };
+
+  const removePassenger = (index) => {
+    Swal.fire({
+      title: "Apakah anda yakin ingin menghapus penumpang ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedPassengers = [...passengers];
+        updatedPassengers.splice(index, 1);
+        setPassengers(updatedPassengers);
+        Swal.fire({
+          icon: "success",
+          title: "Penumpang berhasil dihapus",
+          confirmButtonText: "OK",
+        });
+      }
+    });
+  };
 
   const formatTime = (timeString) => {
     const options = { hour: "2-digit", minute: "2-digit", hour12: false };
@@ -94,26 +154,6 @@ const BookingStep1 = () => {
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  const addPassenger = () => {
-    setPassengers([...passengers, { id: passengers.length + 1 }]);
-  };
-
-  const removePassenger = (id) => {
-    setPassengers(passengers.filter((passenger) => passenger.id !== id));
-  };
-
-  const handlePassengerChange = (index, event) => {
-    const { name, value } = event.target;
-    setPassengers((prevPassengers) => {
-      const updatedPassengers = [...prevPassengers];
-      updatedPassengers[index] = {
-        ...updatedPassengers[index],
-        [name]: value
-      };
-      return updatedPassengers;
-    });
-  };
-  
   return (
     <div className="m-5 lg:mx-20 md:mx-0">
       {/* Tampilan Step Header */}
@@ -138,8 +178,7 @@ const BookingStep1 = () => {
         <div className="container mx-auto p-4 ">
           <div className="max-w-lg mx-auto overflow-hidden bg-white shadow-lg rounded-lg outline-1">
             {passengers.map((passenger, index) => (
-              <div key={passenger.id} className="mb-4">
-                {/* Data Diri Penumpang */}
+              <div key={index} className="mb-4">
                 <div>
                   <div className="bg-gray-500 text-white py-3 px-4 flex justify-between items-center">
                     <p className="text-l font-semibold">
@@ -147,7 +186,7 @@ const BookingStep1 = () => {
                     </p>
                     {index > 0 && (
                       <button
-                        onClick={() => removePassenger(passenger.id)}
+                        onClick={() => removePassenger(index)}
                         className="bg-red-500 text-white font-bold py-1 px-2 rounded hover:bg-red-700 focus:outline-none"
                       >
                         Hapus Penumpang
@@ -156,58 +195,40 @@ const BookingStep1 = () => {
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor={`fullName${index}`}
-                      >
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
                         Nama Lengkap
                       </label>
                       <input
                         type="text"
-                        name={`fullName${index}`}
-                        id={`fullName${index}`}
+                        name="fullname"
+                        value={passenger.fullname}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={passenger.fullName || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
+                        onChange={(event) => handleChange(index, event)}
                         required
                       />
                     </div>
                     <div className="mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor={`birthDate${index}`}
-                      >
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
                         Tanggal Lahir
                       </label>
                       <input
                         type="date"
-                        name={`birthDate${index}`}
-                        id={`birthDate${index}`}
-                        value={passenger.birthDate || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
+                        name="born_date"
+                        value={passenger.born_date}
+                        onChange={(event) => handleChange(index, event)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                       />
                     </div>
                     <div className="mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor={`idNumber${index}`}
-                      >
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
                         No KTP atau Paspor
                       </label>
                       <input
                         type="text"
-                        name={`idNumber${index}`}
-                        id={`idNumber${index}`}
-                        value={passenger.idNumber || ""}
-                        onChange={(event) =>
-                          handlePassengerChange(index, event)
-                        }
+                        name="identity_number"
+                        value={passenger.identity_number}
+                        onChange={(event) => handleChange(index, event)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                       />
@@ -218,64 +239,43 @@ const BookingStep1 = () => {
                       </label>
                       <div className="relative">
                         <select
-                          name={`passengerType`}
                           className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                          value={passenger.passengerType || "adult"}
-                          onChange={(event) =>
-                            handlePassengerChange(index, event)
-                          }
+                          name="passenger_type"
+                          value={passenger.passenger_type}
+                          onChange={(event) => handleChange(index, event)}
                         >
                           <option value="adult">Dewasa</option>
                           <option value="child">Anak-anak</option>
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                          <svg
-                            className="fill-current h-4 w-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                          </svg>
-                        </div>
                       </div>
                     </div>
                     <div className="mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor={`seatNumber${index}`}
-                      >
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
                         Pilihan Nomor Kursi
                       </label>
                       <div className="relative">
                         <select
-                          name={`seatNumber${index}`}
-                          id={`seatNumber${index}`}
+                          name="seat_id"
+                          value={passenger.seat_id}
+                          onChange={(event) => handleChange(index, event)}
                           className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                         >
-                          <option value="">Pilih Nomor Kursi</option>
-                          {seats.map((seat) => (
+                          <option value={0}>Pilih Nomor Kursi</option>
+                          {seat.data?.map((seatItem) => (
                             <option
-                              key={seat.seat_id}
-                              value={seat.seat_number}
+                              key={seatItem.seat_id}
+                              value={seatItem.seat_id}
                               className={`${
-                                seat.status !== "AVAILABLE" ? "bg-gray-200" : ""
+                                seatItem.status !== "AVAILABLE"
+                                  ? "bg-gray-200"
+                                  : ""
                               }`}
-                              disabled={seat.status !== "AVAILABLE"}
+                              disabled={seatItem.status !== "AVAILABLE"}
                             >
-                              Nomor: {seat.seat_number} | {seat.status}
+                              Nomor: {seatItem.seat_number} | {seatItem.status}
                             </option>
                           ))}
                         </select>
-
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                          <svg
-                            className="fill-current h-4 w-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                          </svg>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,10 +283,10 @@ const BookingStep1 = () => {
               </div>
             ))}
             <Link
-              onClick={addPassenger}
+              onClick={handleAddPassenger}
               className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none"
             >
-              Tambah Penumpang <i className="fa-solid fa-user-plus"></i>
+              Tambah Penumpang
             </Link>
           </div>
         </div>
@@ -300,25 +300,26 @@ const BookingStep1 = () => {
               <div className="mb-6">
                 <span className="block text-gray-600">
                   <i className="fa-solid fa-clock mr-2"></i>
-                  {formatTime(flight?.departure_time)}{" "}
+                  {formatTime(data_flight?.departure_time)}{" "}
                   <i className="fa-solid fa-calendar mr-2"></i>
-                  {formatDate(flight?.departure_time)}
+                  {formatDate(data_flight?.departure_time)}
                 </span>
                 <span className="block text-gray-600">
                   <i className="fa-solid fa-plane-departure mr-2"></i>
-                  {flight?.destination_airport?.airport_name}
+                  {data_flight?.destination_airport?.airport_name}
                 </span>
                 <span className="block text-gray-600">
                   <i className="fa-solid fa-plane-arrival mr-2"></i>
-                  {flight?.arrival_airport?.airport_name}
+                  {data_flight?.arrival_airport?.airport_name}
                 </span>
                 <span className="block text-gray-600">
                   <i className="fa-solid fa-plane mr-2"></i>
-                  {flight?.airlines?.airline_name} | {flight?.flight_id}
+                  {data_flight?.airlines?.airline_name} |{" "}
+                  {data_flight?.flight_id}
                 </span>
                 <span className="block text-gray-600">
                   <i className="fa-solid fa-chair mr-2"></i>
-                  {flight?.seatclass?.seat_class_type}
+                  {data_flight?.seatclass?.seat_class_type}
                 </span>
                 <hr className="border-1 border-gray-200 mt-3"></hr>
               </div>
@@ -327,11 +328,11 @@ const BookingStep1 = () => {
                 <div className="ml-4 text-gray-600">
                   <div>
                     <i className="fa-solid fa-briefcase mr-2"></i>
-                    Kabin: {flight?.airlines?.cabin_baggage} kg
+                    Kabin: {data_flight?.airlines?.cabin_baggage} kg
                   </div>
                   <div>
                     <i className="fa-solid fa-luggage-cart mr-2"></i>
-                    Bagasi: {flight?.airlines?.baggage} kg
+                    Bagasi: {data_flight?.airlines?.baggage} kg
                   </div>
                 </div>
                 <hr className="border-1 border-gray-200 mt-3"></hr>
@@ -350,7 +351,7 @@ const BookingStep1 = () => {
                     <i className="fa-solid fa-ticket mr-2"></i>
                     Harga per Orang:{" "}
                     <span className="text-gray-800 font-semibold">
-                      Rp.{flight.total_price.toLocaleString("id-ID")}
+                      Rp.{data_flight.total_price.toLocaleString("id-ID")}
                     </span>
                   </div>
                   <div className="border-t border-gray-300 mt-2 pt-2">
@@ -358,9 +359,9 @@ const BookingStep1 = () => {
                     Total:{" "}
                     <span className="text-gray-800 font-bold text-xl">
                       Rp.
-                      {(passengers.length * flight.total_price).toLocaleString(
-                        "id-ID"
-                      )}
+                      {(
+                        passengers.length * data_flight.total_price
+                      ).toLocaleString("id-ID")}
                     </span>
                   </div>
                 </div>
@@ -368,13 +369,10 @@ const BookingStep1 = () => {
               <div className="flex justify-center space-x-4 mt-6">
                 <button
                   className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                  onClick={handleBooking}
+                  onClick={handleSubmit}
                 >
                   Lanjut Pembayaran
                 </button>
-                {/* <Link to="/bayar" className="block text-center bg-[#00B7C2] text-white font-bold text-l py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-              Lanjut Pembayaran
-            </Link> */}
               </div>
             </div>
           </div>
@@ -382,6 +380,6 @@ const BookingStep1 = () => {
       </div>
     </div>
   );
-};
+}
 
-export default BookingStep1;
+export default Proces;

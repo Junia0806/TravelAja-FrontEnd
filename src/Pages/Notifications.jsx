@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaFilter, FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";

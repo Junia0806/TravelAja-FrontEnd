@@ -15,19 +15,18 @@ import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
-import Bayar from "./Pages/BayarPage";
 import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import DetailRiwayat from "./Components/detailriwayat.jsx";
-import Sukses from "./Pages/SuksesPage.jsx";
+import Sukses from "./Status/SuksesPage.jsx";
 import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
 import Tiket from "./Pages/TiketPage.jsx";
-import Home1 from "./Pages/Coba1.jsx";
-import BookingStep1 from "./Booking/BookingStep1.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
 import Protected from "./Components/Protected.jsx";
+import Proces from "./Booking/BookingStep1.jsx";
+import Bayar from "./Booking/BookingStep2.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -52,9 +51,10 @@ const App = () => {
     <>
       {!shouldHideHeaderFooter && <Header />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/bayar" element={<Bayar />} />
+        <Route path="/proces/:id" element={<Proces />} />
+        <Route path="/bayar/:id" element={<Bayar />} />
         <Route path="/sukses" element={<Sukses />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/otp" element={<OtpVerification />} />
@@ -65,7 +65,6 @@ const App = () => {
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
-        <Route path="/coba1" element={<Home1 />} />
         <Route
           path="/detail/:id"
           element={
