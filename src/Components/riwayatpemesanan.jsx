@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FaSearch, FaFilter } from "react-icons/fa";
-import { IoPerson } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
+import { IoPerson, IoStatsChartSharp } from "react-icons/io5";
 import { FaLocationDot, FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookingHistory } from "../Redux/actions/bookingActions";
 
@@ -25,27 +24,38 @@ export default function RiwayatPemesanan() {
     setFilter(e.target.value);
   };
 
-  const filteredBooking = bookingHistory
-    ?.filter((pemesanan) => {
-      if (filter === "all") return true;
-      if (filter === "paid") return pemesanan.isPaid;
-      if (filter === "pending") return !pemesanan.isPaid;
-      return true;
-    })
-    .filter((pemesanan) => {
-      if (!search) return true;
-      const searchLower = search.toLowerCase();
-      return (
-        pemesanan.booking_code.toLowerCase().includes(searchLower) ||
-        pemesanan.flight_id.toLowerCase().includes(searchLower) ||
-        pemesanan.flight.destination_airport.airport_name
-          .toLowerCase()
-          .includes(searchLower) ||
-        pemesanan.flight.arrival_airport.airport_name
-          .toLowerCase()
-          .includes(searchLower)
-      );
-    });
+  const formatDate = (dateString) => {
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
+
+  // Ensure bookingHistory is an array before filtering
+  const filteredBooking = Array.isArray(bookingHistory)
+    ? bookingHistory
+        .filter((pemesanan) => {
+          if (filter === "all") return true;
+          if (filter === "paid") return pemesanan?.payment?.status === "PAID";
+          if (filter === "pending")
+            return pemesanan?.payment?.status === "PENDING_PAYMENT";
+          if (filter === "canceled")
+            return pemesanan?.payment?.status === "CANCELLED";
+          return true;
+        })
+        .filter((pemesanan) => {
+          if (!search) return true;
+          const searchLower = search.toLowerCase();
+          return (
+            pemesanan.booking_code.toLowerCase().includes(searchLower) ||
+            pemesanan.flight.flight_id.toLowerCase().includes(searchLower) ||
+            pemesanan.flight.destination_airport.airport_name
+              .toLowerCase()
+              .includes(searchLower) ||
+            pemesanan.flight.arrival_airport.airport_name
+              .toLowerCase()
+              .includes(searchLower)
+          );
+        })
+    : []; // Default to an empty array if bookingHistory is not yet defined
 
   return (
     <div className="w-full">
@@ -62,6 +72,7 @@ export default function RiwayatPemesanan() {
             <option value="all">Semua</option>
             <option value="paid">Lunas</option>
             <option value="pending">Pending</option>
+            <option value="canceled">Dibatalkan</option>
           </select>
           <div className="relative flex-grow">
             <input
@@ -78,7 +89,7 @@ export default function RiwayatPemesanan() {
         </div>
       </div>
 
-      {filteredBooking?.map((pemesanan) => (
+      {filteredBooking.map((pemesanan) => (
         <div
           key={pemesanan.booking_id}
           className="flight-ticket-card shadow-lg border rounded-md px-6 py-4 text-sm text-black dark:text-white font-bold w-full my-4 mx-auto border-opacity-50 max-w-4xl"
@@ -90,7 +101,7 @@ export default function RiwayatPemesanan() {
                 className="h-8 w-8 mr-2 rounded-full"
                 alt="Airlines Logo"
               />
-              {pemesanan.flight_id}
+              {pemesanan.flight.flight_id}
             </p>
             <div className="flex items-center">
               <h1 className="text-gray-700 dark:text-gray-400 font-semibold mr-2">
@@ -110,7 +121,15 @@ export default function RiwayatPemesanan() {
                   {pemesanan.booking_code}
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-4 items-center">
+              <div className="flex items-center justify-between mb-2">
+                <h1 className="text-black font-bold mr-2">
+                  Tanggal Pemesanan:
+                </h1>
+                <p className="text-gray-600 font-semibold">
+                  {formatDate(pemesanan.booking_date)}
+                </p>
+              </div>
+              <div className="grid grid-cols-4 gap-4 items-center">
                 <div className="flex items-center justify-center">
                   <span className="flex items-center mb-2 text-gray-700 dark:text-gray-400 font-semibold">
                     <FaLocationDot className="mr-2" />
@@ -125,14 +144,7 @@ export default function RiwayatPemesanan() {
                   </span>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center">
-                  <span className="flex items-center mb-2 text-gray-700 dark:text-gray-400 font-semibold">
-                    <FaRegCalendarAlt className="mr-2" />
-                    {new Date(pemesanan.booking_date).toLocaleDateString()}
-                  </span>
-                </div>
-              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center">
                   <span className="flex text-gray-500 font-semibold mb-2">
@@ -146,24 +158,36 @@ export default function RiwayatPemesanan() {
               <div className="flex items-center">
                 <span
                   className={`flex items-center mb-2 font-semibold ${
-                    pemesanan.isPaid ? "text-green-500" : "text-red-500"
+                    pemesanan?.payment?.status === "PAID"
+                      ? "text-green-500"
+                      : pemesanan?.payment?.status === "PENDING_PAYMENT"
+                      ? "text-yellow-500"
+                      : "text-red-500"
                   }`}
                 >
-                  Status: {pemesanan.isPaid ? "Lunas" : "Pending Payment"}
+                  <IoStatsChartSharp className="mr-2" />
+                  Status:{" "}
+                  {pemesanan?.payment?.status === "PAID"
+                    ? "Lunas"
+                    : pemesanan?.payment?.status === "PENDING_PAYMENT"
+                    ? "Pending Payment"
+                    : "Dibatalkan"}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center sm:justify-end sm:items-center p-4">
             <Link
-              to="/detailriwayat"
+              to={`/detailriwayat/${pemesanan.booking_code}`}
               className={`block text-center ${
-                pemesanan.isPaid ? "bg-green-500" : "bg-red-500"
+                pemesanan?.payment?.status === "PAID"
+                  ? "bg-green-500"
+                  : pemesanan?.payment?.status === "PENDING_PAYMENT"
+                  ? "bg-yellow-500"
+                  : "bg-red-500"
               } hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0`}
             >
-              {pemesanan.isPaid
-                ? "Pembayaran Berhasil"
-                : "Lanjutkan Pembayaran"}
+              Lihat Detail
             </Link>
           </div>
         </div>

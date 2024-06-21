@@ -75,7 +75,10 @@ const App = () => {
         />
         {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
         <Route path="/booking/:id" element={<Proces />} />
-        <Route path="/detailriwayat" element={<DetailRiwayat />} />
+        <Route
+          path="/detailriwayat/:booking_code"
+          element={<DetailRiwayat />}
+        />
         <Route path="/pencarian" element={<Pencarian />} />
         <Route
           path="/riwayat"

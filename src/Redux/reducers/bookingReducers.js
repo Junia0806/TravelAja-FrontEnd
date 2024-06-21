@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   dataBooking: null,
   dataHistory: [],
+  details: null,
 };
 
 export const bookingSlice = createSlice({

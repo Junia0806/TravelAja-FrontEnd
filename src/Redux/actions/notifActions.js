@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setNotification } from "../reducers/authReducers";
+import { setNotification } from "../reducers/notifReducers";
 
 export const notificationsAll = () => async (dispatch, getState) => {
   try {
