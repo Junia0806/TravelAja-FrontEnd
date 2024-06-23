@@ -27,25 +27,13 @@ import Tiket from "./Pages/TiketPage.jsx";
 import Home1 from "./Pages/Coba1.jsx";
 import BookingStep1 from "./Booking/BookingStep1.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
+import DetailTiket from "./Components/detailtiket.jsx";
 
 const App = () => {
   const location = useLocation();
-  const noHeaderFooterRoutes = [
-    "/login",
-    "/register",
-    "/otp",
-    "/lupa",
-    "/reset",
-    "/admin",
-    "/admin/airports",
-    "/admin/airlines",
-    "/admin/flights",
-    "/admin/promotions",
-  ];
+  const noHeaderFooterRoutes = ["/login", "/register", "/otp", "/lupa", "/reset", "/admin", "/admin/airports", "/admin/airlines", "/admin/flights", "/admin/promotions"];
 
-  const shouldHideHeaderFooter = noHeaderFooterRoutes.includes(
-    location.pathname
-  );
+  const shouldHideHeaderFooter = noHeaderFooterRoutes.includes(location.pathname);
 
   return (
     <>
@@ -72,6 +60,7 @@ const App = () => {
         <Route path="/pencarian" element={<Pencarian />} />
         <Route path="/riwayat" element={<RiwayatPemesanan />} />
         <Route path="/tiket" element={<Tiket />} />
+        <Route path="/detailtiket/:id" element={<DetailTiket />} />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>
