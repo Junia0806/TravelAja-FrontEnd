@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Modal } from "flowbite-react";

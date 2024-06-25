@@ -23,7 +23,6 @@ import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
-import DetailTiket from "./Components/detailtiket.jsx";
 import Protected from "./Components/Protected.jsx";
 import Proces from "./Booking/BookingStep1.jsx";
 import Bayar from "./Booking/BookingStep2.jsx";
@@ -33,9 +32,22 @@ import BoardingPass from "./Pages/TiketPage.jsx";
 
 const App = () => {
   const location = useLocation();
-  const noHeaderFooterRoutes = ["/login", "/register", "/otp", "/lupa", "/reset", "/admin", "/admin/airports", "/admin/airlines", "/admin/flights", "/admin/promotions"];
+  const noHeaderFooterRoutes = [
+    "/login",
+    "/register",
+    "/otp",
+    "/lupa",
+    "/reset",
+    "/admin",
+    "/admin/airports",
+    "/admin/airlines",
+    "/admin/flights",
+    "/admin/promotions",
+  ];
 
-  const shouldHideHeaderFooter = noHeaderFooterRoutes.includes(location.pathname);
+  const shouldHideHeaderFooter = noHeaderFooterRoutes.includes(
+    location.pathname
+  );
 
   return (
     <>
@@ -58,6 +70,7 @@ const App = () => {
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
+        <Route path="/pencarian" element={<Pencarian />} />
         <Route
           path="/detail/:id"
           element={
@@ -66,15 +79,6 @@ const App = () => {
             </Protected>
           }
         />
-        {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
-        <Route path="/booking/:id" element={<Proces />} />
-        <Route
-          path="/detailriwayat/:booking_code"
-          element={<DetailRiwayat />}
-        />
-        <Route path="/pencarian" element={<Pencarian />} />
-        <Route path="/detailtiket/:id" element={<DetailTiket />} />
-
         <Route
           path="/riwayat"
           element={
@@ -82,6 +86,10 @@ const App = () => {
               <RiwayatPemesanan />
             </Protected>
           }
+        />
+          <Route
+          path="/detailriwayat/:booking_code"
+          element={<DetailRiwayat />}
         />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
