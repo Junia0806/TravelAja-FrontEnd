@@ -5,7 +5,6 @@ import {
   setLogin,
   setIsLoggedIn,
   setUser,
-  setNotification,
 } from "../reducers/authReducers";
 
 // Fungsi untuk mendapatkan token dari state Redux
@@ -267,7 +266,6 @@ export const logout = (navigate) => (dispatch) => {
     dispatch(setToken(null));
     dispatch(setIsLoggedIn(false));
     dispatch(setUser(null));
-    dispatch(setNotification(null));
 
     navigate("/", {
       state: {

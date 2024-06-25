@@ -5,12 +5,14 @@ import storage from "redux-persist/lib/storage";
 import authReducers from "./reducers/authReducers";
 import flightReducers from "./reducers/flightReducers";
 import bookingReducers from "./reducers/bookingReducers";
+import notifReducers from "./reducers/notifReducers";
 
 //Reducernya disini
 const rootReducers = combineReducers({
   auth: authReducers,
   flights: flightReducers,
- booking: bookingReducers
+  booking: bookingReducers,
+  notif: notifReducers,
 });
 
 const persistConfig = {

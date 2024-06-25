@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaFilter, FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,7 @@ import NotificationFilter from "../Components/NotificationsFilter";
 
 function NotificationsPage() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.auth.notification);
+  const data = useSelector((state) => state.notif.notification);
   const [filters, setFilters] = useState({
     status: "",
   });
