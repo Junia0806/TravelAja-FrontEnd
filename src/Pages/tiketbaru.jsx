@@ -1,33 +1,25 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 const BoardingPass = () => {
   const printRefs = useRef([]);
-  const bookingCode = useParams();
   const [boardingPassData, setBoardingPassData] = useState(null);
-  const token = useSelector((state) => state.auth.token);
-  console.log("boardingPassData :>> ", boardingPassData);
-  console.log("bookingCode :>> ", bookingCode);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6Im11a2ExMkBuYXZhbGNhZGV0cy5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcxOTA0MDk3NywiZXhwIjoxNzE5MTI3Mzc3fQ.DPg6TtwKf1LzsoZcz3lOjlvZy75zuLYKsHNF94dVKq0"; // Ganti dengan token otorisasi Anda
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
         const response = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/ticket/${bookingCode.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          "https://expressjs-develop.up.railway.app/api/v1/ticket/TVLAJA-000028",
+          config
         );
-
         if (response.status === 200) {
           setBoardingPassData(response.data.data);
         } else {
@@ -41,63 +33,29 @@ const BoardingPass = () => {
     fetchData();
   }, []);
 
-  const formatTime = (timeString) => {
-    const options = { hour: "2-digit", minute: "2-digit", hour12: false };
-    return new Date(timeString).toLocaleTimeString("id-ID", options);
-  };
-
-  const formatDate = (dateString) => {
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    return new Date(dateString).toLocaleDateString("id-ID", options);
-  };
-
-  const generatePDF = async () => {
+  const generatePDF = async (passengerIndex) => {
     if (!boardingPassData || boardingPassData.passengers.length === 0) {
       return;
     }
 
-    for (let i = 0; i < printRefs.current.length; i++) {
-      const element = printRefs.current[i];
-      const { width, height } = element.getBoundingClientRect();
-      const canvas = await html2canvas(element, { scale: 2, width, height });
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        orientation: width > height ? "landscape" : "portrait",
-        unit: "px",
-        format: [width, height],
-      });
-      const logoImg = new Image();
-      logoImg.src = boardingPassData?.flight?.airlines?.url_logo;
-      logoImg.onload = () => {
-        const logoWidth = 2 * 16;
-        const logoHeight = 2 * 16;
-        pdf.addImage(imgData, "PNG", 0, 160, width, height);
-        pdf.addImage(logoImg, "PNG", 14, 40, logoWidth, logoHeight);
-        const qrImg = new Image();
-        qrImg.src = boardingPassData.passengers[i]?.ticket?.url_qrcode;
-        qrImg.onload = () => {
-          pdf.addImage(imgData, "PNG", 0, 60, width, height - 60);
-          pdf.addImage(qrImg, "PNG", width - 200, height - 180, 130, 130);
-          pdf.save(
-            `boarding_pass_${boardingPassData.passengers[i]?.ticket?.ticket_id}.pdf`
-          );
-        };
-      };
-    }
+    const passenger = boardingPassData.passengers[passengerIndex];
+    const element = printRefs.current[passengerIndex];
+    const { width, height } = element.getBoundingClientRect();
+    const pdf = new jsPDF({
+      orientation: width > height ? "landscape" : "portrait",
+      unit: "px",
+      format: [width, height],
+    });
+    const canvas = await html2canvas(element, { scale: 2, width, height });
+    const imgData = canvas.toDataURL("image/png");
+    pdf.addImage(imgData, "PNG", 0, 0, width, height);
+    pdf.save(`boarding_pass_${passenger.ticket.ticket_id}.pdf`);
   };
 
   return (
-    <div className="container max-w-3xl mx-auto my-10 px-4 sm:px-2">
+    <div className="container max-w-3xl mx-auto my-10 p-4">
       {boardingPassData ? (
         <>
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={generatePDF}
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded"
-            >
-              Download Tiket
-            </button>
-          </div>
           {boardingPassData.passengers.map((passenger, index) => (
             <div
               key={index}
@@ -105,8 +63,8 @@ const BoardingPass = () => {
               className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300 mb-6"
             >
               {/* Card 1: Logo and Basic Info */}
-              <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/3 bg-gradient-to-r from-[#007C91] to-[#00B7C2] text-white p-6">
+              <div className="flex">
+                <div className="w-1/3 bg-gradient-to-r from-[#00B7C2] to-[#0097A7] text-white p-6">
                   <h1 className="text-lg font-semibold mb-4 flex items-center">
                     <img
                       src={boardingPassData?.flight?.airlines?.url_logo}
@@ -128,13 +86,12 @@ const BoardingPass = () => {
                     </p>
                     <p className="mb-2">
                       <strong>Kursi:</strong>{" "}
-                      {passenger?.ticket?.seat?.seat_number}
+                      {boardingPassData?.flight?.seatclass?.seat_class_id}
                     </p>
                   </div>
                 </div>
-
                 {/* Card 2: Passenger Info */}
-                <div className="w-full md:w-1/3 p-6 bg-white">
+                <div className="w-1/3 p-6 bg-gray-50">
                   <div className="mb-4">
                     <p className="text-lg font-bold text-gray-800 mb-2">
                       {passenger.ticket.ticket_id}
@@ -146,6 +103,7 @@ const BoardingPass = () => {
                       {passenger?.identity_number}
                     </p>
                     <p className="text-xs text-gray-500">
+                      {" "}
                       {passenger?.passenger_type}
                     </p>
                   </div>
@@ -168,20 +126,16 @@ const BoardingPass = () => {
                   </div>
                   <div className="mb-4">
                     <p className="text-sm text-gray-600 mb-1">
-                      <strong>Keberangkatan:</strong>{" "}
-                      {formatDate(boardingPassData?.flight?.departure_time)}{" "}
-                      {formatTime(boardingPassData?.flight?.departure_time)}
+                      <strong>Keberangkatan:</strong> {passenger.departure}
                     </p>
                     <p className="text-sm text-gray-600">
-                      <strong>Kedatangan:</strong>{" "}
-                      {formatDate(boardingPassData?.flight?.arrival_time)}{" "}
-                      {formatTime(boardingPassData?.flight?.arrival_time)}
+                      <strong>Kedatangan:</strong> {passenger.arrival}
                     </p>
                   </div>
                 </div>
 
                 {/* Card 3: Additional Info and QR Code */}
-                <div className="w-full md:w-1/3 p-6 bg-white flex flex-col justify-between border-l-2 border-dashed border-gray-400">
+                <div className="w-1/3 p-6 bg-gray-50 flex flex-col justify-between border-l-2 border-dashed border-gray-400">
                   <div className="text-sm text-gray-600">
                     <p className="mb-2">
                       <strong>Penerbangan:</strong>{" "}
@@ -201,15 +155,22 @@ const BoardingPass = () => {
                       {boardingPassData?.flight?.arrival_airport?.id})
                     </p>
                   </div>
-                  <img
-                    src={passenger?.ticket?.url_qrcode}
-                    alt="QR Code"
-                    className="max-w-full h-auto"
-                  />
+
+                  <img src={passenger?.ticket?.url_qrcode} alt="QR Code" />
                   <p className="text-xs text-gray-600 text-center">
-                    <strong>{passenger.ticket.ticket_id}</strong>
+                    <strong> {passenger.ticket.ticket_id}</strong>
                   </p>
                 </div>
+              </div>
+
+              {/* Button for PDF Download for this passenger */}
+              <div className="flex justify-end mt-4">
+                <button
+                  onClick={() => generatePDF(index)}
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                >
+                  Download {passenger.ticket.ticket_id}
+                </button>
               </div>
             </div>
           ))}

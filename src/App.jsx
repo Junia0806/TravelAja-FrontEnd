@@ -15,19 +15,21 @@ import NotificationsPage from "./Pages/Notifications.jsx";
 import Home from "./Pages/HomePage";
 import Header from "./Components/Navbar";
 import FooterSection from "./Components/Footer";
-import Bayar from "./Pages/BayarPage";
-import { RiwayatPemesanan } from "./Components/riwayatpemesanan.jsx";
+import RiwayatPemesanan from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import DetailRiwayat from "./Components/detailriwayat.jsx";
-import Sukses from "./Pages/SuksesPage.jsx";
+import Sukses from "./Status/SuksesPage.jsx";
 import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
-import Tiket from "./Pages/TiketPage.jsx";
-import Home1 from "./Pages/Coba1.jsx";
-import BookingStep1 from "./Booking/BookingStep1.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
 import DetailTiket from "./Components/detailtiket.jsx";
+import Protected from "./Components/Protected.jsx";
+import Proces from "./Booking/BookingStep1.jsx";
+import Bayar from "./Booking/BookingStep2.jsx";
+import Cancel from "./Status/CancelPage.jsx";
+import Pending from "./Status/PendingPage.jsx";
+import BoardingPass from "./Pages/TiketPage.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -39,9 +41,13 @@ const App = () => {
     <>
       {!shouldHideHeaderFooter && <Header />}
       <Routes>
+        <Route path="/proces/:id" element={<Proces />} />
+        <Route path="/bayar/:id" element={<Bayar />} />
+        <Route path="/selesai/:id" element={<Sukses />} />
+        <Route path="/cancel/:id" element={<Cancel />} />
+        <Route path="/pending/:id" element={<Pending />} />
+        <Route path="/tiket/:id" element={<BoardingPass />} />
         <Route path="/" element={<Home />} />
-        <Route path="/bayar" element={<Bayar />} />
-        <Route path="/sukses" element={<Sukses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/otp" element={<OtpVerification />} />
@@ -52,15 +58,31 @@ const App = () => {
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
-        <Route path="/coba1" element={<Home1 />} />
-        <Route path="/detail/:id" element={<DetailPenerbangan />} />
+        <Route
+          path="/detail/:id"
+          element={
+            <Protected>
+              <DetailPenerbangan />
+            </Protected>
+          }
+        />
         {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
-        <Route path="/booking/:id" element={<BookingStep1 />} />
-        <Route path="/detailriwayat" element={<DetailRiwayat />} />
+        <Route path="/booking/:id" element={<Proces />} />
+        <Route
+          path="/detailriwayat/:booking_code"
+          element={<DetailRiwayat />}
+        />
         <Route path="/pencarian" element={<Pencarian />} />
-        <Route path="/riwayat" element={<RiwayatPemesanan />} />
-        <Route path="/tiket" element={<Tiket />} />
         <Route path="/detailtiket/:id" element={<DetailTiket />} />
+
+        <Route
+          path="/riwayat"
+          element={
+            <Protected>
+              <RiwayatPemesanan />
+            </Protected>
+          }
+        />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>
