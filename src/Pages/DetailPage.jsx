@@ -155,13 +155,13 @@ const DetailPenerbangan = () => {
             <p className="text-gray-600">
               <i className="fa-solid fa-suitcase mr-2"></i>Bagasi:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.baggage} kg
+                {flight?.airlines?.baggage}
               </span>
             </p>
             <p className="text-gray-600">
               <i className="fa-solid fa-box mr-2"></i>Kabin:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.cabin_baggage} kg
+                {flight?.airlines?.cabin_baggage} 
               </span>
             </p>
           </div>

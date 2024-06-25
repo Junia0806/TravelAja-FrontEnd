@@ -22,11 +22,13 @@ import Sukses from "./Status/SuksesPage.jsx";
 import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
-import Tiket from "./Pages/TiketPage.jsx";
 import DetailPenerbangan from "./Pages/DetailPage.jsx";
 import Protected from "./Components/Protected.jsx";
 import Proces from "./Booking/BookingStep1.jsx";
 import Bayar from "./Booking/BookingStep2.jsx";
+import Cancel from "./Status/CancelPage.jsx";
+import Pending from "./Status/PendingPage.jsx";
+import BoardingPass from "./Pages/TiketPage.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -53,7 +55,10 @@ const App = () => {
       <Routes>
         <Route path="/proces/:id" element={<Proces />} />
         <Route path="/bayar/:id" element={<Bayar />} />
-        <Route path="/sukses" element={<Sukses />} />
+        <Route path="/selesai/:id" element={<Sukses />} />
+        <Route path="/cancel/:id" element={<Cancel />} />
+        <Route path="/pending/:id" element={<Pending />} />
+        <Route path="/tiket/:id" element={<BoardingPass />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -88,7 +93,7 @@ const App = () => {
             </Protected>
           }
         />
-        <Route path="/tiket" element={<Tiket />} />
+      
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>

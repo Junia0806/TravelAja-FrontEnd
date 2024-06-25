@@ -21,7 +21,6 @@ export const fetchFlightDetail = (idFlight) => async (dispatch) => {
      `https://expressjs-develop.up.railway.app/api/v1/flights/id/${idFlight}`
     );
     dispatch(setFlight(responsedetail.data.data));
-    console.log('response.data.data :>> ', responsedetail.data);
    } catch (error) {
       console.error("Error", error);
       dispatch(setLoading(false));
@@ -35,7 +34,6 @@ export const fetchSeat = (seatClassId) => async (dispatch) => {
      `https://expressjs-develop.up.railway.app/api/v1/seat/${seatClassId}`
     );
     dispatch(setSeat(responseSeat.data));
-    console.log('response.data :>> ', responseSeat.data);
    } catch (error) {
       console.error("Error", error);
       dispatch(setLoading(false));
