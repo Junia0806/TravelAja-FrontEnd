@@ -169,12 +169,6 @@ const DetailPenerbangan = () => {
 
         <div className="flex justify-center space-x-4 mb-6">
           <Link
-            to="/"
-            className="flex justify-center items-center w-1/3 text-center bg-[#00B7C2] hover:bg-[#00b8c2e5] text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
-          >
-            Kembali
-          </Link>
-          <Link
             to={`/proces/${idFlight.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >

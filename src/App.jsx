@@ -70,6 +70,7 @@ const App = () => {
         <Route path="/tentang" element={<About />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
+        <Route path="/pencarian" element={<Pencarian />} />
         <Route
           path="/detail/:id"
           element={
@@ -78,13 +79,6 @@ const App = () => {
             </Protected>
           }
         />
-        {/* <Route path="/booking/:id" element={<DataDiri />} /> */}
-        <Route path="/booking/:id" element={<Proces />} />
-        <Route
-          path="/detailriwayat/:booking_code"
-          element={<DetailRiwayat />}
-        />
-        <Route path="/pencarian" element={<Pencarian />} />
         <Route
           path="/riwayat"
           element={
@@ -93,7 +87,10 @@ const App = () => {
             </Protected>
           }
         />
-      
+          <Route
+          path="/detailriwayat/:booking_code"
+          element={<DetailRiwayat />}
+        />
       </Routes>
       {!shouldHideHeaderFooter && <FooterSection />}
     </>
