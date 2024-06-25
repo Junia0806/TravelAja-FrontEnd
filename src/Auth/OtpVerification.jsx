@@ -11,7 +11,7 @@ const OtpVerification = () => {
   const navigate = useNavigate();
   const email = location?.state?.email;
   const [otp, setOtp] = useState(new Array(6).fill());
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(30);
 
   useEffect(() => {
     if (location.state) {

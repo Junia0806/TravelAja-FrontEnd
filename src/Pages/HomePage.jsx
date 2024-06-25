@@ -44,6 +44,8 @@ const Home = () => {
       if (location.state.info) toast.info(location.state.info);
       else if (location.state.success) {
         toast.success(location.state.success);
+      } else if (location.state.warning) {
+        toast.warning(location.state.warning);
       }
       navigate(".", { replace: false });
     }
@@ -137,13 +139,11 @@ const Home = () => {
   const formatResult = (item) => {
     return (
       <div className="flex flex-col">
-        <span className="text-gray-600 text-sm">
-         {item.name}
-        </span>
+        <span className="text-gray-600 text-sm">{item.name}</span>
       </div>
     );
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -280,7 +280,7 @@ const Home = () => {
             </div>
           </form>
         </div>
-
+        
         {/* modal untuk bandara asal */}
         <Modal show={openModalAsal} onClose={() => setOpenModalAsal(false)}>
           <Modal.Header>Cari Bandara Keberangkatan</Modal.Header>

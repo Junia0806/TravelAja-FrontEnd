@@ -1,18 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
 import Logo from "../assets/Logo.png";
 import { FaUser, FaBell } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout, getMe } from "../Redux/actions/authActions";
-
-
+import Swal from "sweetalert2";
 const Header = () => {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +17,21 @@ const Header = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    dispatch(logout(navigate));
+    // Show SweetAlert confirmation
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Anda akan Logout.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout(navigate));
+        Swal.fire("Logout!", "Anda telah Logout.", "success");
+      }
+    });
   };
 
   const handleNotificationsClick = () => {
@@ -32,7 +43,6 @@ const Header = () => {
       <Navbar fluid rounded className="bg-white m-0 p-3">
         <Navbar.Brand href="#">
           <img src={Logo} className="mr-3 h-6 sm:h-9" alt="Logo Travel Aja" />
-          {/* <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">Travel Aja</span> */}
         </Navbar.Brand>
         <div className="flex md:order-2 items-center">
           {!isLoggedIn ? (
