@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 import Swal from "sweetalert2";
 import axios from "axios";
 import { setDataBooking, setDataHistory } from "../reducers/bookingReducers";

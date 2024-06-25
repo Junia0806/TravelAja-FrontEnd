@@ -29,6 +29,7 @@ import Bayar from "./Booking/BookingStep2.jsx";
 import Cancel from "./Status/CancelPage.jsx";
 import Pending from "./Status/PendingPage.jsx";
 import BoardingPass from "./Pages/TiketPage.jsx";
+import  Pagination from "./Pages/Coba.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -53,6 +54,7 @@ const App = () => {
     <>
       {!shouldHideHeaderFooter && <Header />}
       <Routes>
+      <Route path="/page" element={<Pagination/>} />
         <Route path="/proces/:id" element={<Proces />} />
         <Route path="/bayar/:id" element={<Bayar />} />
         <Route path="/selesai/:id" element={<Sukses />} />
