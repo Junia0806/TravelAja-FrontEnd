@@ -2,12 +2,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedToPayment } from "../Redux/actions/bookingActions";
-import garuda from "../assets/destinasi/garuda.png";
+import { Link } from "react-router-dom";
 
 const PaymentCard = () => {
   const dispatch = useDispatch();
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
   const data_flight = useSelector((state) => state.flights.data);
+  console.log("data_flight :>> ", data_flight);
+  console.log("dataBooking :>> ", dataBooking);
 
   useEffect(() => {
     dispatch(proceedToPayment);
@@ -99,7 +101,7 @@ const PaymentCard = () => {
           <hr className="border-gray-300" />
 
           <div className="flex items-center space-x-4">
-            <img src={garuda} alt="Logo Maskapai" className="w-12 h-12" />
+            <img src={data_flight?.airlines?.url_logo} alt="Logo Maskapai" className="w-12 h-12" />
             <div>
               <h2 className="text-lg font-semibold text-gray-700">Maskapai</h2>
               <p className="text-gray-600">
@@ -124,11 +126,15 @@ const PaymentCard = () => {
             <h2 className="text-lg font-semibold text-gray-700">Informasi</h2>
             <p className="text-gray-600">
               <i className="fa-solid fa-suitcase mr-2"></i>Kabin:{" "}
-              <span className="font-bold text-gray-900">{data_flight?.airlines?.cabin_baggage} kg</span>
+              <span className="font-bold text-gray-900">
+                {data_flight?.airlines?.cabin_baggage}
+              </span>
             </p>
             <p className="text-gray-600">
               <i className="fa-solid fa-box mr-2"></i>Bagasi:{" "}
-              <span className="font-bold text-gray-900">{data_flight?.airlines?.baggage} kg</span>
+              <span className="font-bold text-gray-900">
+                {data_flight?.airlines?.baggage}
+              </span>
             </p>
           </div>
         </div>
@@ -136,7 +142,7 @@ const PaymentCard = () => {
 
       {/* Payment Pilihan */}
       <div className="mx-8 bg-white shadow-lg rounded-lg">
-        <div className="bg-gray-500 text-white py-2 px-4 rounded-t-lg">
+        <div className="bg-gray-500 text-white py-2 rounded-t-lg">
           <p className="text-center text-lg font-bold">
             Pilih Metode Pembayaran
           </p>

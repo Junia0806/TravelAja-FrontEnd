@@ -30,7 +30,7 @@ function Proces() {
   const [passengers, setPassengers] = useState([
     {
       fullname: "junia",
-      passenger_type: "Adult", 
+      passenger_type: "Dewasa", 
       born_date: "2003-06-08",
       identity_number: "35151148060001",
       seat_id: 0,
@@ -244,8 +244,9 @@ function Proces() {
                           value={passenger.passenger_type}
                           onChange={(event) => handleChange(index, event)}
                         >
-                          <option value="adult">Dewasa</option>
-                          <option value="child">Anak-anak</option>
+                          <option value="Dewasa">Dewasa</option>
+                          <option value="Anak-Anak">Anak-anak</option>
+                          <option value="Bayi">Bayi</option>
                         </select>
                       </div>
                     </div>
@@ -328,11 +329,11 @@ function Proces() {
                 <div className="ml-4 text-gray-600">
                   <div>
                     <i className="fa-solid fa-briefcase mr-2"></i>
-                    Kabin: {data_flight?.airlines?.cabin_baggage} kg
+                    Kabin: {data_flight?.airlines?.cabin_baggage}
                   </div>
                   <div>
                     <i className="fa-solid fa-luggage-cart mr-2"></i>
-                    Bagasi: {data_flight?.airlines?.baggage} kg
+                    Bagasi: {data_flight?.airlines?.baggage}
                   </div>
                 </div>
                 <hr className="border-1 border-gray-200 mt-3"></hr>

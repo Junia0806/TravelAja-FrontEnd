@@ -4,16 +4,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFlights } from "../Redux/actions/flightAction";
 import {
-  setFilterCity,
+  setFilterClass,
   extractUniqueCities,
 } from "../Redux/reducers/flightReducers";
 import { Link } from "react-router-dom";
 
 const FlightPromo = () => {
   const dispatch = useDispatch();
-  const { flights, loading, filterCity, uniqueCities } = useSelector(
+  const { flights, loading, filterClass, uniqueCities } = useSelector(
     (state) => state.flights
   );
+
+  console.log("flights :>> ", flights);
+  // console.log("flights seat class type :>> ", flights.seatclass.seat_class_type);
 
   useEffect(() => {
     dispatch(fetchFlights()).then(() => {
@@ -27,11 +30,13 @@ const FlightPromo = () => {
   };
 
   const handleFilterChange = (city) => {
-    dispatch(setFilterCity(city));
+    dispatch(setFilterClass(city));
   };
 
-  const filteredFlights = filterCity
-    ? flights.filter((flight) => flight.arrival_airport.city === filterCity)
+  const filteredFlights = filterClass
+    ? flights.filter(
+        (flight) => flight.seatclass.seat_class_type === filterClass
+      )
     : flights;
 
   if (loading) {
@@ -41,13 +46,15 @@ const FlightPromo = () => {
   return (
     <div>
       <div className="mx-auto px-4 py-10 bg-white">
-        <h1 className="font-bold text-3xl text-center text-gray-800">
+        <h1 className="font-bold text-3xl text-center text-gray-800 ">
           Promo Penerbangan
         </h1>
         <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-10">
           <button
             onClick={() => handleFilterChange("")}
-            className="bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none flex items-center justify-center"
+            className={`py-2 px-4 rounded-md flex items-center justify-center ${
+              filterClass === "" ? "bg-gray-800" : "bg-[#00B7C2]"
+            } text-white hover:bg-gray-800 focus:outline-none`}
           >
             <i className="fa-solid fa-magnifying-glass mr-2"></i> Semua
           </button>
@@ -55,14 +62,15 @@ const FlightPromo = () => {
             <button
               key={index}
               onClick={() => handleFilterChange(city)}
-              className={`bg-[#00B7C2] text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none flex items-center justify-center ${
-                filterCity === city ? "bg-gray-800" : ""
-              }`}
+              className={`py-2 px-4 rounded-md flex items-center justify-center ${
+                filterClass === city ? "bg-gray-800" : "bg-[#00B7C2]"
+              } text-white hover:bg-gray-800 focus:outline-none`}
             >
               <i className="fa-solid fa-magnifying-glass mr-2"></i> {city}
             </button>
           ))}
         </div>
+
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredFlights.map(
             (data, index) =>
@@ -72,16 +80,18 @@ const FlightPromo = () => {
                   className="relative bg-white rounded-lg shadow-lg overflow-hidden mb-8"
                 >
                   <div className="absolute top-0 right-0 bg-red-700 text-white py-1 px-4 rounded-bl-lg">
-                  <p>{data?.flight_id}</p>
                     <p className="text-sm font-semibold">
-                      Promo {data.promotion.discount}%{" "}
+                      {data?.seatclass?.seat_class_type} -
+                      {data.promotion.discount}%{" "}
                     </p>
                   </div>
-                  <img
-                    src={data.airlines?.url_logo}
-                    className="max-h-full max-w-full object-contain" 
-                    alt="Airline Logo"
-                  />
+                  <div className="h-48 w-full object-cover bg-white">
+                    <img
+                      src={data?.airlines?.url_logo}
+                      className="h-48 w-full"
+                      alt="Airline Logo"
+                    />
+                  </div>
                   <div className="p-4">
                     <p className="font-bold text-center text-xl mb-1 text-black">
                       {data.destination_airport?.city}{" "}

@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 import { FaPlaneDeparture } from "react-icons/fa";
 import axios from "axios";
-import foto from "../assets/destinasi/destinasi.jpg";
 
 export function Pencarian() {
   const [flight, setFlight] = useState([]);
@@ -114,7 +113,7 @@ export function Pencarian() {
                   <div className="mx-8 bg-white shadow-lg rounded-lg outline-1 mb-4">
                     <div className="bg-gray-400 text-white py-2 px-4 rounded-t-lg">
                       <p className="flex items-center text-lg font-bold tracking-tight">
-                        <img src={flight?.airlines?.url_logo || foto} className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
+                        <img src={flight?.airlines?.url_logo } className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
                       </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-4">

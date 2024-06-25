@@ -280,7 +280,7 @@ const Home = () => {
             </div>
           </form>
         </div>
-
+        
         {/* modal untuk bandara asal */}
         <Modal show={openModalAsal} onClose={() => setOpenModalAsal(false)}>
           <Modal.Header>Cari Bandara Keberangkatan</Modal.Header>
