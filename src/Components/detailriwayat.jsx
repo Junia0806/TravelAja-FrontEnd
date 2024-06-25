@@ -50,7 +50,7 @@ const DetailRiwayat = () => {
 
   const isPaid = details?.payment?.status === "PAID";
   const isPending = details?.payment?.status === "PENDING_PAYMENT";
-  const isCancelled = details?.payment?.status === "CANCELLED";
+  const isCancelled = details?.payment?.status === "CANCELED";
 
   return (
     <div>
@@ -208,13 +208,13 @@ const DetailRiwayat = () => {
                   <span className="flex text-gray-500 font-semibold mb-2">
                     <IoPerson className="mr-2" /> Jumlah Penumpang:
                     <span className="text-black ml-2">
-                      {details?.total_passengers} Orang
+                      {details?.total_passengers}
                     </span>
                   </span>
                   <span className="flex items-center text-gray-500 font-semibold mb-2">
                     <FaMoneyCheck className="mr-2" /> Harga per Tiket:
                     <span className="text-black ml-2">
-                      RP {details?.flight?.price} Orang
+                      Rp. {details?.flight?.price.toLocaleString("id-ID")}{" "}
                     </span>
                   </span>
                 </React.Fragment>
@@ -227,7 +227,7 @@ const DetailRiwayat = () => {
                 >
                   <TfiMoney className="mr-2 text-black" /> Total Bayar:
                   <h1 className="mr-2 ml-2 font-bold text-[#00B7C2]">
-                    RP {details?.payment?.total_price}
+                    Rp. {details?.payment?.total_price.toLocaleString("id-ID")}
                   </h1>
                 </span>
               </div>
@@ -241,7 +241,7 @@ const DetailRiwayat = () => {
                   </Link>
                   {isPaid && (
                     <Link
-                        to={`/tiket/${ bookingCode.booking_code}`}
+                      to={`/tiket/${bookingCode.booking_code}`}
                       className="flex-grow text-center bg-blue-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-gray-800 focus:outline-none mx-2"
                     >
                       Cetak Tiket
@@ -255,14 +255,7 @@ const DetailRiwayat = () => {
                       Lanjut Pembayaran
                     </Link>
                   )}
-                  {isCancelled && (
-                    <Link
-                      to="/riwayat"
-                      className="flex-grow text-center bg-yellow-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-yellow-800 focus:outline-none mx-2"
-                    >
-                      Kembali Saja
-                    </Link>
-                  )}
+                  {isCancelled && <></>}
                 </div>
               </div>
             </div>
