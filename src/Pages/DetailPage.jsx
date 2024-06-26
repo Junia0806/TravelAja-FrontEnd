@@ -155,13 +155,13 @@ const DetailPenerbangan = () => {
             <p className="text-gray-600">
               <i className="fa-solid fa-suitcase mr-2"></i>Bagasi:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.baggage} kg
+                {flight?.airlines?.baggage}
               </span>
             </p>
             <p className="text-gray-600">
               <i className="fa-solid fa-box mr-2"></i>Kabin:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.cabin_baggage} kg
+                {flight?.airlines?.cabin_baggage} 
               </span>
             </p>
           </div>
@@ -175,7 +175,7 @@ const DetailPenerbangan = () => {
             Kembali
           </Link>
           <Link
-            to={`/booking/${idFlight.id}`}
+            to={`/proces/${idFlight.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
           >
             Pesan Penerbangan

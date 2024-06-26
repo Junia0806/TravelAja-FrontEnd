@@ -1,13 +1,13 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setNotification } from "../reducers/authReducers";
+import { setNotification } from "../reducers/notifReducers";
 
 export const notificationsAll = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
     let config = {
       method: "get",
-      url: `https://expressjs-develop.up.railway.app/api/v1/notification-user`,
+      url: `https://expressjs-develop.up.railway.app/api/v1/notification/user`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

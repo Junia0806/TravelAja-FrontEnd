@@ -38,6 +38,8 @@ const Home = () => {
       if (location.state.info) toast.info(location.state.info);
       else if (location.state.success) {
         toast.success(location.state.success);
+      } else if (location.state.warning) {
+        toast.warning(location.state.warning);
       }
       navigate(".", { replace: false });
     }
@@ -237,7 +239,8 @@ const Home = () => {
             </div>
           </form>
         </div>
-
+        
+        {/* modal untuk bandara asal */}
         <Modal show={openModalAsal} onClose={() => setOpenModalAsal(false)}>
           <Modal.Header className="p-4 bg-teal-500">
             <h2 className="text-xl text-white font-bold">Pencarian Bandara Keberangkatan</h2>
