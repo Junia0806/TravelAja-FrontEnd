@@ -10,7 +10,7 @@ import { getMe } from "../Redux/actions/authActions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import axios from "axios";
 import Swal from "sweetalert2";
-import PromoPagination from "./SectionPromo";
+import PromoPagination from "./PromoPagination";
 
 const Home = () => {
   const [formData, setFormData] = useState({

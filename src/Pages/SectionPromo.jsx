@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const PromoPagination = () => {
+const Promo = () => {
   const [promotions, setPromotions] = useState([]);
   const [page, setPage] = useState(1);
   
@@ -127,4 +127,4 @@ const PromoPagination = () => {
   );
 };
 
-export default PromoPagination;
+export default Promo;

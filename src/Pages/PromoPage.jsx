@@ -14,10 +14,7 @@ const FlightPromo = () => {
   const { flights, loading, filterClass, uniqueCities } = useSelector(
     (state) => state.flights
   );
-
-  console.log("flights :>> ", flights);
-  // console.log("flights seat class type :>> ", flights.seatclass.seat_class_type);
-
+  
   useEffect(() => {
     dispatch(fetchFlights()).then(() => {
       dispatch(extractUniqueCities(flights));

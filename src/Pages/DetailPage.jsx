@@ -10,8 +10,6 @@ const DetailPenerbangan = () => {
   const idFlight = useParams();
   const dispatch = useDispatch();
   const flight = useSelector((state) => state.flights.data);
-  console.log("flight :>> ", flight);
-  console.log("flight.total_price:>> ", flight?.total_price);
 
   useEffect(() => {
     dispatch(fetchFlightDetail(idFlight.id));
@@ -37,9 +35,14 @@ const DetailPenerbangan = () => {
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-    return `${hours} jam ${minutes} menit`;
+  
+    if (minutes === 0) {
+      return `${hours} jam`;
+    } else {
+      return `${hours} jam ${minutes} menit`;
+    }
   };
-
+  
   const flightDuration = calculateFlightDuration(
     flight.departure_time,
     flight.arrival_time
@@ -72,7 +75,6 @@ const DetailPenerbangan = () => {
                 - {flight?.seatclass?.seat_class_type}
                
               </p>
-              <p> Kursi Tersisa {flight?.seatclass?.seat_amount}</p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
                 <span className="font-bold text-gray-900">
