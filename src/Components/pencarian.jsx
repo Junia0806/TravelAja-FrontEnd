@@ -66,7 +66,7 @@ export function Pencarian() {
         return acc;
       }, {});
 
-      setFlightsByDate(groupedFlights); //mengambil data baru yang sudah dikelompokkan
+      setFlightsByDate(groupedFlights);
     }
 
     fetchData();
