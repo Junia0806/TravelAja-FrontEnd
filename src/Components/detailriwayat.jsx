@@ -165,7 +165,7 @@ const DetailRiwayat = () => {
                         </span>
                         <span className="flex items-center text-[#00B7C2] font-bold mb-1">
                           <FaChair className="mr-2" /> Seat Number:{" "}
-                          {details?.passengers[0]?.ticket?.seat_id}
+                          {details?.passengers[0]?.ticket?.seat?.seat_number}
                         </span>
                         <span className="flex items-center text-[#00B7C2] font-bold">
                           <FaUserTag className="mr-2" /> Type:{" "}
@@ -188,7 +188,7 @@ const DetailRiwayat = () => {
                           </span>
                           <span className="flex items-center text-[#00B7C2] font-bold mb-1">
                             <FaChair className="mr-2" /> Seat Number:{" "}
-                            {passenger?.ticket.seat_id}
+                            {passenger?.ticket.seat.seat_number}
                           </span>
                           <span className="flex items-center text-[#00B7C2] font-bold">
                             <FaUserTag className="mr-2" /> Type:{" "}
@@ -214,7 +214,7 @@ const DetailRiwayat = () => {
                   <span className="flex items-center text-gray-500 font-semibold mb-2">
                     <FaMoneyCheck className="mr-2" /> Harga per Tiket:
                     <span className="text-black ml-2">
-                      Rp. {details?.flight?.price.toLocaleString("id-ID")}{" "}
+                      Rp. {details?.flight?.total_price.toLocaleString("id-ID")}{" "}
                     </span>
                   </span>
                 </React.Fragment>

@@ -108,7 +108,7 @@ export default function RiwayatPemesanan() {
                 Total Harga:
               </h1>
               <p className="text-[#00B7C2] font-bold">
-                Rp. {pemesanan.flight.total_price.toLocaleString("id-ID")}
+                Rp. {pemesanan.payment.total_price.toLocaleString("id-ID")}
               </p>
             </div>
           </div>
@@ -177,18 +177,20 @@ export default function RiwayatPemesanan() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center sm:justify-end sm:items-center p-4">
-            <Link
-              to={`/detailriwayat/${pemesanan.booking_code}`}
-              className={`block text-center ${
-                pemesanan?.payment?.status === "PAID"
-                  ? "bg-green-500"
-                  : pemesanan?.payment?.status === "PENDING_PAYMENT"
-                  ? "bg-yellow-500"
-                  : ""
-              } hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0`}
-            >
-              Lihat Detail
-            </Link>
+            {pemesanan?.payment?.status !== "CANCELED" && (
+              <Link
+                to={`/detailriwayat/${pemesanan.booking_code}`}
+                className={`block text-center ${
+                  pemesanan?.payment?.status === "PAID"
+                    ? "bg-green-500"
+                    : pemesanan?.payment?.status === "PENDING_PAYMENT"
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
+                } hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0`}
+              >
+                Lihat Detail
+              </Link>
+            )}
           </div>
         </div>
       ))}
