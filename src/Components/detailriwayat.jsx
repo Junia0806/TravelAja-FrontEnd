@@ -214,7 +214,7 @@ const DetailRiwayat = () => {
                   <span className="flex items-center text-gray-500 font-semibold mb-2">
                     <FaMoneyCheck className="mr-2" /> Harga per Tiket:
                     <span className="text-black ml-2">
-                      RP {details?.flight?.price} Orang
+                      Rp {details?.flight?.total_price}
                     </span>
                   </span>
                 </React.Fragment>
@@ -227,7 +227,7 @@ const DetailRiwayat = () => {
                 >
                   <TfiMoney className="mr-2 text-black" /> Total Bayar:
                   <h1 className="mr-2 ml-2 font-bold text-[#00B7C2]">
-                    RP {details?.payment?.total_price}
+                    Rp {details?.payment?.total_price} 
                   </h1>
                 </span>
               </div>
@@ -249,7 +249,7 @@ const DetailRiwayat = () => {
                   )}
                   {isPending && (
                     <Link
-                      to="/pembayaran"
+                      to={`/bayar/${ bookingCode.booking_code}`}
                       className="flex-grow text-center bg-red-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-red-800 focus:outline-none mx-2"
                     >
                       Lanjut Pembayaran

@@ -10,6 +10,8 @@ const DetailPenerbangan = () => {
   const idFlight = useParams();
   const dispatch = useDispatch();
   const flight = useSelector((state) => state.flights.data);
+  console.log("flight :>> ", flight);
+  console.log("flight.total_price:>> ", flight?.total_price);
 
   useEffect(() => {
     dispatch(fetchFlightDetail(idFlight.id));
@@ -48,7 +50,7 @@ const DetailPenerbangan = () => {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-[#00B7C2] text-white py-2 px-4 rounded-t-lg">
           <p className="text-center text-lg">
-            Detail Penerbangan{" "}
+            Detail Penerbangan{" "} 
             <strong>{flight?.destination_airport?.city}</strong>{" "}
             <i className="fa-solid fa-arrow-right"></i>{" "}
             <strong>{flight?.arrival_airport?.city}</strong>
@@ -68,7 +70,9 @@ const DetailPenerbangan = () => {
                   {flight?.airlines?.airline_name}
                 </span>{" "}
                 - {flight?.seatclass?.seat_class_type}
+               
               </p>
+              <p> Kursi Tersisa {flight?.seatclass?.seat_amount}</p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
                 <span className="font-bold text-gray-900">
@@ -161,7 +165,7 @@ const DetailPenerbangan = () => {
             <p className="text-gray-600">
               <i className="fa-solid fa-box mr-2"></i>Kabin:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.cabin_baggage} 
+                {flight?.airlines?.cabin_baggage}
               </span>
             </p>
           </div>

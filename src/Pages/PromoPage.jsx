@@ -110,10 +110,10 @@ const FlightPromo = () => {
                     </div>
                     <div className="text-center mb-4">
                       <span className="text-red-600 font-bold text-lg">
-                        Rp.{data.total_price.toLocaleString("id-ID")}
+                        {/* Rp.{data.total_price.toLocaleString("id-ID")} */}
                       </span>{" "}
                       <span className="text-gray-500 line-through">
-                        Rp.{data.price.toLocaleString("id-ID")}
+                        {/* Rp.{data.price.toLocaleString("id-ID")} */}
                       </span>
                     </div>
                     <Link

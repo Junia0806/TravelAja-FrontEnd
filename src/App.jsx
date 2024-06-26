@@ -29,7 +29,7 @@ import Bayar from "./Booking/BookingStep2.jsx";
 import Cancel from "./Status/CancelPage.jsx";
 import Pending from "./Status/PendingPage.jsx";
 import BoardingPass from "./Pages/TiketPage.jsx";
-import  Pagination from "./Pages/Coba.jsx";
+import PromoPagination from "./Pages/Coba.jsx";
 
 const App = () => {
   const location = useLocation();
@@ -54,15 +54,8 @@ const App = () => {
     <>
       {!shouldHideHeaderFooter && <Header />}
       <Routes>
-      <Route path="/page" element={<Pagination/>} />
-        <Route path="/proces/:id" element={<Proces />} />
-        <Route path="/bayar/:id" element={<Bayar />} />
-        <Route path="/selesai/:id" element={<Sukses />} />
-        <Route path="/cancel/:id" element={<Cancel />} />
-        <Route path="/pending/:id" element={<Pending />} />
-        <Route path="/tiket/:id" element={<BoardingPass />} />
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/coba" element={<PromoPagination />} />
         <Route path="/register" element={<Register />} />
         <Route path="/otp" element={<OtpVerification />} />
         <Route path="/lupa" element={<ForgotPassword />} />
@@ -73,11 +66,53 @@ const App = () => {
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path="/pencarian" element={<Pencarian />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<DetailPenerbangan />} />
         <Route
-          path="/detail/:id"
+          path="/proces/:id"
           element={
             <Protected>
-              <DetailPenerbangan />
+              <Proces />
+            </Protected>
+          }
+        />
+        <Route
+          path="/bayar/:id"
+          element={
+            <Protected>
+              <Bayar />
+            </Protected>
+          }
+        />
+        <Route
+          path="/selesai/:id"
+          element={
+            <Protected>
+              <Sukses />
+            </Protected>
+          }
+        />
+        <Route
+          path="/cancel/:id"
+          element={
+            <Protected>
+              <Cancel />
+            </Protected>
+          }
+        />
+        <Route
+          path="/pending/:id"
+          element={
+            <Protected>
+              <Pending />
+            </Protected>
+          }
+        />
+        <Route
+          path="/tiket/:id"
+          element={
+            <Protected>
+              <BoardingPass />
             </Protected>
           }
         />
@@ -89,7 +124,7 @@ const App = () => {
             </Protected>
           }
         />
-          <Route
+        <Route
           path="/detailriwayat/:booking_code"
           element={<DetailRiwayat />}
         />
