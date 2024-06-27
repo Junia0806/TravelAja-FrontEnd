@@ -14,10 +14,7 @@ const FlightPromo = () => {
   const { flights, loading, filterClass, uniqueCities } = useSelector(
     (state) => state.flights
   );
-
-  console.log("flights :>> ", flights);
-  // console.log("flights seat class type :>> ", flights.seatclass.seat_class_type);
-
+  
   useEffect(() => {
     dispatch(fetchFlights()).then(() => {
       dispatch(extractUniqueCities(flights));
@@ -110,10 +107,10 @@ const FlightPromo = () => {
                     </div>
                     <div className="text-center mb-4">
                       <span className="text-red-600 font-bold text-lg">
-                        Rp.{data.total_price.toLocaleString("id-ID")}
+                        {/* Rp.{data.total_price.toLocaleString("id-ID")} */}
                       </span>{" "}
                       <span className="text-gray-500 line-through">
-                        Rp.{data.price.toLocaleString("id-ID")}
+                        {/* Rp.{data.price.toLocaleString("id-ID")} */}
                       </span>
                     </div>
                     <Link

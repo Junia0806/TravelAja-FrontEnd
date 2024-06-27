@@ -1,3 +1,5 @@
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -6,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 import { FaPlaneDeparture } from "react-icons/fa";
 import axios from "axios";
-import foto from "../assets/destinasi/destinasi.jpg";
 import noData from "../assets/noData.png";
 
 export function Pencarian() {
@@ -172,7 +173,7 @@ export function Pencarian() {
                     <div className="mx-8 bg-white shadow-lg rounded-lg outline-1 mb-4">
                       <div className="bg-gray-400 text-white py-2 px-4 rounded-t-lg">
                         <p className="flex items-center text-lg font-bold tracking-tight">
-                          <img src={flight?.airlines?.url_logo || foto} className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
+                          <img src={flight?.airlines?.url_logo } className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
                         </p>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-4">
@@ -197,7 +198,7 @@ export function Pencarian() {
                       </div>
                       <div className="flex flex-col sm:flex-row items-center sm:justify-end sm:items-center p-4">
                         <span className="text-[#00B7C2] text-lg font-bold mt-2 sm:mt-0"> Rp. {flight?.total_price}</span>
-                        <Link to={`/detailtiket/${flight?.flight_id}`} className="block text-center bg-gray-600 hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0">
+                        <Link to={`/detail/${flight?.flight_id}`} className="block text-center bg-gray-600 hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0">
                           Lihat Detail
                         </Link>
                       </div>

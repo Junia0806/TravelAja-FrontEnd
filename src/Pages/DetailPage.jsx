@@ -35,9 +35,14 @@ const DetailPenerbangan = () => {
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-    return `${hours} jam ${minutes} menit`;
+  
+    if (minutes === 0) {
+      return `${hours} jam`;
+    } else {
+      return `${hours} jam ${minutes} menit`;
+    }
   };
-
+  
   const flightDuration = calculateFlightDuration(
     flight.departure_time,
     flight.arrival_time
@@ -48,7 +53,7 @@ const DetailPenerbangan = () => {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-[#00B7C2] text-white py-2 px-4 rounded-t-lg">
           <p className="text-center text-lg">
-            Detail Penerbangan{" "}
+            Detail Penerbangan{" "} 
             <strong>{flight?.destination_airport?.city}</strong>{" "}
             <i className="fa-solid fa-arrow-right"></i>{" "}
             <strong>{flight?.arrival_airport?.city}</strong>
@@ -68,6 +73,7 @@ const DetailPenerbangan = () => {
                   {flight?.airlines?.airline_name}
                 </span>{" "}
                 - {flight?.seatclass?.seat_class_type}
+               
               </p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
@@ -161,19 +167,13 @@ const DetailPenerbangan = () => {
             <p className="text-gray-600">
               <i className="fa-solid fa-box mr-2"></i>Kabin:{" "}
               <span className="font-bold text-gray-900">
-                {flight?.airlines?.cabin_baggage} 
+                {flight?.airlines?.cabin_baggage}
               </span>
             </p>
           </div>
         </div>
 
         <div className="flex justify-center space-x-4 mb-6">
-          <Link
-            to="/"
-            className="flex justify-center items-center w-1/3 text-center bg-[#00B7C2] hover:bg-[#00b8c2e5] text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"
-          >
-            Kembali
-          </Link>
           <Link
             to={`/proces/${idFlight.id}`}
             className="flex justify-center items-center w-1/3 text-center bg-gray-800 hover:bg-gray-900 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none transition shadow-lg"

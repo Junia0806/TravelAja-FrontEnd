@@ -6,6 +6,7 @@ import authReducers from "./reducers/authReducers";
 import flightReducers from "./reducers/flightReducers";
 import bookingReducers from "./reducers/bookingReducers";
 import notifReducers from "./reducers/notifReducers";
+import promoReducers from "./reducers/promoReducers";
 
 //Reducernya disini
 const rootReducers = combineReducers({
@@ -13,6 +14,7 @@ const rootReducers = combineReducers({
   flights: flightReducers,
   booking: bookingReducers,
   notif: notifReducers,
+  promo: promoReducers,
 });
 
 const persistConfig = {
