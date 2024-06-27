@@ -6,10 +6,20 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedToPayment } from "../Redux/actions/bookingActions";
+import { useParams, useLocation } from 'react-router-dom';
 
 const Cancel = () => {
   const dispatch = useDispatch();
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  const { id } = useParams();
+  const query = useQuery();
+  const orderId = query.get('order_id');
+  const statusCode = query.get('status_code');
+  const transactionStatus = query.get('transaction_status');
 
   useEffect(() => {
     dispatch(proceedToPayment);

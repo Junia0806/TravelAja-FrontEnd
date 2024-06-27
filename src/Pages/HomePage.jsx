@@ -9,8 +9,8 @@ import { setIsLoggedIn, setLogin, setToken } from "../Redux/reducers/authReducer
 import { getMe } from "../Redux/actions/authActions";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import axios from "axios";
-import FlightPromo from "./PromoPage";
 import Swal from "sweetalert2";
+import PromoPagination from "./PromoPagination";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -286,7 +286,7 @@ const Home = () => {
       </div>
       <div>
         {/* Section 2 */}
-        <FlightPromo />
+        <PromoPagination/>
       </div>
     </div>
   );
