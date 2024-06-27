@@ -12,7 +12,6 @@ import { useParams, useLocation } from 'react-router-dom';
 const Sukses = () => {
   const dispatch = useDispatch();
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
-  console.log("dataBooking :>> ", dataBooking);
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
