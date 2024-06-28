@@ -18,7 +18,6 @@ export const notificationsAll = () => async (dispatch, getState) => {
 
     if (response.data.status) {
       dispatch(setNotification(response.data.data));
-      toast.success(response.data.message);
     }
   } catch (error) {
     toast.error("Failed to fetch notifications");
