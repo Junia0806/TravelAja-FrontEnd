@@ -58,9 +58,6 @@ export default function RiwayatPemesanan() {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-bold mb-6 mt-3 border-b text-center">
-        Riwayat Pemesanan
-      </h1>
       <div className="flex flex-col md:flex-row justify-between w-full p-2 space-y-2 md:space-y-0">
         <div className="flex flex-col md:flex-row items-center w-full space-y-4 md:space-y-0 md:space-x-4 text-black font-semibold">
           <select

@@ -147,14 +147,22 @@ export function Pencarian() {
 
       <div className="overflow-x-auto w-full mt-4">
         <Tabs className="Pills">
-          <TabList className="flex justify-around border-b rounded-sm border-gray-300 dark:border-gray-700 bg-white text-[#00B7C2]">
+        <TabList className="flex flex-col md:flex-row justify-around border-b rounded-sm border-gray-300 dark:border-gray-700 bg-white text-[#00B7C2]">
             {dates.map((dateString, index) => (
               <Tab
                 key={index}
-                className={`flex flex-col items-center p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] ${activeTab === index ? "bg-gray-200 dark:bg-gray-800 text-black" : "hover:bg-gray-200 hover:text-black"}`}
+                className={`flex items-center justify-center p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] 
+            ${
+              activeTab === index
+                ? "bg-gray-200 dark:bg-gray-800 text-black"
+                : "hover:bg-gray-200 hover:text-black"
+            }
+            md:flex-col md:items-center md:p-4 md:text-sm`}
                 onClick={() => handleTabClick(index)}
               >
-                <span className="text-xs text-gray-700 dark:text-black">{dateString}</span>
+                <span className="text-xs text-gray-700 dark:text-black">
+                  {dateString}
+                </span>
               </Tab>
             ))}
           </TabList>

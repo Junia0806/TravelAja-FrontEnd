@@ -87,39 +87,69 @@ const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link
-            as={Link}
-            to="/"
-            className={
-              location.pathname === "/"
-                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
-                : ""
-            }
-          >
-            Beranda
-          </Navbar.Link>
-          <Navbar.Link
-            as={Link}
-            to="/riwayat"
-            className={
-              location.pathname === "/riwayat"
-                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
-                : ""
-            }
-          >
-            Riwayat
-          </Navbar.Link>
-          <Navbar.Link
-            as={Link}
-            to="/tentang"
-            className={
-              location.pathname === "/tentang"
-                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
-                : ""
-            }
-          >
-            Tentang
-          </Navbar.Link>
+          {!isLoggedIn ? (
+            <>
+              <Navbar.Link
+                as={Link}
+                to="/"
+                className={
+                  location.pathname === "/"
+                    ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                    : ""
+                }
+              >
+                Beranda
+              </Navbar.Link>
+
+              <Navbar.Link
+                as={Link}
+                to="/tentang"
+                className={
+                  location.pathname === "/tentang"
+                    ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                    : ""
+                }
+              >
+                Tentang
+              </Navbar.Link>
+            </>
+          ) : (
+            <>
+              <Navbar.Link
+                as={Link}
+                to="/"
+                className={
+                  location.pathname === "/"
+                    ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                    : ""
+                }
+              >
+                Beranda
+              </Navbar.Link>
+              <Navbar.Link
+                as={Link}
+                to="/riwayat"
+                className={
+                  location.pathname === "/riwayat"
+                    ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                    : ""
+                }
+              >
+                Riwayat
+              </Navbar.Link>
+              <Navbar.Link
+                as={Link}
+                to="/tentang"
+                className={
+                  location.pathname === "/tentang"
+                    ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                    : ""
+                }
+              >
+                Tentang
+              </Navbar.Link>
+            </>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </>

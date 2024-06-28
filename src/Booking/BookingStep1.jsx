@@ -26,10 +26,10 @@ function Proces() {
 
   const [passengers, setPassengers] = useState([
     {
-      fullname: "junia",
-      passenger_type: "Dewasa", 
-      born_date: "2003-06-08",
-      identity_number: "35151148060001",
+      fullname: "",
+      passenger_type: "", 
+      born_date: "",
+      identity_number: "",
       seat_id: 0,
     },
   ]);
@@ -69,7 +69,6 @@ function Proces() {
       passengers,
     };
 
-    // Validasi semua data penumpang sudah benar
     const isDataValid = passengers.every(
       (passenger) =>
         passenger.fullname &&
@@ -87,7 +86,6 @@ function Proces() {
       return;
     }
 
-    // Jika semua data sudah lengkap, tampilkan konfirmasi
     Swal.fire({
       title: "Apakah data yang anda inputkan sudah benar?",
       text: "Periksa kembali sebelum melanjutkan ke pembayaran.",
@@ -109,7 +107,7 @@ function Proces() {
       ...passengers,
       {
         fullname: "",
-        passenger_type: "Adult",
+        passenger_type: "",
         born_date: "",
         identity_number: "",
         seat_id: 0,
@@ -152,7 +150,6 @@ function Proces() {
 
   return (
     <div className="m-5 lg:mx-20 md:mx-0">
-      {/* Tampilan Step Header */}
       <div className="mb-6">
         <div className="flex items-center justify-around">
           <span className="flex items-center text-gray-800 font-bold">
@@ -231,7 +228,7 @@ function Proces() {
                     </div>
                     <div className="mb-4">
                       <label className="block text-gray-700 text-sm font-bold mb-2">
-                        Pilihan Dewasa/Anak-anak
+                        Jenis Penumpang
                       </label>
                       <div className="relative">
                         <select
