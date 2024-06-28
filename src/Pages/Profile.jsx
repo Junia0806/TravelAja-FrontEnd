@@ -138,7 +138,7 @@ function Profile() {
                   <input
                     type="text"
                     className="block w-full mt-1 p-2 border border-gray-300 rounded-lg"
-                    placeholder={user?.name || "Nama Lengkap"}
+                    placeholder={user?.name || "Masukkan Nama Lengkap"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -148,7 +148,7 @@ function Profile() {
                   <input
                     type="text"
                     className="block w-full mt-1 p-2 border border-gray-300 rounded-lg"
-                    placeholder={user?.no_telp || "Nama Lengkap"}
+                    placeholder={user?.no_telp || "Masukkan Nomor Telepon"}
                     value={no_telp}
                     onChange={(e) => setNo_telp(e.target.value)}
                   />

@@ -92,18 +92,16 @@ export const verifyOtp = (otp, navigate) => async (dispatch, getState) => {
       url: `https://expressjs-develop.up.railway.app/api/v1/user/otp/verify`,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Menambahkan header Authorizatio
+        Authorization: `Bearer ${token}`,
       },
       data: { otp },
     };
-    console.log("headers", config);
-    console.log("cek otp:", { otp });
 
     const response = await axios.request(config);
     const { token: newToken } = response.data;
 
     dispatch(setToken(newToken));
-    console.log("responseOTPVerifikasi", response.data);
+
     navigate("/login", {
       state: {
         success: response.data.message,
@@ -191,7 +189,7 @@ export const withGoogleLogin = (accessToken, navigate) => async (dispatch) => {
     };
 
     const response = await axios.request(config);
-    console.log("response", response);
+
     const { token } = response.data.data;
     dispatch(setIsLoggedIn(true));
     dispatch(setToken(token));
@@ -235,7 +233,6 @@ export const resetPassword =
     try {
       const queryParams = new URLSearchParams(location.search);
       const token = queryParams.get("token");
-      console.log("token", token);
 
       let config = {
         method: "post",

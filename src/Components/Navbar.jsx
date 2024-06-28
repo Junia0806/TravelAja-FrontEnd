@@ -4,20 +4,21 @@ import Logo from "../assets/Logo.png";
 import { FaUser, FaBell } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout, getMe } from "../Redux/actions/authActions";
 import Swal from "sweetalert2";
+
 const Header = () => {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(getMe(null, null, null));
   }, [dispatch]);
 
   const handleLogout = () => {
-    // Show SweetAlert confirmation
     Swal.fire({
       title: "Apa kamu yakin?",
       text: "Anda akan Logout.",
@@ -86,11 +87,39 @@ const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/" active>
+          <Navbar.Link
+            as={Link}
+            to="/"
+            className={
+              location.pathname === "/"
+                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                : ""
+            }
+          >
             Beranda
           </Navbar.Link>
-          <Navbar.Link href="/riwayat">Riwayat</Navbar.Link>
-          <Navbar.Link href="/tentang">Tentang</Navbar.Link>
+          <Navbar.Link
+            as={Link}
+            to="/riwayat"
+            className={
+              location.pathname === "/riwayat"
+                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                : ""
+            }
+          >
+            Riwayat
+          </Navbar.Link>
+          <Navbar.Link
+            as={Link}
+            to="/tentang"
+            className={
+              location.pathname === "/tentang"
+                ? "underline text-blue-500 bg-blue-100 md:bg-transparent"
+                : ""
+            }
+          >
+            Tentang
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </>
