@@ -11,41 +11,16 @@ import axios from "axios";
 import noData from "../assets/noData.png";
 
 export function Pencarian() {
-  const [flight, setFlight] = useState([]);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const valuePencarian = location.state?.formData;
+  const [flights, setFlights] = useState([]);
+  const [filteredFlights, setFilteredFlights] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [sortOrder, setSortOrder] = useState("ascending");
   const [flightsByDate, setFlightsByDate] = useState({});
+  const navigate = useNavigate();
+  const location = useLocation();
+  const valuePencarian = location.state?.formData;
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          `https://expressjs-develop.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${valuePencarian.departureDate}`
-        );
-        setFlight(response.data.data);
-      } catch (error) {}
-    }
-    fetchData();
-  }, [valuePencarian]);
-
-  useEffect(() => {
-    const groupFlightsByDate = () => {
-      const groupedFlights = flight.reduce((acc, flight) => {
-        const date = new Date(flight.departure_time).toLocaleDateString("id-ID");
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(flight);
-        return acc;
-      }, {});
-      setFlightsByDate(groupedFlights);
-    };
-    groupFlightsByDate();
-  }, [flight]);
-
+  //untuk menghitung tanggal selama 7 hari
   const getDateRange = (startDate) => {
     const dates = [];
     const start = new Date(startDate);
@@ -60,10 +35,58 @@ export function Pencarian() {
 
   const dates = valuePencarian?.departureDate ? getDateRange(valuePencarian?.departureDate) : [];
 
+  // useEffect untuk search
+  useEffect(() => {
+    async function fetchData() {
+      if (!dates.length) return;
+
+      const flightData = [];
+
+      for (const dateString of dates) {
+        const [day, month, year] = dateString.split("/");
+        const formattedDate = `${year}-${month}-${day}`;
+        try {
+          const response = await axios.get(
+            `https://expressjs-develop.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
+          );
+          flightData.push(...response.data.data);
+        } catch (error) {
+          console.error("Error fetching flight data:", error);
+        }
+      }
+
+      setFlights(flightData);
+
+      //mengelompokkan data berdasarkan tanggal
+      const groupedFlights = flightData.reduce((acc, flight) => {
+        const date = new Date(flight.departure_time).toLocaleDateString("id-ID");
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(flight);
+        return acc;
+      }, {});
+
+      setFlightsByDate(groupedFlights);
+    }
+
+    fetchData();
+  }, [valuePencarian, dates]);
+
+  //mengatur data sesuai tanggal yang dipilih dari tab aktif.
+  useEffect(() => {
+    const currentTabDate = dates[activeTab];
+    const [day, month, year] = currentTabDate.split("/");
+    const formattedDate = `${day}/${month}/${year}`;
+
+    setFilteredFlights(flightsByDate[formattedDate]);
+  }, [activeTab, flightsByDate, dates]);
+
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
 
+  //untuk animasi pesawat
   const planeAnimation = useSpring({
     loop: true,
     to: [{ transform: "translateX(10px)" }, { transform: "translateX(0px)" }],
@@ -71,22 +94,28 @@ export function Pencarian() {
     config: { duration: 1000 },
   });
 
+  //untuk mencari durasi penerbangan
   const formatTime = (timeString) => {
     const options = { hour: "2-digit", minute: "2-digit", hour12: false };
     return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
+ 
   const calculateFlightDuration = (departure, arrival) => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
-
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-
-    return `${hours} jam ${minutes} menit`;
+  
+    if (minutes === 0) {
+      return `${hours} jam`;
+    } else {
+      return `${hours} jam ${minutes} menit`;
+    }
   };
-
+ 
+  //untuk filter harga
   const handleFilterChange = (e) => {
     const selectedValue = e.target.value;
     setSortOrder(selectedValue);
@@ -111,7 +140,7 @@ export function Pencarian() {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-bold mb-4 mt-3 border-b text-center">Pilih Penerbangan</h1>
+      {/* <h1 className="text-2xl font-bold mb-4 mt-3 border-b text-center">Pilih Penerbangan</h1> */}
       <div className="flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0 p-2">
         <div className="flex flex-col md:flex-row items-center w-full space-y-4 md:space-y-0 md:space-x-4 text-white font-semibold">
           <h1 className="rounded-md bg-[#00B7C2] p-2 w-full flex items-center text-left">
@@ -139,7 +168,7 @@ export function Pencarian() {
               </Tab>
             ))}
           </TabList>
-          
+
           {dates.map((dateString, index) => (
             <TabPanel key={index}>
               {sortedFlightsByDate[dateString]?.length > 0 ? (

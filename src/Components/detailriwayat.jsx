@@ -249,7 +249,7 @@ const DetailRiwayat = () => {
                   )}
                   {isPending && (
                     <Link
-                      to="/pembayaran"
+                      to={`/bayar/${ bookingCode.booking_code}`}
                       className="flex-grow text-center bg-red-500 text-white font-bold text-l py-2 px-6 rounded-md hover:bg-red-800 focus:outline-none mx-2"
                     >
                       Lanjut Pembayaran
