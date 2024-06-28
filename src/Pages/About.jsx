@@ -84,10 +84,10 @@ const About = () => {
       className="bg-cover bg-center min-h-screen py-10"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="container mx-auto px-4 bg-white bg-opacity-90 rounded-lg py-10">
+      <div className="container mx-auto px-4 bg-white bg-opacity-30 rounded-lg py-10">
         <h1 className="text-4xl font-bold text-center mb-10">Tentang Kami</h1>
         <div className="flex flex-col md:flex-row items-center justify-center mb-10">
-          <img src={logoTravel} alt="Logo Travel" className="w-40 h-40 mb-6 md:mb-0 md:mr-6" />
+        
           <p className="text-lg text-center md:text-left">
             Situs web ini dibuat untuk memudahkan pemesanan tiket lokal dan tugas
             final project. Kami bertujuan untuk memberikan kemudahan dan

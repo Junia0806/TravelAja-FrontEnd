@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { fetchFlightDetail } from "../Redux/actions/flightAction";
-import { FaPlane } from "react-icons/fa";
+import { useSpring, animated } from "react-spring";
+import { FaPlaneDeparture } from "react-icons/fa6";
 
 const DetailPenerbangan = () => {
   const idFlight = useParams();
@@ -28,20 +30,27 @@ const DetailPenerbangan = () => {
     return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
+  const planeAnimation = useSpring({
+    loop: true,
+    to: [{ transform: "translateX(10px)" }, { transform: "translateX(0px)" }],
+    from: { transform: "translateX(0px)" },
+    config: { duration: 1000 },
+  });
+
   const calculateFlightDuration = (departure, arrival) => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-  
+
     if (minutes === 0) {
       return `${hours} jam`;
     } else {
       return `${hours} jam ${minutes} menit`;
     }
   };
-  
+
   const flightDuration = calculateFlightDuration(
     flight.departure_time,
     flight.arrival_time
@@ -52,7 +61,7 @@ const DetailPenerbangan = () => {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="bg-[#00B7C2] text-white py-2 px-4 rounded-t-lg">
           <p className="text-center text-lg">
-            Detail Penerbangan{" "} 
+            Detail Penerbangan{" "}
             <strong>{flight?.destination_airport?.city}</strong>{" "}
             <i className="fa-solid fa-arrow-right"></i>{" "}
             <strong>{flight?.arrival_airport?.city}</strong>
@@ -72,7 +81,6 @@ const DetailPenerbangan = () => {
                   {flight?.airlines?.airline_name}
                 </span>{" "}
                 - {flight?.seatclass?.seat_class_type}
-               
               </p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
@@ -91,7 +99,8 @@ const DetailPenerbangan = () => {
                       Harga Normal: Rp {flight.price.toLocaleString("id-ID")}
                     </p>
                     <p className="text-red-600 font-bold text-lg">
-                      Harga Diskon: Rp {flight.total_price.toLocaleString("id-ID")}
+                      Harga Diskon: Rp{" "}
+                      {flight.total_price.toLocaleString("id-ID")}
                     </p>
                   </>
                 )}
@@ -124,10 +133,20 @@ const DetailPenerbangan = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <FaPlane size={30} className="text-[#00B7C2]" />
+            {/* <FaPlane size={30} className="text-[#00B7C2]" />
             <span className="text-gray-700 dark:text-gray-400 font-semibold mt-2 flex justify-center items-center">
               {flightDuration}
-            </span>
+            </span> */}
+
+            <animated.div
+              style={planeAnimation}
+              className="flex flex-col items-center"
+            >
+              <FaPlaneDeparture size={30} className="text-[#00B7C2]" />
+              <span className="text-gray-700 dark:text-gray-400 font-semibold mt-2 flex items-center">
+                {flightDuration}
+              </span>
+            </animated.div>
           </div>
           <div className="flex flex-col">
             <div className="flex-1">

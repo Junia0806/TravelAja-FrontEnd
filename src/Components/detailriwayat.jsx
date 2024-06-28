@@ -61,8 +61,8 @@ const DetailRiwayat = () => {
               Detail Riwayat Pesanan
             </p>
           </div>
-          <div className="p-8">
-            <div className="grid-cols-1 sm:grid-cols-4 gap-4 py-4">
+          <div className="relative p-8">
+            <div className="grid-cols-1 sm:grid-cols-4 ">
               {details && (
                 <div key={details?.booking_id} className="relative p-8">
                   <img
