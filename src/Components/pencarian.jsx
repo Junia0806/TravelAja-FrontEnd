@@ -100,17 +100,21 @@ export function Pencarian() {
     return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
+ 
   const calculateFlightDuration = (departure, arrival) => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
-
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-
-    return `${hours} jam ${minutes} menit`;
+  
+    if (minutes === 0) {
+      return `${hours} jam`;
+    } else {
+      return `${hours} jam ${minutes} menit`;
+    }
   };
-
+ 
   //untuk filter harga
   const handleFilterChange = (e) => {
     const selectedValue = e.target.value;
@@ -136,7 +140,7 @@ export function Pencarian() {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-bold mb-4 mt-3 border-b text-center">Pilih Penerbangan</h1>
+      {/* <h1 className="text-2xl font-bold mb-4 mt-3 border-b text-center">Pilih Penerbangan</h1> */}
       <div className="flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0 p-2">
         <div className="flex flex-col md:flex-row items-center w-full space-y-4 md:space-y-0 md:space-x-4 text-white font-semibold">
           <h1 className="rounded-md bg-[#00B7C2] p-2 w-full flex items-center text-left">

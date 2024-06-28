@@ -3,6 +3,7 @@ import { FaArrowLeft, FaFilter, FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { notificationsAll } from "../Redux/actions/notifActions";
 import NotificationFilter from "../Components/NotificationsFilter";
+import { Link } from "react-router-dom";
 
 function NotificationsPage() {
   const dispatch = useDispatch();
@@ -76,9 +77,12 @@ function NotificationsPage() {
   return (
     <div className="container mx-auto p-4">
       <div className="flex items-center mb-8">
-        <button className="flex items-center text-blue-600 hover:text-blue-700">
+        <Link
+          to="/"
+          className="flex items-center text-blue-600 hover:text-blue-700"
+        >
           <FaArrowLeft className="mr-2" /> Beranda
-        </button>
+        </Link>
       </div>
       <div className="bg-blue-100 p-4 rounded-lg shadow-md flex items-center justify-between">
         <div className="flex items-center bg-white p-2 rounded-lg w-full">
