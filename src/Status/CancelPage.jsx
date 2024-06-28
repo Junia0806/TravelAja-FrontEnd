@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { FaUserPen } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import StatusCancel from "../assets/status pesanan/Status Airlines(2).png";

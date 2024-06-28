@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSeat } from "../Redux/actions/flightAction";
@@ -18,9 +17,6 @@ function Proces() {
   const data_flight = useSelector((state) => state.flights.data);
   const token = useSelector((state) => state.auth.token);
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
-  console.log("dataBooking :>> ", dataBooking);
-  console.log("seat :>> ", seat);
-  console.log("token :>> ", token);
 
   useEffect(() => {
     if (seatClassId) {
@@ -352,17 +348,14 @@ function Proces() {
                     <i className="fa-solid fa-ticket mr-2"></i>
                     Harga per Orang:{" "}
                     <span className="text-gray-800 font-semibold">
-                      Rp.{data_flight.total_price.toLocaleString("id-ID")}
+                      Rp {data_flight.total_price.toLocaleString("id-ID")}
                     </span>
                   </div>
                   <div className="border-t border-gray-300 mt-2 pt-2">
                     <i className="fa-solid fa-dollar-sign mr-2"></i>
                     Total:{" "}
                     <span className="text-gray-800 font-bold text-xl">
-                      Rp.
-                      {(
-                        passengers.length * data_flight.total_price
-                      ).toLocaleString("id-ID")}
+                      Rp {(passengers.length * data_flight.total_price).toLocaleString("id-ID")}
                     </span>
                   </div>
                 </div>

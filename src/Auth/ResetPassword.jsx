@@ -43,7 +43,6 @@ const ResetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validasi password
     if (!/^[A-Z]/.test(password)) {
       toast.error("Password harus dimulai dengan huruf kapital.");
       return;
@@ -57,7 +56,6 @@ const ResetPassword = () => {
       return;
     }
 
-    // Jika validasi lolos, lakukan reset password
     dispatch(resetPassword(password, confirmPassword));
     navigate("/login");
   };

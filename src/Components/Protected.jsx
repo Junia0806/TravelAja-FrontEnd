@@ -19,7 +19,6 @@ function Protected({ children }) {
       return;
     }
 
-    // get user information
     dispatch(getMe(navigate, null, "/"));
   }, [navigate, dispatch, token]);
 

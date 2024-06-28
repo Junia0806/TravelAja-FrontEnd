@@ -16,8 +16,6 @@ export const proceedToPayment = (payload, token) => async (dispatch) => {
       }
     );
     dispatch(setDataBooking(res.data.data));
-    console.log("payload :>> ", payload);
-    console.log("res.data.data :>> ", res.data.data);
     await Swal.fire({
       icon: "success",
       title: "Booking Successful!",
@@ -29,9 +27,6 @@ export const proceedToPayment = (payload, token) => async (dispatch) => {
       }
     });
   } catch (error) {
-    console.error("Error:", error.response.data);
-    console.error("Status Code:", error.response.status);
-    console.error("There was an error!", error);
     Swal.fire({
       icon: "error",
       title: "Booking Failed",
@@ -54,7 +49,6 @@ export const fetchBookingHistory = () => async (dispatch, getState) => {
       }
     );
     dispatch(setDataHistory(res.data.data));
-    console.log("responseHistory", res);
   } catch (error) {
     console.error("Error fetching booking history:", error);
   }
@@ -75,6 +69,7 @@ export const fetchDetailBooking =
         }
       );
       dispatch(setDataHistory(res.data.data));
-      console.log("responseDetail", res);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching detail booking history:", error);
+    }
   };

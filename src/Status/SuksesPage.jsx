@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { FaUserPen } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";

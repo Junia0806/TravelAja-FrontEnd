@@ -16,9 +16,9 @@ function NotificationFilter({ filters, setFilters }) {
           onChange={handleChange}
           className="border border-gray-300 rounded-lg p-2"
         >
-          <option value="">All</option>
-          <option value="unread">Unread</option>
-          <option value="read">Read</option>
+          <option value="">Semua</option>
+          <option value="unread">Belum Dibaca</option>
+          <option value="read">Terbaca</option>
         </select>
       </div>
     </div>

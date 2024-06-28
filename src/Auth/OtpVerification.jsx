@@ -24,12 +24,10 @@ const OtpVerification = () => {
   }, [location, navigate]);
 
   const handleChange = (element, index) => {
-    //hanya angka
     if (isNaN(element.value)) return;
 
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
 
-    // input otomatis berikutnya
     if (element.nextSibling) {
       element.nextSibling.focus();
     }
@@ -40,7 +38,6 @@ const OtpVerification = () => {
     const enteredOtp = otp.join("");
     const integer = Number(enteredOtp);
 
-    // Validasi untuk memastikan semua input OTP terisi
     if (enteredOtp.length < 6 || otp.includes("")) {
       toast.error("Masukkan OTP");
       return;
@@ -49,7 +46,6 @@ const OtpVerification = () => {
     dispatch(verifyOtp(integer, navigate));
   };
 
-  // Countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       if (timeLeft > 0) {
@@ -61,7 +57,7 @@ const OtpVerification = () => {
 
   const handleRenewOtp = () => {
     setTimeLeft(60);
-    setOtp(new Array(6).fill("")); // Reset OTP input
+    setOtp(new Array(6).fill("")); 
     dispatch(renewOtp(email));
   };
 

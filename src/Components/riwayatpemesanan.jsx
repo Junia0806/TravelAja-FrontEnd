@@ -29,7 +29,6 @@ export default function RiwayatPemesanan() {
     return new Date(dateString).toLocaleDateString("id-ID", options);
   };
 
-  // Ensure bookingHistory is an array before filtering
   const filteredBooking = Array.isArray(bookingHistory)
     ? bookingHistory
         .filter((pemesanan) => {
@@ -55,7 +54,7 @@ export default function RiwayatPemesanan() {
               .includes(searchLower)
           );
         })
-    : []; // Default to an empty array if bookingHistory is not yet defined
+    : []; 
 
   return (
     <div className="w-full">
@@ -108,7 +107,7 @@ export default function RiwayatPemesanan() {
                 Total Harga:
               </h1>
               <p className="text-[#00B7C2] font-bold">
-                Rp. {pemesanan.payment.total_price.toLocaleString("id-ID")}
+                Rp {pemesanan.payment.total_price.toLocaleString("id-ID")}
               </p>
             </div>
           </div>

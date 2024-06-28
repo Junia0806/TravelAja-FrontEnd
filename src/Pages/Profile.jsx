@@ -35,12 +35,10 @@ function Profile() {
     const file = e.target.files[0];
     setAvatarFile(file);
 
-    // Unggah avatar segera setelah memilih file
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
       dispatch(uploadAvatar(formData)).then(() => {
-        // Ambil data pengguna yang diperbarui
         dispatch(getMe());
       });
     }
@@ -57,7 +55,6 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // untuk update data profile
     const profileData = { name, no_telp };
     dispatch(updateProfile(profileData, navigate));
   };
@@ -66,7 +63,6 @@ function Profile() {
     <div>
       <ToastContainer />
       <div className="container mx-auto px-4 sm:px-8 py-4">
-        {/* Top Bar */}
         <div className="flex items-center mb-4">
           <button
             className="flex items-center text-blue-500 hover:text-gray-800"
@@ -77,7 +73,6 @@ function Profile() {
         </div>
 
         <div className="flex flex-col md:flex-row md:items-start md:space-x-4 justify-center">
-          {/* Sidebar */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <div className="space-y-4">
               <div className="bg-white p-4 rounded-lg shadow-md">
@@ -107,7 +102,6 @@ function Profile() {
             </div>
           </div>
 
-          {/* Edit Profile Form */}
           <div className="w-full max-w-sm">
             <div className="p-4 bg-white rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">Ubah Data Profil</h2>

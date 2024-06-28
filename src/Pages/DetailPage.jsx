@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -84,16 +83,15 @@ const DetailPenerbangan = () => {
               <div className="text-gray-600">
                 {flight.price === flight.total_price ? (
                   <span className="font-bold text-gray-900">
-                    Harga: Rp.{flight.total_price.toLocaleString("id-ID")}
+                    Harga: Rp {flight.total_price.toLocaleString("id-ID")}
                   </span>
                 ) : (
                   <>
                     <p className="text-gray-500 line-through">
-                      Harga Normal: Rp.{flight.price.toLocaleString("id-ID")}
+                      Harga Normal: Rp {flight.price.toLocaleString("id-ID")}
                     </p>
                     <p className="text-red-600 font-bold text-lg">
-                      Harga Diskon: Rp.
-                      {flight.total_price.toLocaleString("id-ID")}
+                      Harga Diskon: Rp {flight.total_price.toLocaleString("id-ID")}
                     </p>
                   </>
                 )}

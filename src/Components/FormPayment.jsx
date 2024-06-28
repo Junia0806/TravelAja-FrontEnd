@@ -1,15 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedToPayment } from "../Redux/actions/bookingActions";
-import { Link } from "react-router-dom";
 
 const PaymentCard = () => {
   const dispatch = useDispatch();
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
   const data_flight = useSelector((state) => state.flights.data);
-  console.log("data_flight :>> ", data_flight);
-  console.log("dataBooking :>> ", dataBooking);
 
   useEffect(() => {
     dispatch(proceedToPayment);
@@ -42,7 +38,6 @@ const PaymentCard = () => {
           </div>
 
           <div className="grid grid-cols-3 gap-8">
-            {/* Keberangkatan */}
             <div>
               <h2 className="text-lg font-semibold text-gray-700">
                 Keberangkatan
@@ -67,12 +62,10 @@ const PaymentCard = () => {
               </p>
             </div>
 
-            {/* Icon panah ke kanan */}
             <div className="flex justify-center items-center">
               <i className="fa-solid fa-right-long text-gray-600 text-2xl"></i>
             </div>
 
-            {/* Kedatangan */}
             <div>
               <h2 className="text-lg font-semibold text-gray-700">
                 Kedatangan
@@ -140,7 +133,6 @@ const PaymentCard = () => {
         </div>
       </div>
 
-      {/* Payment Pilihan */}
       <div className="mx-8 bg-white shadow-lg rounded-lg">
         <div className="bg-gray-500 text-white py-2 rounded-t-lg">
           <p className="text-center text-lg font-bold">

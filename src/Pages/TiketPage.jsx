@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const BoardingPass = () => {
@@ -12,8 +10,6 @@ const BoardingPass = () => {
   const bookingCode = useParams();
   const [boardingPassData, setBoardingPassData] = useState(null);
   const token = useSelector((state) => state.auth.token);
-  console.log("boardingPassData :>> ", boardingPassData);
-  console.log("bookingCode :>> ", bookingCode);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,7 +100,6 @@ const BoardingPass = () => {
               ref={(el) => (printRefs.current[index] = el)}
               className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300 mb-6"
             >
-              {/* Card 1: Logo and Basic Info */}
               <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/3 bg-gradient-to-r from-[#007C91] to-[#00B7C2] text-white p-6">
                   <h1 className="text-lg font-semibold mb-4 flex items-center">
@@ -132,8 +127,6 @@ const BoardingPass = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Card 2: Passenger Info */}
                 <div className="w-full md:w-1/3 p-6 bg-white">
                   <div className="mb-4">
                     <p className="text-lg font-bold text-gray-800 mb-2">
@@ -179,8 +172,6 @@ const BoardingPass = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Card 3: Additional Info and QR Code */}
                 <div className="w-full md:w-1/3 p-6 bg-white flex flex-col justify-between border-l-2 border-dashed border-gray-400">
                   <div className="text-sm text-gray-600">
                     <p className="mb-2">

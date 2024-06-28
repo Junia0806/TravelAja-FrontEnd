@@ -21,34 +21,33 @@ const FooterSection = () => {
           <div>
             <Footer.Title title="Fitur" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">Pencarian</Footer.Link>
-              <Footer.Link href="#">Destinasi</Footer.Link>
+              <Footer.Link href="/">Pemesanan</Footer.Link>
+              <Footer.Link href="/notif">Notifikasi</Footer.Link>
             </Footer.LinkGroup>
           </div>
           <div>
             <Footer.Title title="Penerbangan" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">Domestik</Footer.Link>
+              <Footer.Link href="/">Domestik</Footer.Link>
             </Footer.LinkGroup>
           </div>
           <div>
             <Footer.Title title="Temukan" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">Tentang</Footer.Link>
-              <Footer.Link href="#">Kontak Kami</Footer.Link>
+              <Footer.Link href="/tentang">Tentang</Footer.Link>
+              <Footer.Link href="https://api.whatsapp.com/send?phone=628970946561&text=Halo%20admin%20travel%20aja%2C%20saya%20ada%20pertanyaan%20nih%F0%9F%98%85">Kontak Kami</Footer.Link>
             </Footer.LinkGroup>
           </div>
         </div>
       </div>
       <Footer.Divider />
       <div className="w-full sm:flex sm:items-center sm:justify-between">
-        <Footer.Copyright href="#" by="BINAR-B2™" year={2024} />
+        <Footer.Copyright  by="BINAR-B2™" year={2024} />
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-          <Footer.Icon href="#" icon={BsWhatsapp} />
-          <Footer.Icon href="#" icon={BsInstagram} />
-          <Footer.Icon href="#" icon={BsTwitter} />
-          <Footer.Icon href="#" icon={BsGithub} />
-
+          <Footer.Icon href="https://api.whatsapp.com/send?phone=628970946561&text=Halo%20admin%20travel%20aja%2C%20saya%20ada%20pertanyaan%20nih%F0%9F%98%85" icon={BsWhatsapp} />
+          <Footer.Icon href="https://github.com/Junia0806/TravelAja-FrontEnd" icon={BsGithub} />
+          <Footer.Icon href="https://www.instagram.com/academybinar/" icon={BsInstagram} />
+          <Footer.Icon href="https://x.com/academybinar?s=11" icon={BsTwitter} />
         </div>
       </div>
     </div>

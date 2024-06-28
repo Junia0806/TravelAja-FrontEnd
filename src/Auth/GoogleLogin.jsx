@@ -11,13 +11,8 @@ function GoogleLogin({ buttonText }) {
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: (responseGoogle) => {
-      console.log("Google login success response:", responseGoogle);
-      console.log("response", response.access_token);
       dispatch(withGoogleLogin(responseGoogle.accessToken, navigate));
-    },
-    onFailure: (error) => {
-      console.error("Google login failed:", error);
-    },
+    }
   });
 
   return (
