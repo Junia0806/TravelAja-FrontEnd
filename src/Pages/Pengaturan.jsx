@@ -97,7 +97,6 @@ function Pengaturan() {
 
     dispatch(changePassword(oldPassword, newPassword, navigate));
 
-    // Clear the input fields after submission
     setOldPassword("");
     setNewPassword("");
     setConfirmPassword("");
@@ -107,7 +106,6 @@ function Pengaturan() {
     <div>
       <ToastContainer />
       <div className="container mx-auto px-4 sm:px-8 py-4">
-        {/* Top Bar */}
         <div className="flex items-center mb-4">
           <button
             className="flex items-center text-blue-500 hover:text-gray-800"
@@ -118,7 +116,6 @@ function Pengaturan() {
         </div>
 
         <div className="flex flex-col md:flex-row md:items-start md:space-x-4 justify-center">
-          {/* Sidebar */}
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <div className="space-y-4">
               <div className="bg-white p-4 rounded-lg shadow-md">
@@ -148,7 +145,6 @@ function Pengaturan() {
             </div>
           </div>
 
-          {/* Edit Profile Form */}
           <div className="w-full max-w-sm">
             <div className="p-4 bg-white rounded-lg shadow-md">
               <h2 className="text-xl font-semibold mb-4">

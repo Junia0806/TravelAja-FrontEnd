@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PaymentCard from '../Components/FormPayment';
 import { FaUserPen } from "react-icons/fa6";

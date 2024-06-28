@@ -1,5 +1,4 @@
 /* eslint-disable no-empty */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Modal } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -96,31 +95,17 @@ const Home = () => {
   }, []);
 
   const items = listbandara.map((e) => ({ ...e, name: e.airport_name }));
-
-  const handleOnSearch = (string, results) => {
-    console.log(string, results);
-  };
-
-  const handleOnHover = (result) => {
-    console.log(result);
-  };
-
+  
   const handleOnSelectAsal = (item) => {
-    console.log("item", item);
     setBandaraAsal(item);
     setFormData({ ...formData, departureAirport: item });
     setOpenModalAsal(false);
   };
 
   const handleOnSelectTujuan = (item) => {
-    console.log(item);
     setBandaraTujuan(item);
     setFormData({ ...formData, arrivalAirport: item });
     setOpenModalTujuan(false);
-  };
-
-  const handleOnFocus = () => {
-    console.log("Focused");
   };
 
   const formatResult = (item) => {
@@ -199,7 +184,7 @@ const Home = () => {
                 name="departureAirport"
                 value={formData.departureAirport?.name}
                 onChange={handleChange}
-                placeholder="Cari Bandara Keberangkatan"
+                placeholder="Cari Bandara Asal"
                 className="w-full px-4 py-3 border border-white bg-transparent text-gray-800 placeholder-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -274,21 +259,17 @@ const Home = () => {
           </form>
         </div>
 
-        {/* modal untuk bandara asal */}
         <Modal show={openModalAsal} onClose={() => setOpenModalAsal(false)}>
-          <Modal.Header className="p-4 bg-teal-500">
+          <Modal.Header className="p-4 bg-teal-500 cursor-pointer">
             <h2 className="text-xl text-white font-bold">
               Pencarian Bandara Keberangkatan
             </h2>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="max-h-96 overflow-y-auto">
             <div className="mb-16">
               <ReactSearchAutocomplete
                 items={items}
-                onSearch={handleOnSearch}
-                onHover={handleOnHover}
                 onSelect={handleOnSelectAsal}
-                onFocus={handleOnFocus}
                 autoFocus
                 formatResult={formatResult}
                 inputClass="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -308,10 +289,7 @@ const Home = () => {
             <div className="mb-16">
               <ReactSearchAutocomplete
                 items={items}
-                onSearch={handleOnSearch}
-                onHover={handleOnHover}
                 onSelect={handleOnSelectTujuan}
-                onFocus={handleOnFocus}
                 autoFocus
                 formatResult={formatResult}
                 inputClass="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -322,8 +300,7 @@ const Home = () => {
         </Modal>
       </div>
       <div>
-        {/* Section 2 */}
-        <PromoPagination/>
+        <PromoPagination />
       </div>
     </div>
   );

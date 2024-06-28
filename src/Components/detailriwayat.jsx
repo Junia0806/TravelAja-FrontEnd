@@ -214,7 +214,7 @@ const DetailRiwayat = () => {
                   <span className="flex items-center text-gray-500 font-semibold mb-2">
                     <FaMoneyCheck className="mr-2" /> Harga per Tiket:
                     <span className="text-black ml-2">
-                      Rp. {details?.flight?.total_price.toLocaleString("id-ID")}{" "}
+                      Rp {details?.flight?.total_price.toLocaleString("id-ID")}{" "}
                     </span>
                   </span>
                 </React.Fragment>
@@ -227,7 +227,7 @@ const DetailRiwayat = () => {
                 >
                   <TfiMoney className="mr-2 text-black" /> Total Bayar:
                   <h1 className="mr-2 ml-2 font-bold text-[#00B7C2]">
-                    Rp. {details?.payment?.total_price.toLocaleString("id-ID")}
+                    Rp {details?.payment?.total_price.toLocaleString("id-ID")}
                   </h1>
                 </span>
               </div>

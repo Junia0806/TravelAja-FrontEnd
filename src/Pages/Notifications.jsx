@@ -21,7 +21,6 @@ function NotificationsPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    // Load read status from Local Storage
     const readStatus =
       JSON.parse(localStorage.getItem("readNotifications")) || {};
     const updatedData = data?.map((notification) => ({
@@ -33,8 +32,6 @@ function NotificationsPage() {
 
   useEffect(() => {
     let filtered = notifications;
-
-    // Filter by status
     if (filters.status) {
       filtered = filtered.filter((notification) =>
         filters.status === "read"
@@ -43,7 +40,6 @@ function NotificationsPage() {
       );
     }
 
-    // Filter by search keyword
     filtered = filtered?.filter((notification) =>
       notification.title.toLowerCase().includes(searchKeyword.toLowerCase())
     );
@@ -63,7 +59,6 @@ function NotificationsPage() {
     );
     setNotifications(updatedNotifications);
 
-    // Save read status to Local Storage
     const readStatus =
       JSON.parse(localStorage.getItem("readNotifications")) || {};
     readStatus[notificationId] = true;

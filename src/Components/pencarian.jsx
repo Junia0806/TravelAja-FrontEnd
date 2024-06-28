@@ -1,5 +1,3 @@
-/* eslint-disable no-empty */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -20,7 +18,6 @@ export function Pencarian() {
   const location = useLocation();
   const valuePencarian = location.state?.formData;
 
-  //untuk menghitung tanggal selama 7 hari
   const getDateRange = (startDate) => {
     const dates = [];
     const start = new Date(startDate);
@@ -35,7 +32,6 @@ export function Pencarian() {
 
   const dates = valuePencarian?.departureDate ? getDateRange(valuePencarian?.departureDate) : [];
 
-  // useEffect untuk search
   useEffect(() => {
     async function fetchData() {
       if (!dates.length) return;
@@ -54,10 +50,8 @@ export function Pencarian() {
           console.error("Error fetching flight data:", error);
         }
       }
-
       setFlights(flightData);
 
-      //mengelompokkan data berdasarkan tanggal
       const groupedFlights = flightData.reduce((acc, flight) => {
         const date = new Date(flight.departure_time).toLocaleDateString("id-ID");
         if (!acc[date]) {
@@ -73,7 +67,7 @@ export function Pencarian() {
     fetchData();
   }, [valuePencarian, dates]);
 
-  //mengatur data sesuai tanggal yang dipilih dari tab aktif.
+ 
   useEffect(() => {
     const currentTabDate = dates[activeTab];
     const [day, month, year] = currentTabDate.split("/");
@@ -86,7 +80,6 @@ export function Pencarian() {
     setActiveTab(index);
   };
 
-  //untuk animasi pesawat
   const planeAnimation = useSpring({
     loop: true,
     to: [{ transform: "translateX(10px)" }, { transform: "translateX(0px)" }],
@@ -94,7 +87,6 @@ export function Pencarian() {
     config: { duration: 1000 },
   });
 
-  //untuk mencari durasi penerbangan
   const formatTime = (timeString) => {
     const options = { hour: "2-digit", minute: "2-digit", hour12: false };
     return new Date(timeString).toLocaleTimeString("id-ID", options);
@@ -115,7 +107,6 @@ export function Pencarian() {
     }
   };
  
-  //untuk filter harga
   const handleFilterChange = (e) => {
     const selectedValue = e.target.value;
     setSortOrder(selectedValue);
@@ -140,7 +131,6 @@ export function Pencarian() {
 
   return (
     <div className="w-full">
-      {/* <h1 className="text-2xl font-bold mb-4 mt-3 border-b text-center">Pilih Penerbangan</h1> */}
       <div className="flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0 p-2">
         <div className="flex flex-col md:flex-row items-center w-full space-y-4 md:space-y-0 md:space-x-4 text-white font-semibold">
           <h1 className="rounded-md bg-[#00B7C2] p-2 w-full flex items-center text-left">
@@ -201,7 +191,7 @@ export function Pencarian() {
                         </div>
                       </div>
                       <div className="flex flex-col sm:flex-row items-center sm:justify-end sm:items-center p-4">
-                        <span className="text-[#00B7C2] text-lg font-bold mt-2 sm:mt-0"> Rp. {flight?.total_price}</span>
+                        <span className="text-[#00B7C2] text-lg font-bold mt-2 sm:mt-0"> Rp {flight.price.toLocaleString("id-ID")}</span>
                         <Link to={`/detail/${flight?.flight_id}`} className="block text-center bg-gray-600 hover:bg-gray-800 text-white font-bold text-l py-2 px-4 rounded-md focus:outline-none sm:ml-4 mt-4 sm:mt-0">
                           Lihat Detail
                         </Link>

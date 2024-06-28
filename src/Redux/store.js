@@ -8,7 +8,6 @@ import bookingReducers from "./reducers/bookingReducers";
 import notifReducers from "./reducers/notifReducers";
 import promoReducers from "./reducers/promoReducers";
 
-//Reducernya disini
 const rootReducers = combineReducers({
   auth: authReducers,
   flights: flightReducers,

@@ -7,7 +7,7 @@ import {
   setUser,
 } from "../reducers/authReducers";
 
-// Fungsi untuk mendapatkan token dari state Redux
+
 const getToken = (getState) => {
   const state = getState();
   return state.auth.token;

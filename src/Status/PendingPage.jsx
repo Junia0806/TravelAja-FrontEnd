@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { FaUserPen } from "react-icons/fa6";
-import { MdOutlinePayment } from "react-icons/md";
+import { FaUserPen } from "react-icons/fa6";import { MdOutlinePayment } from "react-icons/md";
 import StatusPending from "../assets/status pesanan/Status Airlines(3).png";
 import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
