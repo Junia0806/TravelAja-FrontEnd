@@ -1,14 +1,23 @@
 import React from "react";
-import { FaReact } from 'react-icons/fa';
-import { SiTailwindcss, SiSwagger, SiVite } from 'react-icons/si';
-import logoTravel from "../assets/Logo.png";
+import { FaReact } from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiSwagger,
+  SiVite,
+  SiExpress,
+  SiPostgresql,
+  SiRailway,
+  SiPrisma,
+} from "react-icons/si";
+import { BsWhatsapp } from "react-icons/bs";
+import { AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import rahmatImage from "../assets/fotoTeam/rahmat.jpeg";
 import kevinImage from "../assets/fotoTeam/masKevin.png";
 import ilhamImage from "../assets/fotoTeam/Ilham Praditya.jpg";
 import arifImage from "../assets/fotoTeam/Arif Pradana.jpg";
 import juniaImage from "../assets/fotoTeam/Junia Vitasari.jpg";
 import tantrikImage from "../assets/fotoTeam/Tantrik Lusi.jpg";
-import background from "../assets/bg.jpg"; 
+import background from "../assets/bg_tentang.jpg";
 
 const teamMembers = [
   {
@@ -58,91 +67,143 @@ const teamMembers = [
 const technologies = [
   {
     name: "React",
-    description: "Library JavaScript untuk membangun antarmuka pengguna.",
     icon: <FaReact className="text-blue-500 text-6xl mb-4" />,
   },
   {
     name: "Vite",
-    description: "Bundler cepat untuk proyek JavaScript.",
     icon: <SiVite className="text-purple-500 text-6xl mb-4" />,
   },
   {
     name: "Tailwind CSS",
-    description: "Framework CSS untuk desain yang cepat.",
     icon: <SiTailwindcss className="text-teal-500 text-6xl mb-4" />,
   },
   {
     name: "Swagger",
-    description: "Alat untuk mendeskripsikan dan mendokumentasikan API.",
     icon: <SiSwagger className="text-green-500 text-6xl mb-4" />,
+  },
+  {
+    name: "Express.js",
+    icon: <SiExpress className="text-gray-700 text-6xl mb-4" />,
+  },
+  {
+    name: "Postgre SQL",
+    icon: <SiPostgresql className="text-blue-700 text-6xl mb-4" />,
+  },
+  {
+    name: "Railway",
+    icon: <SiRailway className="text-blue-600 text-6xl mb-4" />,
+  },
+  {
+    name: "Prisma",
+    icon: <SiPrisma className="text-green-500 text-6xl mb-4" />,
   },
 ];
 
 const About = () => {
   return (
-    <div
-      className="bg-cover bg-center min-h-screen py-10"
-      style={{ backgroundImage: `url(${background})` }}
-    >
-      <div className="container mx-auto px-4 bg-white bg-opacity-30 rounded-lg py-10">
-        <h1 className="text-4xl font-bold text-center mb-10">Tentang Kami</h1>
-        <div className="flex flex-col md:flex-row items-center justify-center mb-10">
-        
-          <p className="text-lg text-center md:text-left">
-            Situs web ini dibuat untuk memudahkan pemesanan tiket lokal dan tugas
-            final project. Kami bertujuan untuk memberikan kemudahan dan
-            kenyamanan dalam memesan tiket dengan berbagai pilihan dan harga yang
-            kompetitif.
-          </p>
-        </div>
-        <h2 className="text-3xl font-bold text-center mb-6">Teknologi yang Digunakan</h2>
-        <div className="flex flex-wrap justify-center mb-10">
-          {technologies.map((tech) => (
-            <div key={tech.name} className="m-4 p-6 bg-white shadow-lg rounded-lg flex flex-col items-center hover:scale-105 transition-transform w-full md:w-1/3 lg:w-1/4">
-              {tech.icon}
-              <p className="text-lg font-bold">{tech.name}</p>
-              <p className="text-gray-700 text-center mt-2">{tech.description}</p>
-            </div>
-          ))}
-        </div>
-        <h2 className="text-3xl font-bold text-center mb-6">Tim Kami</h2>
-        <div className="flex flex-wrap justify-center">
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className="bg-white shadow-lg rounded-lg overflow-hidden w-full md:w-1/3 lg:w-1/4 m-4 hover:scale-105 transition-transform"
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-56 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                <p className="text-gray-700 mb-2">{member.role}</p>
-                <div className="flex space-x-4">
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
+    <div className="flex flex-col min-h-screen">
+      <div
+        className="flex-grow bg-cover bg-center py-10"
+        style={{ backgroundImage: `url(${background})` }}
+      >
+        <div className="container mx-auto px-4 bg-white bg-opacity-30 rounded-lg py-10">
+          <h1 className="text-4xl font-bold text-center mb-10">Tentang Kami</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
+            <div className="flex flex-col items-center">
+              <div className="flex flex-wrap justify-center">
+                {technologies.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className="m-4 p-6 bg-white shadow-lg rounded-lg flex flex-col items-center hover:scale-105 transition-transform w-24 h-24 relative"
                   >
-                    GitHub
-                  </a>
-                  <a
-                    href={member.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-pink-500 hover:underline"
-                  >
-                    Instagram
-                  </a>
-                </div>
+                    {tech.icon}
+                    <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <div className="text-white text-center p-2">
+                        <p className="text-xl font-bold">{tech.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+            <div className="flex-1">
+              <p className="text-lg text-justify pr-8 mb-4">
+                <strong>Selamat datang di TravelAja</strong> – solusi tiket
+                lokal Anda yang sederhana, cepat, dan terpercaya! Kami adalah
+                platform pemesanan tiket yang dirancang untuk mempermudah Anda
+                dalam menemukan berbagai pilihan tiket dengan harga yang sangat
+                kompetitif.{" "}
+                <strong>Pingin liburan? Click TravelAja! 🌟🚀 </strong>
+              </p>
+
+              <p className="text-lg text-justify pr-8">
+                Dapatkan tiket terbaik hanya di TravelAja! Jangan tunda lagi –
+                klik dan temukan tiket yang Anda butuhkan sekarang juga! Jangan
+                ragu untuk menjelajahi berbagai pilihan tiket dan penawaran
+                istimewa yang hanya tersedia di TravelAja!
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+      <h2 className="text-3xl font-bold text-center bg-gray-200 p-6">
+        Tim Kami
+      </h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10 bg-gray-200 p-6">
+        {teamMembers.map((member) => (
+          <div
+            key={member.name}
+            className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:bg-gray-100 hover:shadow-2xl transition-all duration-300"
+          >
+            <img
+              src={member.image}
+              alt={member.name}
+              className="w-full h-56 object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div className="flex space-x-4 mb-4">
+                <a
+                  href={member.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-3xl hover:text-gray-400 transition-colors"
+                >
+                  <AiFillGithub />
+                </a>
+                <a
+                  href={member.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-3xl hover:text-pink-400 transition-colors"
+                >
+                  <AiFillInstagram />
+                </a>
+              </div>
+              <div className="text-white text-center">
+                <h3 className="text-xl font-bold">{member.name}</h3>
+                <p>{member.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="https://api.whatsapp.com/send?phone=628970946561&text=Halo%20admin%20TravelAja%2C%20saya%20ingin%20menanyakan%20beberapa%20hal%20tentang%20layanan%20dan%20penawaran%20yang%20tersedia.%20Terima%20kasih%20atas%20perhatiannya.%20😊"
+        className="fixed bottom-4 left-4 flex items-center justify-center group "
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {/* Logo WhatsApp */}
+        <BsWhatsapp className="text-3xl relative z-10 bg-green-500 rounded-full m-1" />
+        {/* Pseudo-elemen untuk efek background */}
+        <span className="absolute inset-0 bg-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center group-hover:w-52 group-hover:h-12 p-2 group-hover:p-4">
+          {/* Teks saat hover */}
+          <span className="text-white text-sm flex items-center">
+            Yuk tanya MiminAja!
+          </span>
+        </span>
+      </a>
     </div>
   );
 };

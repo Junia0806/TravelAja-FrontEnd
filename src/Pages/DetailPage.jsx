@@ -133,11 +133,6 @@ const DetailPenerbangan = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            {/* <FaPlane size={30} className="text-[#00B7C2]" />
-            <span className="text-gray-700 dark:text-gray-400 font-semibold mt-2 flex justify-center items-center">
-              {flightDuration}
-            </span> */}
-
             <animated.div
               style={planeAnimation}
               className="flex flex-col items-center"
