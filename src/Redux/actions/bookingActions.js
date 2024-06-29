@@ -6,7 +6,7 @@ import { setDataBooking, setDataHistory } from "../reducers/bookingReducers";
 export const proceedToPayment = (payload, token) => async (dispatch) => {
   try {
     const res = await axios.post(
-      "https://expressjs-develop.up.railway.app/api/v1/booking/process",
+      "https://expressjs-production-6cc1.up.railway.app/api/v1/booking/process",
       payload,
       {
         headers: {
@@ -39,7 +39,7 @@ export const fetchBookingHistory = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
     const res = await axios.get(
-      `https://expressjs-develop.up.railway.app/api/v1/booking/history`,
+      `https://expressjs-production-6cc1.up.railway.app/api/v1/booking/history`,
 
       {
         headers: {
@@ -59,7 +59,7 @@ export const fetchDetailBooking =
     try {
       const { token } = getState().auth;
       const res = await axios.get(
-        `https://expressjs-develop.up.railway.app/api/v1/booking/id/${bookingCode}`,
+        `https://expressjs-production-6cc1.up.railway.app/api/v1/booking/id/${bookingCode}`,
 
         {
           headers: {

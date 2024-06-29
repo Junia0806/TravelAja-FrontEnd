@@ -43,7 +43,7 @@ export function Pencarian() {
         const formattedDate = `${year}-${month}-${day}`;
         try {
           const response = await axios.get(
-            `https://expressjs-develop.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
+            `https://expressjs-production-6cc1.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
           );
           flightData.push(...response.data.data);
         } catch (error) {
