@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -30,50 +30,61 @@ export function Pencarian() {
     return dates;
   };
 
-  const dates = valuePencarian?.departureDate ? getDateRange(valuePencarian?.departureDate) : [];
+  const getDayName = (dateString) => {
+    const [day, month, year] = dateString.split("/");
+    const date = new Date(`${year}-${month}-${day}`);
+    return date.toLocaleDateString("id-ID", { weekday: "long" });
+  };
+
+  // const dates = valuePencarian?.departureDate ? getDateRange(valuePencarian?.departureDate) : [];
+  const dates = useMemo(() => {
+    return valuePencarian?.departureDate ? getDateRange(valuePencarian.departureDate) : null;
+  }, [valuePencarian?.departureDate]);
 
   useEffect(() => {
     async function fetchData() {
-      if (!dates.length) return;
+      if (!dates) return;
 
-      const flightData = [];
+      try {
+        const responses = await Promise.all(
+          dates.map((dateString) => {
+            const [day, month, year] = dateString.split("/");
+            const formattedDate = `${year}-${month}-${day}`;
+            return axios.get(
+              `https://expressjs-develop.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
+            );
+          })
+        );
 
-      for (const dateString of dates) {
-        const [day, month, year] = dateString.split("/");
-        const formattedDate = `${year}-${month}-${day}`;
-        try {
-          const response = await axios.get(
-            `https://expressjs-develop.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
-          );
-          flightData.push(...response.data.data);
-        } catch (error) {
-          console.error("Error fetching flight data:", error);
-        }
+        const flightData = responses.flatMap((response) => response.data.data);
+        console.log("respons>>", flightData);
+        setFlights(flightData);
+
+        const groupedFlights = flightData.reduce((acc, flight) => {
+          const date = new Date(flight.departure_time).toLocaleDateString("id-ID");
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(flight);
+          return acc;
+        }, {});
+
+        setFlightsByDate(groupedFlights);
+      } catch (error) {
+        console.error("Error fetching flight data:", error);
       }
-      setFlights(flightData);
-
-      const groupedFlights = flightData.reduce((acc, flight) => {
-        const date = new Date(flight.departure_time).toLocaleDateString("id-ID");
-        if (!acc[date]) {
-          acc[date] = [];
-        }
-        acc[date].push(flight);
-        return acc;
-      }, {});
-
-      setFlightsByDate(groupedFlights);
     }
 
     fetchData();
   }, [valuePencarian, dates]);
 
- 
   useEffect(() => {
-    const currentTabDate = dates[activeTab];
-    const [day, month, year] = currentTabDate.split("/");
-    const formattedDate = `${day}/${month}/${year}`;
-
-    setFilteredFlights(flightsByDate[formattedDate]);
+    if (dates && dates.length > 0) {
+      const currentTabDate = dates[activeTab];
+      const [day, month, year] = currentTabDate.split("/");
+      const formattedDate = `${day}/${month}/${year}`;
+      setFilteredFlights(flightsByDate[formattedDate]);
+    }
   }, [activeTab, flightsByDate, dates]);
 
   const handleTabClick = (index) => {
@@ -92,21 +103,20 @@ export function Pencarian() {
     return new Date(timeString).toLocaleTimeString("id-ID", options);
   };
 
- 
   const calculateFlightDuration = (departure, arrival) => {
     const departureTime = new Date(departure);
     const arrivalTime = new Date(arrival);
     const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
     const hours = Math.floor(durationInMinutes / 60);
     const minutes = Math.floor(durationInMinutes % 60);
-  
+
     if (minutes === 0) {
       return `${hours} jam`;
     } else {
       return `${hours} jam ${minutes} menit`;
     }
   };
- 
+
   const handleFilterChange = (e) => {
     const selectedValue = e.target.value;
     setSortOrder(selectedValue);
@@ -129,6 +139,28 @@ export function Pencarian() {
     sortedFlightsByDate[date] = sortFlights([...flightsByDate[date]], sortOrder);
   });
 
+  const scrollContainerStyle = {
+    display: "flex",
+    overflowX: "auto",
+    whiteSpace: "nowrap",
+    padding: "4px",
+  };
+
+  const scrollItemStyle = {
+    flex: "0 0 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "4px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    margin: "0 5px",
+    borderRadius: "8px",
+    flex: "1 1 auto",
+    minWidth: "180px",
+    maxWidth: "210px",
+  };
+
   return (
     <div className="w-full">
       <div className="flex flex-col md:flex-row justify-between w-full space-y-2 md:space-y-0 p-2">
@@ -147,24 +179,19 @@ export function Pencarian() {
 
       <div className="overflow-x-auto w-full mt-4">
         <Tabs className="Pills">
-        <TabList className="flex flex-col md:flex-row justify-around border-b rounded-sm border-gray-300 dark:border-gray-700 bg-white text-[#00B7C2]">
-            {dates.map((dateString, index) => (
-              <Tab
-                key={index}
-                className={`flex items-center justify-center p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] 
-            ${
-              activeTab === index
-                ? "bg-gray-200 dark:bg-gray-800 text-black"
-                : "hover:bg-gray-200 hover:text-black"
-            }
-            md:flex-col md:items-center md:p-4 md:text-sm`}
-                onClick={() => handleTabClick(index)}
-              >
-                <span className="text-xs text-gray-700 dark:text-black">
-                  {dateString}
-                </span>
-              </Tab>
-            ))}
+          <TabList className="flex flex-row justify-start border-b rounded-sm border-gray-300 dark:border-gray-700 bg-white text-[#00B7C2]" style={scrollContainerStyle}>
+            {dates &&
+              dates.map((dateString, index) => (
+                <Tab
+                  key={index}
+                  className={`p-2 text-center cursor-pointer font-semibold dark:border-[#00B7C2] ${activeTab === index ? "bg-gray-200 dark:bg-gray-800 text-black" : "hover:bg-gray-200 hover:text-black"} md:p-4 md:text-sm`}
+                  style={scrollItemStyle}
+                  onClick={() => handleTabClick(index)}
+                >
+                  <span>{getDayName(dateString)}</span>
+                  <span className="p-1 text-xs text-gray-700 dark:text-black">{dateString}</span>
+                </Tab>
+              ))}
           </TabList>
 
           {dates.map((dateString, index) => (
@@ -175,7 +202,7 @@ export function Pencarian() {
                     <div className="mx-8 bg-white shadow-lg rounded-lg outline-1 mb-4">
                       <div className="bg-gray-400 text-white py-2 px-4 rounded-t-lg">
                         <p className="flex items-center text-lg font-bold tracking-tight">
-                          <img src={flight?.airlines?.url_logo } className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
+                          <img src={flight?.airlines?.url_logo} className="h-8 w-8 mr-2 rounded-full" alt={flight?.airlines?.name || "Citilink Logo"} /> {flight.airlines.airline_name} - {valuePencarian.seatClass}
                         </p>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 py-4">
