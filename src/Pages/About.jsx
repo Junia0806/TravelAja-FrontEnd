@@ -147,9 +147,9 @@ const About = () => {
         </div>
       </div>
       <h2 className="text-3xl font-bold text-center bg-gray-200 p-6">
-        Tim Kami
+        Tim Developer
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10 bg-gray-200 p-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10 bg-gray-200 pb-20 px-6">
         {teamMembers.map((member) => (
           <div
             key={member.name}
@@ -194,7 +194,7 @@ const About = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <BsWhatsapp className="text-3xl relative z-10 bg-green-500 rounded-full m-1" />
+        <BsWhatsapp className="text-4xl relative z-10 bg-green-500 rounded-full m-1" />
         <span className="absolute inset-0 bg-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center group-hover:w-52 group-hover:h-12 p-2 group-hover:p-4">
           <span className="text-white text-sm flex items-center">
             Yuk tanya MiminAja!

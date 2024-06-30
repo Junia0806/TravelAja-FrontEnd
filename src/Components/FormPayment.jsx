@@ -22,12 +22,12 @@ const PaymentCard = () => {
   };
 
   return (
-    <div className="mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="mx-8 bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="mx-0 p-1 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mx-4 bg-white shadow-lg rounded-lg overflow-hidden md:mx-8">
         <div className="bg-gray-400 text-white py-2 px-4 rounded-t-lg">
           <p className="text-center text-lg">Detail Pesanan</p>
         </div>
-        <div className="p-8 space-y-6">
+        <div className="p-4 space-y-4 md:p-8 md:space-y-6">
           <div>
             <h2 className="text-lg font-semibold text-gray-700">
               Booking Code
@@ -36,8 +36,7 @@ const PaymentCard = () => {
               {dataBooking?.booking_code}
             </p>
           </div>
-
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
             <div>
               <h2 className="text-lg font-semibold text-gray-700">
                 Keberangkatan
@@ -61,11 +60,9 @@ const PaymentCard = () => {
                 </span>
               </p>
             </div>
-
             <div className="flex justify-center items-center">
               <i className="fa-solid fa-right-long text-gray-600 text-2xl"></i>
             </div>
-
             <div>
               <h2 className="text-lg font-semibold text-gray-700">
                 Kedatangan
@@ -90,31 +87,30 @@ const PaymentCard = () => {
               </p>
             </div>
           </div>
-
           <hr className="border-gray-300" />
-
           <div className="flex items-center space-x-4">
-            <img src={data_flight?.airlines?.url_logo} alt="Logo Maskapai" className="w-12 h-12" />
+            <img
+              src={data_flight?.airlines?.url_logo}
+              alt="Logo Maskapai"
+              className="w-12 h-12"
+            />
             <div>
               <h2 className="text-lg font-semibold text-gray-700">Maskapai</h2>
               <p className="text-gray-600">
                 <span className="font-bold text-gray-900">
                   {data_flight?.airlines?.airline_name}
                 </span>{" "}
-                -{data_flight?.seatclass?.seat_class_type}
+                - {data_flight?.seatclass?.seat_class_type}
               </p>
               <p className="text-gray-600">
                 Kode Penerbangan:{" "}
                 <span className="font-bold text-gray-900">
-                  {" "}
                   {data_flight?.flight_id}
                 </span>
               </p>
             </div>
           </div>
-
           <hr className="border-gray-300" />
-
           <div>
             <h2 className="text-lg font-semibold text-gray-700">Informasi</h2>
             <p className="text-gray-600">
@@ -132,23 +128,27 @@ const PaymentCard = () => {
           </div>
         </div>
       </div>
-
-      <div className="mx-8 bg-white shadow-lg rounded-lg">
-        <div className="bg-gray-500 text-white py-2 rounded-t-lg">
-          <p className="text-center text-lg font-bold">
-            Pilih Metode Pembayaran
-          </p>
-        </div>
-        <div className="p-8">
-          <iframe
-            src={dataBooking?.snap_redirect_url}
-            title="Midtrans Payment"
-            width="100%"
-            height="600px"
-            className="rounded shadow-md w-full"
-          ></iframe>
-        </div>
-      </div>
+      <div className="mx-4 bg-white shadow-lg rounded-lg md:mx-8">
+    <div className="bg-gray-500 text-white py-2 rounded-t-lg">
+      <p className="text-center text-lg font-bold">
+        Pilih Metode Pembayaran
+      </p>
+    </div>
+    <div className="p-0">
+      <iframe
+        src={dataBooking?.snap_redirect_url}
+        title="Midtrans Payment"
+        className=""
+        style={{
+          height: '600px',
+          width: '100%',
+          maxWidth: '100%',
+          minHeight: '300px',
+          margin: '0 auto'
+        }}
+      ></iframe>
+    </div>
+  </div>
     </div>
   );
 };
