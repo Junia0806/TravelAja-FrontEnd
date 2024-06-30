@@ -29,7 +29,7 @@ Kami adalah platform pemesanan tiket yang dirancang untuk mempermudah Anda dalam
 ## Instalasi / Cara menjalankan di lokal
 1. Clone proyek
 ```bash
-  git clone https://github.com/Junia0806/TravelAja-FrontEnd
+  git clone https://github.com/Junia0806/TravelAja-FrontEnd.git
 ```
 2. Instal library menggunakan npm
 ```bash
