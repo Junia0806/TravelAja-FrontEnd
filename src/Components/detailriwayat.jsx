@@ -52,6 +52,25 @@ const DetailRiwayat = () => {
   const isPending = details?.payment?.status === "PENDING_PAYMENT";
   const isCancelled = details?.payment?.status === "CANCELED";
 
+  const calculateFlightDuration = (departure, arrival) => {
+    const departureTime = new Date(departure);
+    const arrivalTime = new Date(arrival);
+    const durationInMinutes = (arrivalTime - departureTime) / (1000 * 60);
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = Math.floor(durationInMinutes % 60);
+
+    if (minutes === 0) {
+      return `${hours} jam`;
+    } else {
+      return `${hours} jam ${minutes} menit`;
+    }
+  };
+
+  const flightDuration = calculateFlightDuration(
+    details?.flight?.departure_time,
+    details?.flight?.arrival_time
+  );
+
   return (
     <div>
       <div className="container mx-auto p-4">
@@ -122,7 +141,7 @@ const DetailRiwayat = () => {
                     >
                       <FaPlaneDeparture size={30} className="text-[#00B7C2]" />
                       <span className="text-gray-700 dark:text-gray-400 font-semibold mt-2 flex items-center">
-                        {details?.durasi}
+                      {flightDuration}
                       </span>
                     </animated.div>
                   </div>
@@ -164,11 +183,11 @@ const DetailRiwayat = () => {
                           {details?.passengers[0]?.identity_number}
                         </span>
                         <span className="flex items-center text-[#00B7C2] font-bold mb-1">
-                          <FaChair className="mr-2" /> Seat Number:{" "}
+                          <FaChair className="mr-2" /> Nomor Kursi:{" "}
                           {details?.passengers[0]?.ticket?.seat?.seat_number}
                         </span>
                         <span className="flex items-center text-[#00B7C2] font-bold">
-                          <FaUserTag className="mr-2" /> Type:{" "}
+                          <FaUserTag className="mr-2" /> Jenis Penumpang:{" "}
                           {details?.passengers[0]?.passenger_type}
                         </span>
                       </div>
@@ -187,11 +206,11 @@ const DetailRiwayat = () => {
                             {passenger?.identity_number}
                           </span>
                           <span className="flex items-center text-[#00B7C2] font-bold mb-1">
-                            <FaChair className="mr-2" /> Seat Number:{" "}
+                            <FaChair className="mr-2" /> Nomor Kursi:{" "}
                             {passenger?.ticket.seat.seat_number}
                           </span>
                           <span className="flex items-center text-[#00B7C2] font-bold">
-                            <FaUserTag className="mr-2" /> Type:{" "}
+                            <FaUserTag className="mr-2" /> Jenis Penumpang:{" "}
                             {passenger?.passenger_type}
                           </span>
                         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaUserEdit, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import {
 } from "../Redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function Profile() {
   const [avatarFile, setAvatarFile] = useState("");
@@ -45,8 +47,22 @@ function Profile() {
   };
 
   const handleLogout = () => {
-    dispatch(logout(navigate));
+    Swal.fire({
+      title: "Apa kamu yakin?",
+      text: "Anda akan Logout.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logout(navigate));
+        Swal.fire("Logout!", "Anda telah Logout.", "success");
+      }
+    });
   };
+
 
   const handleNavigate = (path) => {
     navigate(path);
