@@ -46,7 +46,7 @@ const Header = () => {
 
   return (
     <Navbar fluid rounded className="bg-white m-0 p-3">
-      <Navbar.Brand href="#">
+      <Navbar.Brand href="/">
         <img src={Logo} className="mr-3 h-6 sm:h-9" alt="Logo Travel Aja" />
       </Navbar.Brand>
       <div className="flex md:order-2 items-center">

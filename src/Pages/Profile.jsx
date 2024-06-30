@@ -79,14 +79,7 @@ function Profile() {
     <div>
       <ToastContainer />
       <div className="container mx-auto px-4 sm:px-8 py-4">
-        <div className="flex items-center mb-4">
-          <button
-            className="flex items-center text-blue-500 hover:text-gray-800"
-            onClick={() => handleNavigate("/")}
-          >
-            <FaArrowLeft className="mr-2" /> Beranda
-          </button>
-        </div>
+       
 
         <div className="flex flex-col md:flex-row md:items-start md:space-x-4 justify-center">
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
