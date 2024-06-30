@@ -6,20 +6,20 @@ Kami adalah platform pemesanan tiket yang dirancang untuk mempermudah Anda dalam
 
 ## Tim B2
 
-- [JuniaVitasari] (https://github.com/Junia0806)- Politeknik Negeri Jember
+- [JuniaVitasari] https://github.com/Junia0806 - Politeknik Negeri Jember
 
 ### Teknologi yang Digunakan
 
 | Teknologi           | Deskripsi                                                                 | Ikon                                                                                     |
 | ------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | **[React](https://reactjs.org/)**        | Library JavaScript untuk membangun antarmuka pengguna.                             | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" width="50" alt="React Logo" /> |
-| **[Vite](https://vitejs.dev/)**         | Build tool untuk aplikasi modern dengan pengembangan yang cepat.                   | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Vitejs.svg/2560px-Vitejs.svg.png" width="50" alt="Vite Logo" /> |
+| **[Vite](https://vitejs.dev/)**         | Build tool untuk aplikasi modern dengan pengembangan yang cepat.                   | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8lSbnhyR8Otek7W-o7oYerWXJuQO8C3g0dA&s" width="50" alt="Vite Logo" /> |
 | **[Tailwind CSS](https://tailwindcss.com/)**  | Framework CSS untuk desain yang cepat dan responsif.                               | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/512px-Tailwind_CSS_Logo.svg.png?20230715030042" width="50" alt="Tailwind CSS Logo" /> |
-| **[Swagger](https://swagger.io/)**       | Alat untuk mendokumentasikan API RESTful.                                         | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Swagger_Logo.svg/512px-Swagger_Logo.svg.png" width="50" alt="Swagger Logo" /> |
+| **[Swagger](https://swagger.io/)**       | Alat untuk mendokumentasikan API RESTful.                                         | <img src="https://i0.wp.com/blog.knoldus.com/wp-content/uploads/2019/06/swagger.png?fit=590%2C201&ssl=1" width="50" alt="Swagger Logo" /> |
 | **[Express.js](https://expressjs.com/)** | Framework web minimalis untuk Node.js.                                            | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Expressjs.png/800px-Expressjs.png" width="50" alt="Express.js Logo" /> |
 | **[PostgreSQL](https://www.postgresql.org/)** | Sistem manajemen basis data relasional yang kuat.                                 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" width="50" alt="PostgreSQL Logo" /> |
-| **[Railway](https://railway.app/)**     | Platform untuk mengembangkan dan menghosting aplikasi secara cepat.                | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Railway_logo.svg/2560px-Railway_logo.svg.png" width="50" alt="Railway Logo" /> |
-| **[Prisma](https://www.prisma.io/)**     | ORM untuk Node.js dan TypeScript.   
+| **[Railway](https://railway.app/)**     | Platform untuk mengembangkan dan menghosting aplikasi secara cepat.                | <img src="https://railway.app/brand/logotype-dark.svg" width="50" alt="Railway Logo" /> |
+| **[Prisma](https://www.prisma.io/)**     | ORM untuk Node.js dan TypeScript.  | <img src="https://w7.pngwing.com/pngs/929/464/png-transparent-prisma-hd-logo.png" width="50" alt="Prisma Logo" /> |
 
 ## Instalasi / Cara menjalankan di lokal
 1. Clone proyek
