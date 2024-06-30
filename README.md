@@ -6,7 +6,9 @@ Kami adalah platform pemesanan tiket yang dirancang untuk mempermudah Anda dalam
 
 ## Tim B2
 
-- [JuniaVitasari](https://github.com/Junia0806) - Politeknik Negeri Jember
+- [Junia Vitasari](https://github.com/Junia0806) - Politeknik Negeri Jember
+- [Rahmat Arayyan](https://github.com/rayyan503) - Politeknik Negeri Jember
+- [Tantrik Ulil Lusianti](https://github.com/tantriklusi) - Politeknik Negeri Jember
 
 ## Dokumen
 - [Dokumentasi API Backend](https://expressjs-production-6cc1.up.railway.app/api/v1/api-docs/)
