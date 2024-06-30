@@ -21,7 +21,7 @@ Kami adalah platform pemesanan tiket yang dirancang untuk mempermudah Anda dalam
 | **[Swagger](https://swagger.io/)**       | Alat untuk mendokumentasikan API RESTful.                                         | <img src="https://i0.wp.com/blog.knoldus.com/wp-content/uploads/2019/06/swagger.png?fit=590%2C201&ssl=1" width="50" alt="Swagger Logo" /> |
 | **[Express.js](https://expressjs.com/)** | Framework web minimalis untuk Node.js.                                            | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Expressjs.png/800px-Expressjs.png" width="50" alt="Express.js Logo" /> |
 | **[PostgreSQL](https://www.postgresql.org/)** | Sistem manajemen basis data relasional yang kuat.                                 | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1200px-Postgresql_elephant.svg.png" width="50" alt="PostgreSQL Logo" /> |
-| **[Railway](https://railway.app/)**     | Platform untuk mengembangkan dan menghosting aplikasi secara cepat.                | <img src="https://railway.app/brand/logotype-dark.svg" width="50" alt="Railway Logo" /> |
+| **[Railway](https://railway.app/)**     | Platform untuk mengembangkan dan menghosting aplikasi secara cepat.                | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz3HvVa5UCZAucCoKnA0owixY0dqaoYwdOxA&s" width="50" alt="Railway Logo" /> |
 | **[Prisma](https://www.prisma.io/)**     | ORM untuk Node.js dan TypeScript.  | <img src="https://w7.pngwing.com/pngs/929/464/png-transparent-prisma-hd-logo.png" width="50" alt="Prisma Logo" /> |
 
 ## Instalasi / Cara menjalankan di lokal
