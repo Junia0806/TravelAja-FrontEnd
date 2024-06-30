@@ -128,28 +128,28 @@ const About = () => {
             </div>
             <div className="flex-1">
               <p className="text-lg text-justify pr-8 mb-4">
-                <strong>Selamat datang di TravelAja</strong> – solusi tiket
-                lokal Anda yang sederhana, cepat, dan terpercaya! Kami adalah
-                platform pemesanan tiket yang dirancang untuk mempermudah Anda
-                dalam menemukan berbagai pilihan tiket dengan harga yang sangat
-                kompetitif.{" "}
+              <strong>Selamat datang di TravelAja</strong> – solusi
+                tiket lokal Anda yang sederhana, cepat, dan terpercaya! 
+                Kami adalah platform pemesanan tiket yang dirancang untuk
+                mempermudah Anda dalam menemukan berbagai pilihan tiket dengan
+                harga yang sangat kompetitif.{" "}
                 <strong>Pingin liburan? Click TravelAja! 🌟🚀 </strong>
               </p>
 
               <p className="text-lg text-justify pr-8">
-                Dapatkan tiket terbaik hanya di TravelAja! Jangan tunda lagi –
-                klik dan temukan tiket yang Anda butuhkan sekarang juga! Jangan
-                ragu untuk menjelajahi berbagai pilihan tiket dan penawaran
-                istimewa yang hanya tersedia di TravelAja!
+                Dapatkan tiket terbaik hanya di TravelAja!  Jangan tunda
+                lagi – klik dan temukan tiket yang Anda butuhkan sekarang juga!
+                 Jangan ragu untuk menjelajahi berbagai pilihan tiket dan
+                penawaran istimewa yang hanya tersedia di TravelAja! 
               </p>
             </div>
           </div>
         </div>
       </div>
       <h2 className="text-3xl font-bold text-center bg-gray-200 p-6">
-        Tim Kami
+        Tim Developer
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10 bg-gray-200 p-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10 bg-gray-200 pb-20 px-6">
         {teamMembers.map((member) => (
           <div
             key={member.name}
@@ -194,11 +194,8 @@ const About = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        {/* Logo WhatsApp */}
-        <BsWhatsapp className="text-3xl relative z-10 bg-green-500 rounded-full m-1" />
-        {/* Pseudo-elemen untuk efek background */}
+        <BsWhatsapp className="text-4xl relative z-10 bg-green-500 rounded-full m-1" />
         <span className="absolute inset-0 bg-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center group-hover:w-52 group-hover:h-12 p-2 group-hover:p-4">
-          {/* Teks saat hover */}
           <span className="text-white text-sm flex items-center">
             Yuk tanya MiminAja!
           </span>
