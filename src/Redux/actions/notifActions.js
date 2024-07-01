@@ -7,7 +7,7 @@
 //     const { token } = getState().auth;
 //     let config = {
 //       method: "get",
-//       url: `https://expressjs-production-6cc1.up.railway.app/api/v1/notification/user`,
+//       url: `https://expressjs-production-7255.up.railway.app/api/v1/notification/user`,
 //       headers: {
 //         "Content-Type": "application/json",
 //         Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ export const notificationsAll = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
     const response = await axios.get(
-      'https://expressjs-production-6cc1.up.railway.app/api/v1/notification/user',
+      'https://expressjs-production-7255.up.railway.app/api/v1/notification/user',
       {
         headers: {
           'Content-Type': 'application/json',

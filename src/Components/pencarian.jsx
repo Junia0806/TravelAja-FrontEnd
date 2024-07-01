@@ -51,7 +51,7 @@ export function Pencarian() {
             const [day, month, year] = dateString.split("/");
             const formattedDate = `${year}-${month}-${day}`;
             return axios.get(
-              `https://expressjs-production-6cc1.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
+              `https://expressjs-production-7255.up.railway.app/api/v1/flights/search?arrival_airport_id=${valuePencarian.arrivalAirport.id}&destination_airport_id=${valuePencarian.departureAirport.id}&seat_class_type=${valuePencarian.seatClass}&date=${formattedDate}`
             );
           })
         );

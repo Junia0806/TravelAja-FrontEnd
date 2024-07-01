@@ -15,7 +15,7 @@ const BoardingPass = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://expressjs-production-6cc1.up.railway.app/api/v1/ticket/${bookingCode.id}`,
+          `https://expressjs-production-7255.up.railway.app/api/v1/ticket/${bookingCode.id}`,
           {
             headers: {
               "Content-Type": "application/json",

@@ -21,7 +21,7 @@ export const getMe =
       if (!token) return;
 
       const response = await axios.get(
-        `https://expressjs-production-6cc1.up.railway.app/api/v1/user/profile`,
+        `https://expressjs-production-7255.up.railway.app/api/v1/user/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ export const registerUser = (data, navigate) => async (dispatch) => {
   try {
     let config = {
       method: "post",
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/register`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/user/register`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -89,7 +89,7 @@ export const verifyOtp = (otp, navigate) => async (dispatch, getState) => {
     const token = getToken(getState);
     let config = {
       method: "post",
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/otp/verify`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/user/otp/verify`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -120,7 +120,7 @@ export const renewOtp = (email) => async () => {
   try {
     let config = {
       method: "post",
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/otp/renew`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/user/otp/renew`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -142,7 +142,7 @@ export const login = (data, navigate) => async (dispatch) => {
   try {
     let config = {
       method: "post",
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/login`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/user/login`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -181,7 +181,7 @@ export const withGoogleLogin = (accessToken, navigate) => async (dispatch) => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/google`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/google`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -209,7 +209,7 @@ export const forgotPassword = (data) => async () => {
   try {
     let config = {
       method: "post",
-      url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/password/forgot`,
+      url: `https://expressjs-production-7255.up.railway.app/api/v1/user/password/forgot`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -236,7 +236,7 @@ export const resetPassword =
 
       let config = {
         method: "post",
-        url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/password/reset`,
+        url: `https://expressjs-production-7255.up.railway.app/api/v1/user/password/reset`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -280,7 +280,7 @@ export const updateProfile =
       const token = getToken(getState);
       let config = {
         method: "post",
-        url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/updateprofile`,
+        url: `https://expressjs-production-7255.up.railway.app/api/v1/user/updateprofile`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -310,7 +310,7 @@ export const uploadAvatar = (formData) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
     const response = await axios.post(
-      "https://expressjs-production-6cc1.up.railway.app/api/v1/user/uploadavatar",
+      "https://expressjs-production-7255.up.railway.app/api/v1/user/uploadavatar",
       formData,
       {
         headers: {
@@ -341,7 +341,7 @@ export const changePassword =
       const token = getToken(getState);
       let config = {
         method: "put",
-        url: `https://expressjs-production-6cc1.up.railway.app/api/v1/user/password/change`,
+        url: `https://expressjs-production-7255.up.railway.app/api/v1/user/password/change`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

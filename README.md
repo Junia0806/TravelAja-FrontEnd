@@ -11,7 +11,7 @@ Kami adalah platform pemesanan tiket yang dirancang untuk mempermudah Anda dalam
 - [Tantrik Ulil Lusianti](https://github.com/tantriklusi) - UPN Veteran Jawa Timur
 
 ## Dokumen
-- [Dokumentasi API Backend](https://expressjs-production-6cc1.up.railway.app/api/v1/api-docs/)
+- [Dokumentasi API Backend](https://expressjs-production-7255.up.railway.app/api/v1/api-docs/)
 
 ### Teknologi yang Digunakan
 

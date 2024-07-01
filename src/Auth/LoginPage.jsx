@@ -29,7 +29,7 @@ const Login = () => {
 
   const handleOAuth = () => {
     window.open(
-      `https://expressjs-production-6cc1.up.railway.app/api/v1/google`,
+      `https://expressjs-production-7255.up.railway.app/api/v1/google`,
       "_self"
     );
   };
