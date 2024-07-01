@@ -27,7 +27,7 @@ function Proces() {
   const [passengers, setPassengers] = useState([
     {
       fullname: "",
-      passenger_type: "", 
+      passenger_type: "",
       born_date: "",
       identity_number: "",
       seat_id: 0,
@@ -55,6 +55,39 @@ function Proces() {
       }
 
       updatedPassengers[index][name] = selectedSeatId;
+    } else if (name === "born_date") {
+      const today = new Date().toISOString().split("T")[0];
+      if (value && value >= today) {
+        Swal.fire({
+          icon: "error",
+          title: "Tanggal Lahir Tidak Valid",
+          text: "Masukkan tanggal lahir sebelum tanggal sekarang.",
+        });
+        return;
+      }
+      updatedPassengers[index][name] = value;
+    } else if (name === "fullname") {
+      const namePattern = /^[A-Za-z\s']+$/;
+      if (value && !namePattern.test(value)) {
+        Swal.fire({
+          icon: "error",
+          title: "Nama Tidak Valid",
+          text: "Nama hanya boleh berisi huruf.",
+        });
+        return;
+      }
+      updatedPassengers[index][name] = value;
+    } else if (name === "identity_number") {
+      const numberPattern = /^[0-9]+$/;
+      if (value && !numberPattern.test(value)) {
+        Swal.fire({
+          icon: "error",
+          title: "Nomor Identitas Tidak Valid",
+          text: "Nomor identitas hanya boleh berisi angka.",
+        });
+        return;
+      }
+      updatedPassengers[index][name] = value;
     } else {
       updatedPassengers[index][name] = value;
     }
@@ -103,6 +136,15 @@ function Proces() {
   };
 
   const handleAddPassenger = () => {
+    if (passengers.length >= 10) {
+      Swal.fire({
+        icon: "error",
+        title: "Batas Maksimal Penumpang",
+        text: "Anda tidak dapat menambahkan lebih dari 10 penumpang.",
+      });
+      return;
+    }
+
     setPassengers([
       ...passengers,
       {
@@ -352,7 +394,10 @@ function Proces() {
                     <i className="fa-solid fa-dollar-sign mr-2"></i>
                     Total:{" "}
                     <span className="text-gray-800 font-bold text-xl">
-                      Rp {(passengers.length * data_flight.total_price).toLocaleString("id-ID")}
+                      Rp{" "}
+                      {(
+                        passengers.length * data_flight.total_price
+                      ).toLocaleString("id-ID")}
                     </span>
                   </div>
                 </div>
