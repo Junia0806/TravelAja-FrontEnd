@@ -83,7 +83,7 @@ const App = () => {
           }
         />
         <Route
-          path="/selesai/:id"
+          path="/status/:id"
           element={
             <Protected>
               <Sukses />
