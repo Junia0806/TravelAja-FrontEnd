@@ -14,6 +14,9 @@ function Proces() {
     (state) => state.flights.data?.seatclass?.seat_class_id
   );
   const seat = useSelector((state) => state.flights.seat);
+  const availableSeatsCount =
+    seat?.data?.filter((seat) => seat.status === "AVAILABLE").length || 0;
+
   const data_flight = useSelector((state) => state.flights.data);
   const token = useSelector((state) => state.auth.token);
   const dataBooking = useSelector((state) => state.booking?.dataBooking);
@@ -136,11 +139,14 @@ function Proces() {
   };
 
   const handleAddPassenger = () => {
-    if (passengers.length >= 10) {
+    const availableSeatsCount =
+      seat?.data?.filter((seat) => seat.status === "AVAILABLE").length || 0;
+
+    if (passengers.length >= availableSeatsCount) {
       Swal.fire({
         icon: "error",
         title: "Batas Maksimal Penumpang",
-        text: "Anda tidak dapat menambahkan lebih dari 10 penumpang.",
+        text: `Anda tidak dapat menambahkan lebih dari ${availableSeatsCount} penumpang karena jumlah kursi yang tersedia hanya ${availableSeatsCount}.`,
       });
       return;
     }
@@ -286,9 +292,15 @@ function Proces() {
                       </div>
                     </div>
                     <div className="mb-4">
-                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                      <label className="block text-gray-700 text-sm font-bold">
                         Pilihan Nomor Kursi
                       </label>
+                      <p className="text-sm text-gray-600">
+                        Kursi tersedia:{" "}
+                        <span className="font-semibold text-green-600">
+                          {availableSeatsCount}
+                        </span>
+                      </p>
                       <div className="relative">
                         <select
                           name="seat_id"

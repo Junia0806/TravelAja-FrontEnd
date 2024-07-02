@@ -6,15 +6,25 @@ import { Link } from "react-router-dom";
 import { fetchFlightDetail } from "../Redux/actions/flightAction";
 import { useSpring, animated } from "react-spring";
 import { FaPlaneDeparture } from "react-icons/fa6";
+import { fetchSeat } from "../Redux/actions/flightAction";
 
 const DetailPenerbangan = () => {
   const idFlight = useParams();
   const dispatch = useDispatch();
   const flight = useSelector((state) => state.flights.data);
 
+  const seatClassId = useSelector(
+    (state) => state.flights.data?.seatclass?.seat_class_id
+  );
+  const seat = useSelector((state) => state.flights.seat);
+  const availableSeatsCount =
+    seat?.data?.filter((seat) => seat.status === "AVAILABLE").length || 0;
+  console.log("availableSeatsCount :>> ", availableSeatsCount);
+
   useEffect(() => {
+    dispatch(fetchSeat(seatClassId));
     dispatch(fetchFlightDetail(idFlight.id));
-  }, [dispatch, idFlight.id]);
+  }, [dispatch, seatClassId, idFlight.id]);
 
   if (!flight) {
     return <div>Data tidak ditemukan</div>;
@@ -86,6 +96,12 @@ const DetailPenerbangan = () => {
                 Kode Penerbangan:{" "}
                 <span className="font-bold text-gray-900">
                   {flight?.flight_id}
+                </span>
+              </p>
+              <p className="text-green-600">
+                Kursi Tersedia:{" "}
+                <span className="font-bold text-green-900">
+                 {availableSeatsCount}
                 </span>
               </p>
               <div className="text-gray-600">

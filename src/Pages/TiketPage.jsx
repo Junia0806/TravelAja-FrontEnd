@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -10,12 +11,12 @@ const BoardingPass = () => {
   const bookingCode = useParams();
   const [boardingPassData, setBoardingPassData] = useState(null);
   const token = useSelector((state) => state.auth.token);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://expressjs-production-7255.up.railway.app/api/v1/ticket/${bookingCode.id}`,
+          `https://expressjs-production-7d85.up.railway.app/api/v1/ticket/${bookingCode.id}`,
           {
             headers: {
               "Content-Type": "application/json",
