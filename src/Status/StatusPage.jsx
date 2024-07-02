@@ -31,11 +31,11 @@ const Sukses = () => {
     switch (status) {
       case "settlement":
       case "accept":
-        return "Tiket berhasil dipesan";
+        return "berhasil dipesan";
       case "pending":
-        return "Pesanan tiket pending";
+        return "pending";
       case "expire":
-        return "Tiket gagal dipesan";
+        return "gagal dipesan";
       default:
         return "Status transaksi tidak dikenal";
     }
@@ -53,7 +53,7 @@ const Sukses = () => {
       case "expire":
         return StatusCancel;
       default:
-        return StatusCancel; // Gambar default jika status tidak dikenal
+        return StatusCancel; 
     }
   };
 
@@ -113,7 +113,7 @@ const Sukses = () => {
       <div className="flex flex-col items-center justify-center mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center flex-grow text-black">
-            {message} dengan kode booking {dataBooking.booking_code}
+           Tiket {dataBooking.booking_code} {message} 
           </h2>
         </div>
         <p className="text-gray-600 text-center text-base sm:text-lg md:text-xl mb-4">

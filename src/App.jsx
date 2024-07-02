@@ -18,7 +18,7 @@ import FooterSection from "./Components/Footer";
 import RiwayatPemesanan from "./Components/riwayatpemesanan.jsx";
 import { Pencarian } from "./Components/pencarian.jsx";
 import DetailRiwayat from "./Components/detailriwayat.jsx";
-import Sukses from "./Status/SuksesPage.jsx";
+import Sukses from "./Status/StatusPage.jsx";
 import About from "./Pages/About.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import AdminDashboard from "./Admin/Pages/AdminDashboard.jsx";
