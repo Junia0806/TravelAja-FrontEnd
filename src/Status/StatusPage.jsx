@@ -33,15 +33,31 @@ const Sukses = () => {
       case "accept":
         return "berhasil dipesan";
       case "pending":
-        return "pending";
+        return "menunggu pembayaran";
       case "expire":
         return "gagal dipesan";
       default:
         return "Status transaksi tidak dikenal";
     }
   };
-
   const message = getTransactionMessage(transactionStatus);
+
+  const getTransactionKeterangan = (status) => {
+    switch (status) {
+      case "settlement":
+      case "accept":
+        return "Silahkan cetak tiket Anda untuk keperluan lebih lanjut";
+      case "pending":
+        return "Mohon periksa kembali metode pembayaran Anda atau coba lagi nanti.";
+      case "expire":
+        return "Silahkan melakukan pemesanan tiket ulang";
+      default:
+        return "Silahkan melakukan pemesanan tiket ulang";
+    }
+  };
+  const keterangan = getTransactionKeterangan(transactionStatus);
+
+
 
   const getStatusImage = (status) => {
     switch (status) {
@@ -53,11 +69,10 @@ const Sukses = () => {
       case "expire":
         return StatusCancel;
       default:
-        return StatusCancel; 
+        return StatusCancel;
     }
   };
 
-  // Menentukan ikon berdasarkan transactionStatus
   const getStatusIcon = (status) => {
     switch (status) {
       case "settlement":
@@ -113,19 +128,26 @@ const Sukses = () => {
       <div className="flex flex-col items-center justify-center mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-14 p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center flex-grow text-black">
-           Tiket {dataBooking.booking_code} {message} 
+            Tiket {dataBooking.booking_code} {message}
           </h2>
         </div>
         <p className="text-gray-600 text-center text-base sm:text-lg md:text-xl mb-4">
-          {transactionStatus === "settlement" || transactionStatus === "accept"
-            ? "Silahkan cetak tiket Anda untuk keperluan lebih lanjut"
-            : null}
+        {keterangan}
         </p>
         <img
           className="max-w-full h-auto mx-auto rounded-lg"
           src={getStatusImage(transactionStatus)}
           alt={`Status ${transactionStatus}`}
         />
+        {transactionStatus === "pending" ? (
+          <Link
+            to={`/bayar/${dataBooking.flight_id}`}
+            className="block text-center text-white text-sm sm:text-base md:text-lg py-3 px-6 rounded-lg bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00B7C2]"
+          >
+            Periksa Pembayaran
+          </Link>
+        ) : null}
+
         {transactionStatus === "settlement" ||
         transactionStatus === "accept" ? (
           <Link
