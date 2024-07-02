@@ -56,7 +56,7 @@ const OtpVerification = () => {
   }, [timeLeft]);
 
   const handleRenewOtp = () => {
-    setTimeLeft(60);
+    setTimeLeft(30);
     setOtp(new Array(6).fill("")); 
     dispatch(renewOtp(email));
   };
@@ -94,7 +94,7 @@ const OtpVerification = () => {
               </span>
               <button
                 type="button"
-                className="text-sm text-blue-500 hover:underline"
+                className="text-sm text-blue-500 hover:underline disabled:text-gray-500"
                 onClick={handleRenewOtp}
                 disabled={timeLeft !== 0}
               >
