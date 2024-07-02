@@ -30,7 +30,7 @@ function Proces() {
   const [passengers, setPassengers] = useState([
     {
       fullname: "",
-      passenger_type: "",
+      passenger_type: "Dewasa",
       born_date: "",
       identity_number: "",
       seat_id: 0,
