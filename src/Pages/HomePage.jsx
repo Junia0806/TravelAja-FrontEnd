@@ -69,7 +69,7 @@ const Home = () => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `https://expressjs-production-7255.up.railway.app/api/v1/airport`
+          `https://expressjs-production-7d85.up.railway.app/api/v1/airport`
         );
         setlistBandara(response.data.data);
       } catch (error) {}
@@ -81,7 +81,7 @@ const Home = () => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "https://expressjs-production-7255.up.railway.app/api/v1/seatclasses"
+          "https://expressjs-production-7d85.up.railway.app/api/v1/seatclasses"
         );
         const uniqueSeatClasses = [
           ...new Set(response.data.data.map((item) => item.seat_class_type)),
@@ -125,7 +125,7 @@ const Home = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://expressjs-production-7255.up.railway.app/api/v1/search?query=${formData.departureAirport?.name}`
+        `https://expressjs-production-7d85.up.railway.app/api/v1/search?query=${formData.departureAirport?.name}`
       );
       setSearchResults(response.data.data);
     } catch (error) {
