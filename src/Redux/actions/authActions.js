@@ -264,11 +264,7 @@ export const logout = (navigate) => (dispatch) => {
     dispatch(setIsLoggedIn(false));
     dispatch(setUser(null));
 
-    navigate("/", {
-      state: {
-        success: "Logout berhasil",
-      },
-    });
+    navigate("/");
   } catch (error) {
     toast.error(error?.message);
   }
